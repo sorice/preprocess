@@ -1,0 +1,7 @@
+*.swp
+*.directory
+*.pyc
+*~
+*.orig
+*.*#
+*.bak
