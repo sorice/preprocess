@@ -117,14 +117,12 @@ def contiguos_string_recognition_support(text):
     text = re.sub('[.](?=\w+?)|-(?=\w+?)|@(?=\w+?)','_',text)
 
     #Added for Llanes, is under analisis if it most be here.
-    text = re.sub('[.](?=,)|[.](?=\')|[.](?=;)|[.][[]|[.][]]',' ',text) #Este hay que modificarlo si vamos a usar abbrev
+    text = re.sub('[.](?=,)|[.](?=;)|[.][[]|[.][]]',' ',text) #Este hay que modificarlo si vamos a usar abbrev
     text = re.sub('[.][)](?=\s*\n)|[.]["](?=[\s|)]*\n)|[.][:](?=\s*\n)','. ',text) #Este modificarlo si vamos a usar el replacers1
     text = re.sub('[.][)](?=\s*\w)|[.]["](?=\s*[\w)[])|[.][:](?=\s*\w)','. ',text) #Este modificarlo si vamos a usar el replacers1
     text = re.sub('[.][)](?=\s*[.])|[.][)](?=[,])',')',text)
     text = re.sub('[.][)](?=\s*")|[.]["](?=\s*")','. ',text)
     text = re.sub('[.]["](?=\s*[.])|[.][:](?=\s*")',' ',text)
-    text = re.sub('[?!]','. ',text)
-    #~ text = re.sub('(\w+)(?=\n)','\g?<1> .\n', text)
     return text
 
 def abbrev_recognition_support(text):
@@ -134,15 +132,11 @@ def abbrev_recognition_support(text):
     abbrev = ' Dr. Ms.C. Ph.D. Ing. Lic. U.S. U.S Corp. N.Y. N.Y L.A. a.m. B.C. D.C. O.K. O.K B.C L.A '
     
     #Proper names acronyms OK
-    print ('Proper names preprocessing')
-    for i in re.finditer('\s[A-Z](?=[.][\s|,|\'|)])|\n[A-Z](?=[.][\s|,|\'|)])',text):
-        frag = text[i.start()+1:i.end()+1]
-        if find(propname,frag) != -1:
-            frag = frag.replace('.','_')
-        text = text[:i.start()+1]+frag+text[i.end()+1:]
+    #print ('Proper names preprocessing')
+    text = re.sub(r'(\s[A-Z])[.](?=[\s|,|\'|)]+)','\g<1>_', text)
     
     #Abbreviations and acronyms recognition OK
-    print ('Acronyms recognition')
+    #print ('Acronyms recognition')
     #for i in re.finditer('\s[a-zA-Z.]*(?=[.][\s|,|\'|)])|\n[a-zA-Z.]+(?=[.][\s|,|\'|)])',text):
     #    frag = text[i.start()+1:i.end()+1]
     #    if find(abbrev,frag) != -1 and frag != '.':
@@ -152,13 +146,13 @@ def abbrev_recognition_support(text):
     text = re.sub('U[.]S[.]|U[.]S','U_S_',text)
     text = re.sub('L[.]A[.]|L[.]A','L_A_',text)
     text = re.sub('N[.]Y[.]|N[.]Y','N_Y_',text)
-    print ('50\%')
     text = re.sub('B[.]C[.]|B[.]C','B_C_',text)
     text = re.sub('O[.]K[.]|O[.]K','O_K_',text)
     text = re.sub('A[.]M[.]|A[.]M|a[.]m[.]|a[.]m','a_m_',text)
     text = re.sub('A[.]I[.]|A[.]I','A_I_',text)
+    text = re.sub('Dr.','Dr_',text)
         
-    #Quedará pendiente solo el caso en que la abreviatura esté al final de la oración, y continúe otra oración del párrafo. En esta situación el punto de la abreviatura es el punto final por regla gramatical. Ver como hice para separar en la linea 114
+    #Quedará pendiente solo el caso en que la abreviatura esté al final de la oración, y continúe otra oración del párrafo. En esta situación el punto de la abreviatura es el punto final por regla gramatical. Ver como hice para separar en la linea 113.
 
     return text
 
@@ -192,7 +186,7 @@ def add_text_end_dot(text):
      A = set(LETTERS)
      B = set(fragment)
      
-     if len(B.intersection(A)) != 0: #si hay letras válidas en el fragmento
+     if len(B.intersection(A)) != 0: #sí hay letras válidas en el fragmento
           text += ' .' 
 
      return text

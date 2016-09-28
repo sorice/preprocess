@@ -1,9 +1,12 @@
+#!/usr/bin/env python 3.5
+# -*- coding: utf-8 -*-
+
 """
 The :mod:`preprocessing` module includes normalization, 
 abbr recognition, stopword filter, lemmatization.
 """ 
 
-from .replacers1 import RegexpReplacer1
+from .punctuation import Replacer
 
 from .methods import url_string_recognition_support
 from .methods import punctuation_filter

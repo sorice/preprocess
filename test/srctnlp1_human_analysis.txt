@@ -1,0 +1,26 @@
+ACID . 
+En bases de datos se denomina ACID a un conjunto de características necesarias para que una serie de instrucciones puedan ser consideradas como una transacción . Así pues, si un sistema de gestión de bases de datos es ACID compliant quiere decir que el mismo cuenta con las funcionalidades necesarias para que sus transacciones tengan las características ACID.
+
+En concreto ACID es un acrónimo de Atomicity, Consistency, Isolation and Durability. Atomicidad, Consistencia, Aislamiento y Durabilidad en español.
+
+Definiciones . 
+- Atomicidad: es la propiedad que asegura que la operación se ha realizado o no, y por lo tanto ante un fallo del sistema no puede quedar a medias. Se dice que una operación es atómica cuando es imposible para otra parte de un sistema encontrar pasos intermedios. Si esta operación consiste en una serie de pasos, todos ellos ocurren o ninguno. Por ejemplo, en el caso de una transacción bancaria o se ejecuta tanto el depósito como la deducción o ninguna acción es realizada.
+- Consistencia. Integridad. Es la propiedad que asegura que sólo se empieza aquello que se puede acabar. Por lo tanto se ejecutan aquellas operaciones que no van a romper las reglas y directrices de integridad de la base de datos. La propiedad de consistencia sostiene que cualquier transacción llevará a la base de datos desde un estado válido a otro también válido. "La Integridad de la Base de Datos nos permite asegurar que los datos son exactos y consistentes, es decir que estén siempre intactos, sean siempre los esperados y que de ninguna manera cambien ni se deformen. De esta manera podemos garantizar que la información que se presenta al usuario será siempre la misma . "
+- Aislamiento: es la propiedad que asegura que una operación no puede afectar a otras. Esto asegura que la realización de dos transacciones sobre la misma información sean independientes y no generen ningún tipo de error.  Esta propiedad define cómo y cuándo los cambios producidos por una operación se hacen visibles para las demás operaciones concurrentes.
+- Durabilidad. Persistencia. Es la propiedad que asegura que una vez realizada la operación, ésta persistirá y no se podrá deshacer aunque falle el sistema y que de esta forma los datos sobrevivan de alguna manera.
+
+Cumpliendo estos 4 requisitos un sistema gestor de bases de datos puede ser considerado ACID Compliant.
+
+Puesta en práctica . 
+
+Poner las características ACID en ejecución no es tan sencillo. El proceso de una transacción requiere a menudo un número de cambios pequeños al ser realizado, incluyendo la puesta al día de los índices que son utilizados en el sistema para acelerar búsquedas. Esta secuencia de operaciones puede fallar por un número de razones; por ejemplo, el sistema puede no tener ningún sitio disponible en sus accionamientos de disco, o puede haber sobrepasado su tiempo de CPU asignado.
+
+ACID sugiere que la base de datos pueda realizar todas estas operaciones inmediatamente. De hecho esto es difícil de conseguir. Hay dos clases de técnicas populares: escribir a un registro antes de continuar y la paginación de la sombra. En ambos casos, los bloqueos se deben implantar antes que la información sea actualizada, y dependiendo de la técnica puesta en práctica, todos los datos se tienen que haber leído. En escribir a un registro antes de continuar, la atomicidad es garantizada asegurándose que toda la información esté escrita a un registro antes que se escriba a la base de datos. Eso permite que la base de datos vuelva a un estado anterior en caso de un desplome. En sombrear, las actualizaciones se aplican a una copia de la base de datos, y se activa la nueva copia cuando la transacción sea confiable. La copia refiere a partes sin cambios de la vieja versión de la base de datos, en vez de ser un duplicado entero.
+
+Esto significa que debe realizarse un bloqueo en cualquier momento antes de procesar datos en una base de datos, incluso en operaciones leídas. Mantener una gran cantidad de bloqueos da lugar a un aumento substancial indirecto de los procesos así como a una alteración de la concurrencia de ellos. Si el usuario A está procesando una transacción que ha leído una fila de los datos que el usuario B desea modificar, por ejemplo, el usuario B debe esperar hasta que el otro usuario acabe .
+
+Una alternativa a la fijación es mantener copias separadas de cualquier dato que se modifique. Esto permite a usuarios leer datos sin adquirir ningún bloqueo. Usando de nuevo el ejemplo anterior, cuando la transacción del usuario consigue los datos que el usuario B ha modificado, la base de datos puede recuperar la versión exacta de los datos para que el usuario A comience su transacción. Esto asegura que el usuario A consiga una vista constante de la base de datos aunque otros usuarios estén cambiando datos.
+
+Es difícil garantizar características en un ambiente de red. Las conexiones de red pudieron fallar, o dos usuarios pudieron utilizar la misma parte de la base de datos al mismo tiempo.
+
+El concepto ACID se describe en ISO/IEC 10026-1: 1992 sección 4.

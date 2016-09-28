@@ -40,3 +40,8 @@ ma u otra poseían títulos honoríficos.
 “Elimina las comillas dobles y ‘simples’ al final y al principio de la oración.”
 
 Probando tildes y caracteres de español: áéíóú ñÑÁÉÍÓÚ
+
+"Oración cerrada con comillas seguida por otra." Well writed.
+"Oración cerrada con comillas seguida de salto de línea."
+
+Oración seguida por otra entre comillas. " La otra oración".

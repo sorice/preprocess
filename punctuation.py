@@ -1,7 +1,7 @@
 #!/usr/bin/env python 3.5
 # -*- coding: utf-8 -*-
 
-"""Normalización de texto proveniente de pdftotx.
+"""Normalización de texto proveniente de pdftotext.
 Created on Sat Nov 30 2013
 Modified by clean_punctuation on Thu Aug 14 2014
 Modified by analysis on Thu Aug 28 2014
@@ -19,7 +19,7 @@ import string
 """Clean the text with regular expressions with the following principles:
 - Chains of whitespace are not important in this step.
 - Colect de ["!","?",":"(followed by \n),"."] subset an change them by the string "PUNTO"(end of sentence).
-- Change the rest of punctuation chars by a whitespace, the objetive if don't lose the original position of the sentence.
+- Change the rest of punctuation marks by a whitespace, the objetive if don't lose the original position of the sentence.
 - Restore "."(end of sentence) changing the 'PUNTO' string by dot.
 """
 #This are simple rules without anti-trick.
@@ -31,14 +31,18 @@ import string
 
 # Core '.' expressions.
 replacement_patterns = [
-# Exp1: Expresiones que tienen que ver con el signo '.'
-(r'[.](?=\s+?[a-z]+?)', '_'),   #Note: Lower case at the begining of the sentence - spell error - isn't trated as uper(Exp1). View grammar and spell checker section article.
-(r'[.](?=\s+\w+?)', '##1'), #Exp1: signos de "." al final de la oración seguido por 1 o más espacios en blanco cambiar por SPECIAL_STRING. 
+# Section I: Expresions related with end of sentence punctuation marks.
+
+(r'[.?!](?=\s+?[A-Z])','##1'), # Correct & common end of sentence.
+
+(r'[.?!](?=[\'"`]+?\s+?)','##1'), #Match cases were '.|?|!' are follow by [1 or n quote simbol][1 or n whitespace] -> means that detect the end or a quoted sentence. (Eg. "Where is it?" Jacob asked.)
+(r'[.](?=\s+?[a-z]+?)', '_'),   #Note: Lower case at the begining of the sentence - spell error - isn't trated as uper(Exp1). View grammar and spell checker section article. (Eg1. "U.S. is the nation at north.")(Eg2. "Llegó a las 8 a.m. en auto.")
+(r'[.](?=\s*?["\'`]+?\s*?\w+?)', '##1'), #Match cases were '.' are follow by [0 or n whitespace][1 or n quote simbol][follow by 0 or n whitespace][follow by any alphanumeric char. (Eg1. "He said.'We most go up.'"; Eg2. "He said. ' We most go up.'") 
 
 (r'[\t|\f]','\n'),      # Tabs changed for \n
-(r'[.](?=\s*\n)','##1\n'),              # Paragraph end
+(r'[.](?=\s*?\n)','##1\n'),              # Paragraph end
 
-#Exp2: ":" seguido de mayúscula campiar por punto. 
+#Section II: Regular expresions related with ":". 
 #Note that can acept new cases in the form "char[n-whitespace][Uper-case-letter]"
 (r'[:](?=\s+?[A-Z]+?)', '##2'),
 (r'[:](?=\s*?"+?[A-Z]+?)', '##2'),  #Match cases were ':' are follow by [0 or n whitespace][1 or n simbol chars like '"'][almost 1 uper case]
@@ -46,24 +50,24 @@ replacement_patterns = [
 
 ('\r\n','\n'),  #Convert Windows end-of-line on Unix end-of-line.
 
-#Exp3: found empty lines, and substitute N consecutives "\n" by N-1 whitespace char + \n. 
+#ESection III: found empty lines, and substitute N consecutives "\n" by N-1 whitespace char + \n. 
 (r'\n(?=\s*?\n)','##3'),
 
-#Exp4: Relative to line skip.
+#Section IV:: Relative to line skip.
 (r'-\n',''),                # Word division eliminated.
 (r'\n(?=\s*?[a-z]+?)','##6'),   # Sentence division for end of margin. 
 (r'\n(?=\w+?)','##7'),      # Delete any '\n' no follow by a letter(alpha-numeric).
-(r'\n(?=\s{0,100}?["$%()*+&,-/;:¿¡<=>@[\]^`{|}~]{0,100}?\s{0,100}?[A-Z]+?)','##1'),
+(r'\n(?=\s{0,100}?["$%()*+&,-/;:¿¡<=>@[\]^`{|}~]{0,100}?\s{0,100}?[A-Z]+?)','##1'), # salto línea [follow by 0-100 whitespace][follow by 0-100 punct marks][follow by 0-100 whitespace] follow by at least a CAPITAL letter. (Explanation: this kind of secuence can appear after pdftotext convertion)
 
-#Exp3: Los signos "!" y "?" cambiar por PUNTO
-(r'[?!]','##5'), 
+#Section V: Rare starts of a sentence 
 (r'\xe2\x80\xa2','##5'),        # Soporte para las viñetas
 
-#Exp5: eliminar el resto de los signos de puntuación.
+#Section VI: After all transformations clean the residuary punctuation marks.
 (r'["$%()*+&,-/;:¿¡<=>@[\]^`{|}~]','##8'),
 
 (r'[\']','##9'),             # Contractions are not supported.
 
+#Section VI: Postprocessing
 #Clean other . non constituent an "sentence-end". E.g: "...",
 (r'[.]','##0'),
 
