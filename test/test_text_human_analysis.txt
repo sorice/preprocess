@@ -1,6 +1,7 @@
 For other optional flags of opencv_createsamples see the official documentation at http___Docs_opencv_org_doc_user_guide_ug_traincascade_html .
  99 www_it_ebooks_info .
- Generating Haar Cascades for Custom 8_4 Targets Creating cascade by running .
+ Generating Haar Cascades for Custom 8_4 Targets .
+ Creating cascade by running .
  opencv_traincascade 3_ anoche .
  4 Después .
  Over 110 recipes to master this full_stack Python web framework 1 .
@@ -11,7 +12,9 @@ For other optional flags of opencv_createsamples see the official documentation 
  A ver si lo coge .
  Please check www_PacktPub_com for information on our titles .
  www_it_ebooks_info .
- Learning SciPy for Numerical and Scientific Computing ISBN 978_1_78216_162_2 .
+ Learning SciPy for Numerical and .
+ Scientific Computing .
+ ISBN 978_1_78216_162_2 .
  Ahora probaremos la división al final de cada línea . 
  U_S_ es un país desarrollado luego de la guerra la NASA fue creada .
  Reunieronse pues Lic_ Dr_ Ing_ Ph_D_ y todos los que de una forma u otra poseían títulos honoríficos .

@@ -31,39 +31,41 @@ import string
 
 # Core '.' expressions.
 replacement_patterns = [
-# Section I: Expresions related with end of sentence punctuation marks.
+# Section I: Expressions related to the period at the end of the sentence.
 
-(r'[.?!](?=\s+?[A-Z])','##1'), # Correct & common end of sentence.
+(r'(\w+?\s*?)[.?!](?=\s+?[A-Z])','\g<1> ##1'), # Correct & common end of sentence.
 
 (r'[.?!](?=[\'"`]+?\s+?)','##1'), #Match cases were '.|?|!' are follow by [1 or n quote simbol][1 or n whitespace] -> means that detect the end or a quoted sentence. (Eg. "Where is it?" Jacob asked.)
 (r'[.](?=\s+?[a-z]+?)', '_'),   #Note: Lower case at the begining of the sentence - spell error - isn't trated as uper(Exp1). View grammar and spell checker section article. (Eg1. "U.S. is the nation at north.")(Eg2. "Llegó a las 8 a.m. en auto.")
 (r'[.](?=\s*?["\'`]+?\s*?\w+?)', '##1'), #Match cases were '.' are follow by [0 or n whitespace][1 or n quote simbol][follow by 0 or n whitespace][follow by any alphanumeric char. (Eg1. "He said.'We most go up.'"; Eg2. "He said. ' We most go up.'") 
 
-(r'[\t|\f]','\n'),      # Tabs changed for \n
-(r'[.](?=\s*?\n)','##1\n'),              # Paragraph end
+# Standarize line skip before "paragraph end detection regular expression"
+('\r\n','\n'),                      # Windows period convert to Unix period.
+(r'[\t]','    '),                  # Tabs changed by \n.
+(r'[.](?=\s*?\n)','##1\n'),         # Paragraph end detection
+(r'(\w+?)\s*?\|','\g<1> ##1'),      # Rare divition in writed expression. (Explanation: some sentences in PAN corpus)
+(r'(\w+)\n\n', '\g<1> ##1'),
 
-#Section II: Regular expresions related with ":". 
-#Note that can acept new cases in the form "char[n-whitespace][Uper-case-letter]"
+#Section II: Regular expressions related to ":".
 (r'[:](?=\s+?[A-Z]+?)', '##2'),
 (r'[:](?=\s*?"+?[A-Z]+?)', '##2'),  #Match cases were ':' are follow by [0 or n whitespace][1 or n simbol chars like '"'][almost 1 uper case]
 (r'[:](?=\s*?\n)','##2'),           #Match cases were ':' are follow by 0 or n whitespace, and then '\n', the next string is always an independent idea.
 
-('\r\n','\n'),  #Convert Windows end-of-line on Unix end-of-line.
-
-#ESection III: found empty lines, and substitute N consecutives "\n" by N-1 whitespace char + \n. 
-(r'\n(?=\s*?\n)','##3'),
-
-#Section IV:: Relative to line skip.
-(r'-\n',''),                # Word division eliminated.
+#Section III:: Relative to line skip.
+(r'\n(?=\s*?\n)','##6'),        #found empty lines and deleted: "\n" follow by N-1 whitespace char + \n. 
+(r'-\n',''),                    # Word division eliminated.
 (r'\n(?=\s*?[a-z]+?)','##6'),   # Sentence division for end of margin. 
-(r'\n(?=\w+?)','##7'),      # Delete any '\n' no follow by a letter(alpha-numeric).
-(r'\n(?=\s{0,100}?["$%()*+&,-/;:¿¡<=>@[\]^`{|}~]{0,100}?\s{0,100}?[A-Z]+?)','##1'), # salto línea [follow by 0-100 whitespace][follow by 0-100 punct marks][follow by 0-100 whitespace] follow by at least a CAPITAL letter. (Explanation: this kind of secuence can appear after pdftotext convertion)
+(r'\n(?=\s*?[A-Z]+?)','##3'),   # New line that start in CAPITAL LETTER is a new sentences. Problem: first name at the beginning.
+(r'\n(?=\w+?)','##7'),          # Delete any '\n' follow by non-alphanumeric.
+(r'\n(?=\s*?["$%()*+&,-/;:¿¡<=>@[\\]^`{\|}~]*?\s*?[A-Z]+?)','##1'), # salto línea [follow by 0-100 whitespace][follow by 0-100 punct marks][follow by 0-100 whitespace] follow by at least a CAPITAL letter. (Explanation: this kind of secuence can appear after pdftotext convertion)
 
-#Section V: Rare starts of a sentence 
+#Section IV: Rare starts of a sentence 
 (r'\xe2\x80\xa2','##5'),        # Soporte para las viñetas
 
-#Section VI: After all transformations clean the residuary punctuation marks.
-(r'["$%()*+&,-/;:¿¡<=>@[\]^`{|}~]','##8'),
+#Section V: After all transformations clean the residuary punctuation marks.
+(r'["$%()*+&,-/;:¿¡=@[]^`{}~\\]','##8'),
+(r'[<>]','##8'),
+(r'\|','##8'),                              #After some test it's prove that not work joined with other simbols.
 
 (r'[\']','##9'),             # Contractions are not supported.
 
@@ -71,18 +73,19 @@ replacement_patterns = [
 #Clean other . non constituent an "sentence-end". E.g: "...",
 (r'[.]','##0'),
 
-# Change all founded exp by "."
+# Change all founded exp by "." (The next two lines were made during development to recognize any failure)
 (r'##1',' . '),(r'##2',' . '),(r'##3',' . '),(r'##4',' . '),(r'##5',' . '),
 (r'##6',' '),(r'##7',' '),(r'##8',' '),(r'##9',' '),(r'##0',''),
 
 # Delete consecutives points sections. 'apdb' is a rare code tha represent 'Abel Plagiarism Detection Branch'
-(r'[.](?=\s+?\w+?)', 'apdb'),       # Match '.' follow by alpha-numeric = sentence-end
+(r'(\w+?\s*?)[.]','\g<1>apdb'),
+#(r'[.](?=\s+?\w+?)', 'apdb'),       # Match '.' follow by alpha-numeric = sentence-end
 (r'[.]',' '),                       # Every generated point not exactly follow by a letter -> clean
 
 # Refining text
-(r'apdb+',' .'),                        # return the "." char necessary for found_sentences method
-(r'\n',' '),
-(r'\s+(?=\s)',''),
+(r'apdb+',' .'),                    # return the "." char necessary for found_sentences method
+(r'\n',' '),                        # Erase any residual \n 
+(r'\s+(?=\s)',''),                  # Erase any residual whitespace secuence
 ]
 
 class Replacer(object):

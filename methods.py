@@ -25,7 +25,7 @@ def url_string_recognition_support(text):
 def punctuation_filter(text):
     #Asociados a signos de puntuación
     text = re.sub('\xc2|\xa0','  ',text)
-    text = re.sub('\\xe2\\x80\\x9d|\\xe2\\x80\\x9c',' ',text) #Del “” en ascii.
+    text = re.sub('\\xe2\\x80\\x9d|\\xe2\\x80\\x9c','"',text) #Del “” en ascii.
     text = re.sub(u'\u2022',' . ',text) #Viñeta tamaño medio.
     text = re.sub(u'\u201c|\u201d',' ',text) #Del “” en utf8.
     text = re.sub('\\xe2\\x80\\x99|\\xe2\\x80\\x98','\'',text) # Del ‘’ en ascii.
@@ -45,7 +45,7 @@ def punctuation_filter(text):
     #Based on letters
     text = re.sub(u'\ufb01','fi',text) #Error que introduce pdf2txt en el string 'fi'
     text = re.sub(u'\ufb00|\ufb03','ff',text) #Error que introduce pdf2txt en el string 'ff'
-    text = re.sub(u'\ufb02','fl',text) #Error que introduce pdf2txt en el string 'ff'
+    text = re.sub(u'\ufb02','fl',text) #Error que introduce pdf2txt en el string 'fl'
     text = re.sub(u'\ufb04','nl',text) #Error que introduce pdf2txt en el string 'nl'
     #Todo: faltan más letras pero en Getting Real no están.
     
@@ -105,7 +105,7 @@ def punctuation_filter(text):
     return text
 
 def del_contiguous_point_support(text):
-    for i in re.finditer('[.]\s*?[.]+?[\s|[.]]*',text):
+    for i in re.finditer('[.]\s*?[.]+?[\s|[.]]*',text): #se puede reimplementar sin el finditer r'(\w+)[.]\s*[.]+[\s|[.]]*'
         for j in range(i.start(),i.end()):
             if text[j] == '.' or text[j]==' ':
                 text = text[:j]+' '+text[j+1:]

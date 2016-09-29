@@ -17,7 +17,7 @@ def preProcessFlow(text):
 
     text = punctuation_filter(text)
     #print ('processing punctuation signs: ,;:...-*=<>\n',text)
-    
+
     text = del_contiguous_point_support(text)
     #print ('cleaning contiguous dots\n',text)
     
@@ -29,15 +29,15 @@ def preProcessFlow(text):
     #print ('processing contiguos string recognition support\n', text)
 
     #-------------------Clean all punctuation sign
+    #texta = text
     replacer = Replacer()
     text = replacer.replace(text)
-    #print('chunk:',chunk)
-    
+
     # Add a final dot to the document.
     preproc_text = add_text_end_dot(text)
     #print ('adding end point if necessary\n',text)
 
-    return preproc_text
+    return preproc_text#,texta
 
 if __name__ == "__main__":
     text = open("test/test_text.txt").read()

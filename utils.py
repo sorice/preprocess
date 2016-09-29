@@ -13,7 +13,7 @@ Finish on
 
 import swalign
 import re
-from preprocess.methods import add_text_end_dot
+from preprocess.methods import add_text_end_dot, abbrev_recognition_support
 
 match = 2
 mismatch = -1
@@ -59,39 +59,55 @@ def alignSentences(preproc_text, original_text):
     """
     alignedSentences = []
     offsetB = 0
-    print ('len original_text:', len(original_text))
-    text_orig = normalize(original_text)
-    print ('len text_orig:', len(text_orig))
+    norm_orig_text = normalize(original_text)
+
+    if norm_orig_text.count('.') <= preproc_text.count('.'):
+        raise Exception("Preprocess Error: number of preproc periods most be less or equal than normalize original text periods.")
+
 
     for i, (sentA, offsetA, lengthA) in enumerate(getSentA(preproc_text)):
-        print (i)
         maxScore =-1; score = 0
-        prevPoint = len(sentA)-1; nextPoint = 0
+        prevPoint = 0#len(sentA)-2
+        nextPoint = 0
+        
+        #Sí llegamos a la última oración entonces
         if i == preproc_text.count('.')-1:
-            lengMax = len(text_orig)
+            lengMax = len(norm_orig_text)
             tuple = (i, sentA, offsetB, lengMax)
             alignedSentences.append(tuple)
             break
+        
+        #Sí no es la última oración compara hasta encontrar el score max.
         while(score >= maxScore):
             lengMax = nextPoint
             maxScore = score
-            
-            sentB, nextPoint, prevPoint = getSentB(text_orig, offsetB, nextPoint, prevPoint)
-            sentB = sentB.replace('\n',' ')
-            alignment = sw.align(sentA[-round(len(sentA)*0.33):], sentB[-round(len(sentA)*0.33):])
+            #print('>>>>>>>>>>>>>>>>>>>>>>',offset, nextPoint, prevPoint)
+            sentB, nextPoint, prevPoint = getSentB(norm_orig_text, offsetB, nextPoint, prevPoint)
+            sentB = sentB.replace('\n',' ') #avoid some bugs on swalign function
+            if i >= 37:
+                print('-----offsetB:',offsetB,'---- from pos:', prevPoint, '-----to pos:',nextPoint)
+            alignment = sw.align(sentA[-round(len(sentA)*0.5):], sentB[-round(len(sentA)*0.5):])
             score = alignment.score
             matches = alignment.matches
-            print('i',i,'score:',score,'maxScore:',maxScore, 'matches:',matches)
-            print('frag-sentA:',sentA[-round(len(sentA)*0.5):],'frag-sentB:',sentB[-round(len(sentA)*0.5):])
+            if i >= 37:
+                print('i',i,'score:',score,'maxScore:',maxScore, 'matches:',matches)
+                print('frag-sentA:',sentA[-round(len(sentA)*0.5):],'frag-sentB:',sentB[-round(len(sentA)*0.5):])
         
         tuple = (i, sentA, offsetB, lengMax)
         alignedSentences.append(tuple)
-        offsetB = lengMax
+
+        if i >= 0:
+            print('#############RESULTADO de la ORACIÓN :', i)
+            print('score max:',maxScore, 'offsetB:', offsetB, 'lengthB:',lengMax-offsetB)
+            print('sentB:',original_text[offsetB:lengMax])
+            print('sentA:',sentA)
+            print('\n***************')
+
+        offsetB = lengMax+1
 
     return alignedSentences
 
 def getSentA(doc1):
-    #~ doc1 = open(text1).read()
     offset = 0
     for i in re.finditer('\.',doc1):
         sentA = doc1[offset:i.end()]
@@ -107,17 +123,25 @@ def getSentB(text2, offsetB, nextPoint,prevPoint):
 
 def normalize(text_orig):
     replacement_patterns = [(r'[:]\n','. '),
+                            (r':(?=\s+?[A-Z]+?)|:(?=\s*?"+?[A-Z]+?)','.'),
                             (r'[?!]','.'),
-                            (r'(\w+?)(\n)(?=["$%()*+&,-/;:¿¡<=>@[\]^`{|}~\t\s]*(?=.*[A-Z0-9]))','\g<1>.'), # any alphanumeric char
+                            (r'(\w+?)(\n)(?=["$%()*+&,-/;:¿¡<=>@[\\]^`{|}~\t\s]*(?=.*[A-Z0-9]))','\g<1>.'), # any alphanumeric char
                             # follow by \n follow by any number of point sign follow by a capital letter, replace by alphanumerig+.
-                            (r'(\w+?)(\n)(?=["$%()*+&,-/;:¿¡<=>@[\]^`{|}~\t\s\n]*(?=[a-zA-Z0-9]))','\g<1>.'),# any alphanumeric char
+                            (r'(\w+?)(\n)(?=["$%()*+&,-/;:¿¡<=>@[\\]^`{|}~\t\s\n]*(?=[a-zA-Z0-9]))','\g<1>.'),# any alphanumeric char
                             # follow by \n follow by any number of point sign follow by a letter, replace by alphanumerig+.
-                            (r'[:](?=\s*?)(?=["$%()*+&,-/;:¿¡<=>@[\]^`{|}~\t\s]*[A-Z]+?)','.'),]
+                            (r'[:](?=\s*?)(?=["$%()*+&,-/;:¿¡<=>@[\\]^`{|}~\t\s]*[A-Z]+?)','.'),
+                            (r'(\w+?\s*?)\|','\g<1>.'),
+                            (r'\n(?=\s*?[A-Z]+?)','.'),
+                            ]
     text_orig, temp = re.subn(re.compile(replacement_patterns[0][0]),replacement_patterns[0][1],text_orig)
     text_orig, temp = re.subn(re.compile(replacement_patterns[1][0]),replacement_patterns[1][1],text_orig)
     text_orig, temp = re.subn(re.compile(replacement_patterns[2][0]),replacement_patterns[2][1],text_orig)
     text_orig, temp = re.subn(re.compile(replacement_patterns[3][0]),replacement_patterns[3][1],text_orig)
     text_orig, temp = re.subn(re.compile(replacement_patterns[4][0]),replacement_patterns[4][1],text_orig)
+    text_orig, temp = re.subn(re.compile(replacement_patterns[5][0]),replacement_patterns[5][1],text_orig)
+    text_orig, temp = re.subn(re.compile(replacement_patterns[6][0]),replacement_patterns[6][1],text_orig)
+    text_orig, temp = re.subn(re.compile(replacement_patterns[7][0]),replacement_patterns[7][1],text_orig)
+    text_orig = abbrev_recognition_support(text_orig)
     text_orig = add_text_end_dot(text_orig)#append . final si el último caracter no tiene punto, evita un ciclo infinito al final.
     return text_orig
 
