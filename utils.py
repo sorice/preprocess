@@ -61,7 +61,7 @@ def alignSentences(preproc_text, original_text):
     offsetB = 0
     norm_orig_text = normalize(original_text)
 
-    if norm_orig_text.count('.') <= preproc_text.count('.'):
+    if norm_orig_text.count('.') < preproc_text.count('.'):
         raise Exception("Preprocess Error: number of preproc periods most be less or equal than normalize original text periods.")
 
 
@@ -92,7 +92,13 @@ def alignSentences(preproc_text, original_text):
             if i >= 37:
                 print('i',i,'score:',score,'maxScore:',maxScore, 'matches:',matches)
                 print('frag-sentA:',sentA[-round(len(sentA)*0.5):],'frag-sentB:',sentB[-round(len(sentA)*0.5):])
-        
+            
+            #Short sentence exceptions
+            if len(sentA) < 10:
+                maxScore = score
+                lengMax = nextPoint
+                break
+
         tuple = (i, sentA, offsetB, lengMax)
         alignedSentences.append(tuple)
 
