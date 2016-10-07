@@ -6,6 +6,9 @@ The :mod:`preprocessing` module includes normalization,
 abbr recognition, stopword filter, lemmatization.
 """ 
 
+import sys
+sys.path.append('/home/abelm')
+
 from .punctuation import Replacer
 
 from .methods import url_string_recognition_support

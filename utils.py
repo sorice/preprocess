@@ -69,6 +69,7 @@ def alignSentences(preproc_text, original_text):
         maxScore =-1; score = 0
         prevPoint = 0#len(sentA)-2
         nextPoint = 0
+        iqualScore = 0;prevFrag=''
         
         #Sí llegamos a la última oración entonces
         if i == preproc_text.count('.')-1:
@@ -92,11 +93,23 @@ def alignSentences(preproc_text, original_text):
             if i >= 37:
                 print('i',i,'score:',score,'maxScore:',maxScore, 'matches:',matches)
                 print('frag-sentA:',sentA[-round(len(sentA)*0.5):],'frag-sentB:',sentB[-round(len(sentA)*0.5):])
-            
+ 
+            #Repeated sentence exception src00014
+            if prevFrag == sentB[-round(len(sentA)*0.5):]:
+                print ('=================Repeated sentence')
+                break
+            prevFrag = sentB[-round(len(sentA)*0.5):] #y guardo el fragmento analizado de esta vuelta para la siguiente
+
             #Short sentence exceptions
-            if len(sentA) < 10:
+            if len(sentA) < 14:
                 maxScore = score
                 lengMax = nextPoint
+                break
+
+            #Infinite loop exception
+            if score == maxScore:
+                iqualScore += 1
+            if iqualScore == 20:
                 break
 
         tuple = (i, sentA, offsetB, lengMax)
@@ -109,7 +122,7 @@ def alignSentences(preproc_text, original_text):
             print('sentA:',sentA)
             print('\n***************')
 
-        offsetB = lengMax+1
+        offsetB = lengMax
 
     return alignedSentences
 
@@ -128,7 +141,8 @@ def getSentB(text2, offsetB, nextPoint,prevPoint):
     return sentB, nextPoint, prevPoint
 
 def normalize(text_orig):
-    replacement_patterns = [(r'[:]\n','. '),
+    replacement_patterns = [(r'[:](?=\s*?\n)','.'),
+                            (r'\xc2|\xa0',' '),
                             (r':(?=\s+?[A-Z]+?)|:(?=\s*?"+?[A-Z]+?)','.'),
                             (r'[?!]','.'),
                             (r'(\w+?)(\n)(?=["$%()*+&,-/;:¿¡<=>@[\\]^`{|}~\t\s]*(?=.*[A-Z0-9]))','\g<1>.'), # any alphanumeric char
@@ -139,15 +153,10 @@ def normalize(text_orig):
                             (r'(\w+?\s*?)\|','\g<1>.'),
                             (r'\n(?=\s*?[A-Z]+?)','.'),
                             ]
-    text_orig, temp = re.subn(re.compile(replacement_patterns[0][0]),replacement_patterns[0][1],text_orig)
-    text_orig, temp = re.subn(re.compile(replacement_patterns[1][0]),replacement_patterns[1][1],text_orig)
-    text_orig, temp = re.subn(re.compile(replacement_patterns[2][0]),replacement_patterns[2][1],text_orig)
-    text_orig, temp = re.subn(re.compile(replacement_patterns[3][0]),replacement_patterns[3][1],text_orig)
-    text_orig, temp = re.subn(re.compile(replacement_patterns[4][0]),replacement_patterns[4][1],text_orig)
-    text_orig, temp = re.subn(re.compile(replacement_patterns[5][0]),replacement_patterns[5][1],text_orig)
-    text_orig, temp = re.subn(re.compile(replacement_patterns[6][0]),replacement_patterns[6][1],text_orig)
-    text_orig, temp = re.subn(re.compile(replacement_patterns[7][0]),replacement_patterns[7][1],text_orig)
+
+    for (pattern, repl) in replacement_patterns:
+            (text_orig, count) = re.subn(pattern, repl, text_orig)
+            
     text_orig = abbrev_recognition_support(text_orig)
     text_orig = add_text_end_dot(text_orig)#append . final si el último caracter no tiene punto, evita un ciclo infinito al final.
     return text_orig
-
