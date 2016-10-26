@@ -20,6 +20,8 @@ def preProcessFlow(text):
 
     text = del_contiguous_point_support(text)
     #print ('cleaning contiguous dots\n',text)
+
+    text = space_sentence_dot(text)
     
     text = abbrev_recognition_support(text)
     #print ('abbrev recognition and normalization\n',text)

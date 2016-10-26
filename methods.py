@@ -105,16 +105,24 @@ def punctuation_filter(text):
     return text
 
 def del_contiguous_point_support(text):
-    for i in re.finditer('[.]\s*?[.]+?[\s|[.]]*',text): #se puede reimplementar sin el finditer r'(\w+)[.]\s*[.]+[\s|[.]]*'
+    """ Allows to change continuous dot secuences by the same amount of spaces.
+
+    ..Nota: no se puede reimplementar sin el finditer.
+    Esta expresión r'(\w+)[.]\s*[.]+[\s|[.]]*' los cambia pero no hay como manejar el # de espacios.
+    Y esta función se utiliza luego en la normalización del texto para el text-alignment.
+    """
+    for i in re.finditer('[.]\s*?[.]+?[\s|[.]]*',text): 
         for j in range(i.start(),i.end()):
             if text[j] == '.' or text[j]==' ':
                 text = text[:j]+' '+text[j+1:]
+    return text
 
+def space_sentence_dot(text):
     text = re.sub('[.]\s*\n',' .\n ',text) #Garantizo que todos los puntos al final de las oraciones seran separados por si hay algun acronimo.
     return text
 
 def contiguos_string_recognition_support(text):
-    text = re.sub('[.](?=\w+?)|-(?=\w+?)|@(?=\w+?)','_',text)
+    text = re.sub('(\w+)[-@.](?=\w+?)','\g<1>_',text) 
 
     #Added for Llanes, is under analisis if it most be here.
     text = re.sub('[.](?=,)|[.](?=;)|[.][[]|[.][]]',' ',text) #Este hay que modificarlo si vamos a usar abbrev
@@ -126,33 +134,19 @@ def contiguos_string_recognition_support(text):
     return text
 
 def abbrev_recognition_support(text):
-    #TODO primero verificar que la palara en el doc tiene un . y entonces comparar con abbrev
-    #Ej if '.' in 'U.S.': print 'True'
-    propname = 'A. B. C. D. E. F. G. H. I. J. K. L. M. N. O. P. Q. R. S. T. U. V. W. X. Y. Z.'
-    abbrev = ' Dr. Ms.C. Ph.D. Ing. Lic. U.S. U.S Corp. N.Y. N.Y L.A. a.m. B.C. D.C. O.K. O.K B.C L.A '
-    
-    #Proper names acronyms OK
-    #print ('Proper names preprocessing')
-    text = re.sub(r'(\s[A-Z])[.](?=[\s|,|\'|)]+)','\g<1>_', text)
-    
-    #Abbreviations and acronyms recognition OK
-    #print ('Acronyms recognition')
-    #for i in re.finditer('\s[a-zA-Z.]*(?=[.][\s|,|\'|)])|\n[a-zA-Z.]+(?=[.][\s|,|\'|)])',text):
-    #    frag = text[i.start()+1:i.end()+1]
-    #    if find(abbrev,frag) != -1 and frag != '.':
-    #        frag = frag.replace('.','_')
-    #    text = text[:i.start()+1]+frag+text[i.end()+1:]
+    """Proper names and abbrev recognition based on regular expressions.
 
-    text = re.sub('U[.]S[.]|U[.]S','U_S_',text)
-    text = re.sub('L[.]A[.]|L[.]A','L_A_',text)
-    text = re.sub('N[.]Y[.]|N[.]Y','N_Y_',text)
-    text = re.sub('B[.]C[.]|B[.]C','B_C_',text)
-    text = re.sub('O[.]K[.]|O[.]K','O_K_',text)
-    text = re.sub('A[.]M[.]|A[.]M|a[.]m[.]|a[.]m','a_m_',text)
-    text = re.sub('A[.]I[.]|A[.]I','A_I_',text)
-    text = re.sub('Dr.','Dr_',text)
-        
-    #Quedará pendiente solo el caso en que la abreviatura esté al final de la oración, y continúe otra oración del párrafo. En esta situación el punto de la abreviatura es el punto final por regla gramatical. Ver como hice para separar en la linea 113.
+    .. Note: In the case of U_S. the function will expect you filter at the end 
+    of preprocessing the conditions of the dot in the expression. If a cappital 
+    letter follows then this dot match with and end of sentence, else must be
+    erased.
+    """    
+    
+    #Proper names acronyms recognition and normalization
+    text = re.sub('(\s[A-Z])[.](?!\n)','\g<1>_',text) 
+    
+    #Abbrev recognition and normalization
+    text = re.sub('(Lic|Ph|Corp|Ms|Ing|Dr).','\g<1>_',text)
 
     return text
 

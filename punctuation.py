@@ -37,9 +37,9 @@ replacement_patterns = [
 
 (r'[.?!](?=[\'"`]+?\s+?)','##1'), #Match cases were '.|?|!' are follow by [1 or n quote simbol][1 or n whitespace] -> means that detect the end or a quoted sentence. (Eg. "Where is it?" Jacob asked.)
 (r'[.](?=\s+?[a-z]+?)', '_'),   #Note: Lower case at the begining of the sentence - spell error - isn't trated as uper(Exp1). View grammar and spell checker section article. (Eg1. "U.S. is the nation at north.")(Eg2. "Llegó a las 8 a.m. en auto.")
-(r'[.](?=\s*?["\'`]+?\s*?\w+?)', '##1'), #Match cases were '.' are follow by [0 or n whitespace][1 or n quote simbol][follow by 0 or n whitespace][follow by any alphanumeric char. (Eg1. "He said.'We most go up.'"; Eg2. "He said. ' We most go up.'") 
+(r'[.](?=\s*?["\'-`]+?\s*?\w+?)', '##1'), #Match cases were '.' are follow by [0 or n whitespace][1 or n quote simbol][follow by 0 or n whitespace][follow by any alphanumeric char. (Eg1. "He said.'We most go up.'"; Eg2. "He said. ' We most go up.'") 
 
-# Standarize line skip before "paragraph end detection regular expression"
+# Standarize line skip before paragraph-end-detection.
 ('\r\n','\n'),                      # Windows period convert to Unix period.
 (r'[\t]','    '),                  # Tabs changed by \n.
 (r'[.](?=\s*?\n)','##1\n'),         # Paragraph end detection
@@ -47,8 +47,8 @@ replacement_patterns = [
 (r'(\w+)\n\n', '\g<1> ##1'),
 
 #Section II: Regular expressions related to ":".
-(r'[:](?=\s+?[A-Z]+?)', '##2'),
-(r'[:](?=\s*?"+?[A-Z]+?)', '##2'),  #Match cases were ':' are follow by [0 or n whitespace][1 or n simbol chars like '"'][almost 1 uper case]
+(r'(\w\w):(?=\s+?[A-Z]+?)', '\g<1>##2'),
+(r'(\w\w):(?=\s*?"+?[A-Z]+?)', '\g<1>##2'),  #Match cases were ':' are follow by [0 or n whitespace][1 or n simbol chars like '"'][almost 1 uper case]
 (r'[:](?=\s*?\n)','##2'),           #Match cases were ':' are follow by 0 or n whitespace, and then '\n', the next string is always an independent idea.
 
 #Section III:: Relative to line skip.

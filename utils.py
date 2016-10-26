@@ -13,7 +13,8 @@ Finish on
 
 import swalign
 import re
-from preprocess.methods import add_text_end_dot, abbrev_recognition_support
+from preprocess.methods import add_text_end_dot, abbrev_recognition_support 
+from preprocess.methods import contiguos_string_recognition_support, del_contiguous_point_support
 
 match = 2
 mismatch = -1
@@ -69,7 +70,7 @@ def alignSentences(preproc_text, original_text):
         maxScore =-1; score = 0
         prevPoint = 0#len(sentA)-2
         nextPoint = 0
-        iqualScore = 0;prevFrag=''
+        iqualScore = 0;prevFrag='';jaccard_measure = 0; X = {()}; Y={()}
         
         #Sí llegamos a la última oración entonces
         if i == preproc_text.count('.')-1:
@@ -80,19 +81,19 @@ def alignSentences(preproc_text, original_text):
         
         #Sí no es la última oración compara hasta encontrar el score max.
         while(score >= maxScore):
+            prev_jaccard_measure = jaccard_measure; prev_setA = X; prev_setB = Y
             lengMax = nextPoint
             maxScore = score
-            #print('>>>>>>>>>>>>>>>>>>>>>>',offset, nextPoint, prevPoint)
+            
+            #Get sentence B and prepare it to calc distances
             sentB, nextPoint, prevPoint = getSentB(norm_orig_text, offsetB, nextPoint, prevPoint)
             sentB = sentB.replace('\n',' ') #avoid some bugs on swalign function
-            if i >= 37:
-                print('-----offsetB:',offsetB,'---- from pos:', prevPoint, '-----to pos:',nextPoint)
+            
+            #Calc distances Smith-Watterman and Jaccard
             alignment = sw.align(sentA[-round(len(sentA)*0.5):], sentB[-round(len(sentA)*0.5):])
+            jaccard_measure, X, Y = jaccard ( sentA , sentB) #Second measure only to lookfor errors
             score = alignment.score
             matches = alignment.matches
-            if i >= 37:
-                print('i',i,'score:',score,'maxScore:',maxScore, 'matches:',matches)
-                print('frag-sentA:',sentA[-round(len(sentA)*0.5):],'frag-sentB:',sentB[-round(len(sentA)*0.5):])
  
             #Repeated sentence exception src00014
             if prevFrag == sentB[-round(len(sentA)*0.5):]:
@@ -115,7 +116,9 @@ def alignSentences(preproc_text, original_text):
         tuple = (i, sentA, offsetB, lengMax)
         alignedSentences.append(tuple)
 
-        if i >= 0:
+        if prev_jaccard_measure < 1.0 and prev_jaccard_measure > 0.0:
+            print ('jaccard_measure:',prev_jaccard_measure)
+            #print (prev_setA,'<--->',prev_setB)
             print('#############RESULTADO de la ORACIÓN :', i)
             print('score max:',maxScore, 'offsetB:', offsetB, 'lengthB:',lengMax-offsetB)
             print('sentB:',original_text[offsetB:lengMax])
@@ -141,22 +144,34 @@ def getSentB(text2, offsetB, nextPoint,prevPoint):
     return sentB, nextPoint, prevPoint
 
 def normalize(text_orig):
-    replacement_patterns = [(r'[:](?=\s*?\n)','.'),
+    replacement_patterns = [(r'[:](?=\s*?\n)','##1'),
                             (r'\xc2|\xa0',' '),
-                            (r':(?=\s+?[A-Z]+?)|:(?=\s*?"+?[A-Z]+?)','.'),
-                            (r'[?!]','.'),
-                            (r'(\w+?)(\n)(?=["$%()*+&,-/;:¿¡<=>@[\\]^`{|}~\t\s]*(?=.*[A-Z0-9]))','\g<1>.'), # any alphanumeric char
+                            (r'(\w\s*?):(?=\s+?[A-Z]+?)|(\w\s*?):(?=\s*?"+?[A-Z]+?)','\g<1>##2'),
+                            (r'[?!]','##3'),
+                            (r'(\w+?)(\n)(?=["$%()*+&,-/;:¿¡<=>@[\\]^`{|}~\t\s]*(?=.*[A-Z0-9]))','\g<1>##4'), # any alphanumeric char
                             # follow by \n follow by any number of point sign follow by a capital letter, replace by alphanumerig+.
-                            (r'(\w+?)(\n)(?=["$%()*+&,-/;:¿¡<=>@[\\]^`{|}~\t\s\n]*(?=[a-zA-Z0-9]))','\g<1>.'),# any alphanumeric char
+                            (r'(\w+?)(\n)(?=["$%()*+&,-/;:¿¡<=>@[\\]^`{|}~\t\s\n]*(?=[a-zA-Z0-9]))','\g<1>##5'),# any alphanumeric char
                             # follow by \n follow by any number of point sign follow by a letter, replace by alphanumerig+.
-                            (r'[:](?=\s*?)(?=["$%()*+&,-/;:¿¡<=>@[\\]^`{|}~\t\s]*[A-Z]+?)','.'),
-                            (r'(\w+?\s*?)\|','\g<1>.'),
-                            (r'\n(?=\s*?[A-Z]+?)','.'),
+                            (r'[:](?=\s*?)(?=["$%()*+&,-/;:¿¡<=>@[\\]^`{|}~\t\s]*[A-Z]+?)','##6'),
+                            (r'(\w+?\s*?)\|','\g<1>##7'),
+                            (r'\n(?=\s*?[A-Z]+?)','##8'),
+                            (r'##\d','apdbx'),
                             ]
-
+    
     for (pattern, repl) in replacement_patterns:
             (text_orig, count) = re.subn(pattern, repl, text_orig)
-            
+    #print ('\n---TEST----------------\n',text_orig,'\n')
+    
+    text_orig = del_contiguous_point_support(text_orig)
+    text_orig = contiguos_string_recognition_support(text_orig)
     text_orig = abbrev_recognition_support(text_orig)
+    text_orig = re.sub(r'apdbx+','.', text_orig)
     text_orig = add_text_end_dot(text_orig)#append . final si el último caracter no tiene punto, evita un ciclo infinito al final.
     return text_orig
+
+def jaccard(text1,text2):
+    sentA1 = re.sub(r'[!"#$%&()\'*+,-/:;<=>?@\\^_`{|}~.\[\]]',' ', text1)
+    sentB1 = re.sub(r'[!"#$%&()\'*+,-/:;<=>?@\\^_`{|}~.\[\]]',' ', text2)
+    setA = set(sentA1.split())
+    setB = set(sentB1.split())
+    return len(setA.intersection(setB))/float(len(setA.union(setB))), sentA1, sentB1
