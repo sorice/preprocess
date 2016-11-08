@@ -145,7 +145,7 @@ def abbrev_recognition_support(text):
     #Proper names acronyms recognition and normalization
     text = re.sub('(\s[A-Z])[.](?!\n)','\g<1>_',text) 
     
-    #Abbrev recognition and normalization
+    #Abbrev recognition and normalization. TODO: implement to read the list of abbrev and compose the pattern r'(abbrev1|abbrev2|etc).'
     text = re.sub('(Lic|Ph|Corp|Ms|Ing|Dr).','\g<1>_',text)
 
     return text
@@ -153,6 +153,28 @@ def abbrev_recognition_support(text):
 def del_char_len_one(text):
     text = re.sub('\s\w\s',' ',text)
     return text 
+
+#----------------------CONTRACTIONS REPLACEMENT
+
+contractions_patterns = [
+(r'won\'t', 'will not'),
+(r'can\'t', 'can not'),
+(r'i\'m', 'i am'),
+(r'isn\'t', 'is not'),
+(r'(\w+)\'ll', '\g<1> will'), 
+(r'(\w+)n\'t', '\g<1> not'),
+(r'(\w+)\'ve', '\g<1> have'),
+(r'(\w+)\'d(?=\w+ed)', '\g<1> had'),
+(r'(\w+)\'s', '\g<1> is'),
+(r'(\w+)\'re', '\g<1> are'),
+(r'(\w+)\'d', '\g<1> would')
+]
+
+def contractions(text):
+    """Replace english contractions."""
+    for (pattern, repl) in contractions_patterns:
+            (text, count) = re.subn(pattern, repl, text)
+    return text
 
 def add_text_end_dot(text):
      """

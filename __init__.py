@@ -18,4 +18,4 @@ from .methods import contiguos_string_recognition_support
 from .methods import abbrev_recognition_support
 from .methods import del_char_len_one
 from .methods import add_text_end_dot
-
+from .methods import contractions

@@ -8,7 +8,7 @@ Creating <cascade> by running:
 3. anoche.
 4 Después. . . 
 
-Over 110 recipes to master this full-stack Python web
+Over 110 recipes to master this full-stack Python web 
 framework
 1.	 Take your web2py skills to the next level by
    dipping into delicious,.. usable recipes in this
@@ -40,6 +40,7 @@ ma u otra poseían títulos honoríficos.
 “Elimina las comillas dobles y ‘simples’ al final y al principio de la oración.”
 
 Probando tildes y caracteres de español: áéíóú ñÑÁÉÍÓÚ
+Jhon's a word with a contraction.
 
 "Oración cerrada con comillas seguida por otra." Well writed.
 "Oración cerrada con comillas seguida de salto de línea."

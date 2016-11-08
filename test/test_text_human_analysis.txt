@@ -20,6 +20,7 @@ For other optional flags of opencv_createsamples see the official documentation 
  Reunieronse pues Lic_ Dr_ Ing_ Ph_D_ y todos los que de una forma u otra poseían títulos honoríficos .
  Elimina las comillas dobles y simples al final y al principio de la oración .
  Probando tildes y caracteres de español: áéíóú ñÑÁÉÍÓÚ .
+Jhon is a word with a contraction .
  Oración cerrada con comillas seguida por otra .
  Well writed .
  Oración cerrada con comillas seguida de salto de línea .

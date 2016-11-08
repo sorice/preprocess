@@ -63,11 +63,7 @@ replacement_patterns = [
 (r'\xe2\x80\xa2','##5'),        # Soporte para las viñetas
 
 #Section V: After all transformations clean the residuary punctuation marks.
-(r'["$%()*+&,-/;:¿¡=@[]^`{}~\\]','##8'),
-(r'[<>]','##8'),
-(r'\|','##8'),                              #After some test it's prove that not work joined with other simbols.
-
-(r'[\']','##9'),             # Contractions are not supported.
+(r'["$%()*+&\',-/;:¿¡<=>@\\^`{\|}~]|\[|\]','##8'),
 
 #Section VI: Postprocessing
 #Clean other . non constituent an "sentence-end". E.g: "...",

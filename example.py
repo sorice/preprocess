@@ -30,6 +30,9 @@ def preProcessFlow(text):
     text = contiguos_string_recognition_support(text) 
     #print ('processing contiguos string recognition support\n', text)
 
+    # Before erase all punctuation chars process contraction
+    text = contractions(text)
+
     #-------------------Clean all punctuation sign
     #texta = text
     replacer = Replacer()
