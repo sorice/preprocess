@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-The :mod:`preprocessing` module includes normalization, 
+The :mod:`preprocessing` module includes normalization,
 abbr recognition, stopword filter, lemmatization.
-""" 
+"""
 
 import sys
 sys.path.append('/home/abelm')
@@ -19,3 +19,9 @@ from .methods import abbrev_recognition_support
 from .methods import del_char_len_one
 from .methods import add_text_end_dot
 from .methods import contractions
+
+from preprocess.techniques import shallow
+
+shallow.pos(text, lang='en')
+shallow.synt_dep(text, lang='en')
+shallow.NER(text, lang='en')
