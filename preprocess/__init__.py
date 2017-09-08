@@ -3,7 +3,8 @@
 
 """
 The :mod:`preprocessing` module includes normalization,
-abbr recognition, stopword filter, lemmatization.
+abbr recognition, stopword filter, lemmatization,
+part of speech tagging.
 """
 
 import sys
@@ -20,8 +21,6 @@ from .methods import del_char_len_one
 from .methods import add_text_end_dot
 from .methods import contractions
 
-from preprocess.techniques import shallow
-
-shallow.pos(text, lang='en')
-shallow.synt_dep(text, lang='en')
-shallow.NER(text, lang='en')
+#from preprocess.techniques import shallow
+from preprocess import shallow
+from preprocess.shallow import *

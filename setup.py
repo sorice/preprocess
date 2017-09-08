@@ -11,7 +11,9 @@ try:
 except ImportError:
     NLTK_INSTALLED = False
 if not NLTK_INSTALLED:
-    raise ImportError('nltk is not installed.')
+    raise ImportError:
+        print('NLTK is not installed some functions of this package will not work.')
+    pass
 
 # find external data and C libraries
 def get_stanford_data():
@@ -23,7 +25,7 @@ def get_stanford_data():
     try:
         StanfordPOSTagger(model_filename=eng_model_filename, path_to_jar=my_path_to_jar)
     except LookupError:
-        raise SkipTest('Package installation are stopped because one of the stanford parser or CoreNLP jars doesn\'t exist')
+        raise ('Some preprocessing techniques will not work because one of the stanford parser or CoreNLP jars doesn\'t exist')
 
 # find packages to be included. exclude benchmarks.
 packages = setuptools.find_packages(exclude=['docs','notebooks'])
@@ -69,7 +71,7 @@ setup(
     ],
     setup_requires=[
         'numpy >= 1.7.0'
-    ],
+    ]
     cmdclass=cmdclass,
     include_package_data=True,
     zip_safe=False
