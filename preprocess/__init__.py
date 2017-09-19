@@ -13,7 +13,7 @@ sys.path.append('/home/abelm')
 from .punctuation import Replacer
 
 from .methods import url_string_recognition_support
-from .methods import punctuation_filter
+from .methods import symbols_filter
 from .methods import del_contiguous_point_support
 from .methods import contiguos_string_recognition_support
 from .methods import abbrev_recognition_support
