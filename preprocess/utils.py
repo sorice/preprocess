@@ -44,12 +44,12 @@ def read_name_files_in_path(path=None):
 
     return nombres
 
-def alignSentences(preproc_text, original_text):
+def alignSentences(preprocessed_text, original_text):
     """Align preprocessed sentences vs original sentences returning the original boundaries.
     Useful for real applications, to recover the original sentence position or fragment position
     and show in a web or desktop application view.
 
-    :param preproc_text: preprocessed text string
+    :param preprocessed_text: preprocessed text string
     :param original_text: original text string
     :returns alignedSentences: [(sent ID, preprocessed sentence, offset original sent, length orig sent)]
     :rtype: list of tuples
@@ -60,12 +60,12 @@ def alignSentences(preproc_text, original_text):
     """
     alignedSentences = []
     offsetB = 0
-    norm_orig_text = normalize(original_text)
+    norm_orig_text = extra_normalize(original_text)
 
-    #if norm_orig_text.count('.') < preproc_text.count('.'):
-     #   raise Exception("Preprocess Error: number of preproc periods most be less or equal than normalize original text periods.")
+    #if norm_orig_text.count('.') < preprocessed_text.count('.'):
+     #   raise Exception("Preprocess Error: number of preprocessed periods most be less or equal than normalize original text periods.")
 
-    for i, (sentA, offsetA, lengthA) in enumerate(getSentA(preproc_text)):
+    for i, (sentA, offsetA, lengthA) in enumerate(getSentA(preprocessed_text)):
         maxScore =-1; score = 0
         prevPoint = 0#len(sentA)-2
         nextPoint = 0
@@ -78,7 +78,7 @@ def alignSentences(preproc_text, original_text):
         else: k=0.5
 
         #Sí llegamos a la última oración entonces
-        if i == preproc_text.count('.')-1:
+        if i == preprocessed_text.count('.')-1:
             lengMax = len(norm_orig_text)
             tuple = (i, sentA, offsetB, lengMax)
             alignedSentences.append(tuple)
@@ -123,6 +123,9 @@ def alignSentences(preproc_text, original_text):
     return alignedSentences
 
 def getSentA(doc1):
+    """
+    alignSentences auxiliar function to get the sentences of the preprocessed text.
+    """
     offset = 0
     for i in re.finditer('\.',doc1):
         sentA = doc1[offset:i.end()]
@@ -130,13 +133,27 @@ def getSentA(doc1):
         offset = i.end()+1
 
 def getSentB(text2, offsetB, nextPoint,sentLength):
+    """
+    alignSentences auxiliar function to get the sentences of the original text.
+    """
     posB = text2[offsetB+sentLength:].find('.')
     sentLength += posB+1
     sentB = text2[offsetB:offsetB+sentLength]
     nextPoint = offsetB + sentLength
     return sentB, nextPoint, sentLength
 
-def normalize(text_orig):
+def extra_normalize(text_orig):
+    """
+    This function allows a simple normalization to the original text to make
+    possible the aligning process.
+
+    The replacement_patterns were obtained during experimentation with real text
+    it is possible to add more or to get some errors without new rules.
+
+    :Note: very important, every rule in replacement_patterns do not change the
+    length of the original text, only replace patterns with same length string.
+    This process is different to the in preProcessFlow.
+    """
     replacement_patterns = [(r'[:](?=\s*?\n)','##1'),
                             (r'\xc2|\xa0',' '),
                             (r'(\w\s*?):(?=\s+?[A-Z]+?)|(\w\s*?):(?=\s*?"+?[A-Z]+?)','\g<1>##2'),
@@ -170,3 +187,16 @@ def jaccard(text1,text2):
         return 0, sentA1, sentB1
     else:
         return len(setA.intersection(setB))/float(len(setA.union(setB))), sentA1, sentB1
+
+def Pipeline():
+    """An easier function or class that allow to make a full Pipeline
+    with the parameters that user wants
+
+    TODO: review sklearn Pipeline class to take ideas about how to do it.
+    """
+    steps = {
+    urls: True
+    abbrev: True
+    contractions = False
+
+    }

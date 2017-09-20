@@ -1,0 +1,8 @@
+It can be shown that S(t; n) → f (t) as n → ∞. Write a program that
+prints out the value of S(αT ; n) for α = 0.01, T = 2π , and n = 1, 2, 3, 4.
+Let S (= S(t; n)), t, alpha, and T be variables in the program. A new
+S, corresponding to a new n, should be computed by adding one term
+to the previous value of S, i.e., by a statement like S = S + term. Run
+the program also for α = 1/4. Does the approximation S(αT ; 4) seem
+to be better for α = 1/4 than for α = 0.01? Name of program ﬁle:
+compare_func_sum.py. 

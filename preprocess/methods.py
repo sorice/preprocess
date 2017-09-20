@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python 3.5
 
 """Set de funciones para normalización de textos.
 Created on Wed Aug 20 2014
@@ -12,17 +11,29 @@ Finish on (esto espera a que termine el experimento 14)
 
 import re, os
 import string
+from .punctuation import Replacer
 
 LETTERS = ''.join([string.ascii_letters,'ñÑáéíóúÁÉÍÓÚüÜ'])
 
-def url_string_recognition_support(text):
+def urls_modification(text):
     for i in re.finditer('www\S*(?=[.]+?\s+?)|www\S*(?=\s+?)|http\S*(?=[.]+?\s+?)|http\S*(?=\s+?)',text):
         for j in range(i.start(),i.end()):
             if text[j] in string.punctuation:
                 text = text[:j]+'_'+text[j+1:]
     return text
 
-def symbols_filter(text):
+def replace_symbols(text):
+    """
+    Replace none common symbols by more common similar char, symbols or tokens.
+    E.g.: Greek symbols like 'α' is replaced by 'alpha'.
+
+    :Explanation:
+
+    Frecuently the PDF to Text transformation translates some chars into a
+    different-meaning character or symbol. E.g.: 'fi' is changed into 'ﬁ', then
+    the token 'file' is converted into 'ﬁle', changing the meaning completely.
+
+    """
     #Asociados a signos de puntuación
     text = re.sub('\xc2|\xa0','  ',text)
     text = re.sub('\\xe2\\x80\\x9d|\\xe2\\x80\\x9c','"',text) #Del “” en ascii.
@@ -104,24 +115,31 @@ def symbols_filter(text):
     text = re.sub(u'\u025b','e',text) #
     return text
 
-def del_contiguous_point_support(text):
-    """ Allows to change continuous dot secuences by the same amount of spaces.
-
-    ..Nota: no se puede reimplementar sin el finditer.
-    Esta expresión r'(\w+)[.]\s*[.]+[\s|[.]]*' los cambia pero no hay como manejar el # de espacios.
-    Y esta función se utiliza luego en la normalización del texto para el text-alignment.
+def remove_contiguous_points(text):
     """
+    Changes contiguous points sequences by the same amount of spaces.
+
+    ..Note: can't be reimplemented without the finditer function.
+    This expression r'(\w+)[.]\s*[.]+[\s|[.]]*' changes the sequences of points
+    but it is impossible to handle the number of white spaces.
+    This functions it is used latter for the alignment process after normalization.
+    """
+
     for i in re.finditer('[.]\s*?[.]+?[\s|[.]]*',text):
         for j in range(i.start(),i.end()):
             if text[j] == '.' or text[j]==' ':
                 text = text[:j]+' '+text[j+1:]
     return text
 
-def space_sentence_dot(text):
+def add_extra_space_for_sentence_ending_point(text):
+    """
+    Add one extra space between the last sentence letter and the ending point
+    if there isn't any, allowing an easier way of parsing sentences.
+    """
     text = re.sub('[.]\s*\n',' .\n ',text) #Garantizo que todos los puntos al final de las oraciones seran separados por si hay algun acronimo.
     return text
 
-def contiguos_string_recognition_support(text):
+def multi_part_words_modification(text):
     text = re.sub('(\w+)[-@.](?=\w+?)','\g<1>_',text)
 
     #Added for Llanes, is under analisis if it most be here.
@@ -133,7 +151,7 @@ def contiguos_string_recognition_support(text):
     text = re.sub('[.]["](?=\s*[.])|[.][:](?=\s*")',' ',text)
     return text
 
-def abbrev_recognition_support(text):
+def abbrev_modification(text, lang='en'):
     """Proper names and abbrev recognition based on regular expressions.
 
     .. Note: In the case of U_S. the function will expect you filter at the end
@@ -170,39 +188,54 @@ contractions_patterns = [
 (r'(\w+)\'d', '\g<1> would')
 ]
 
-def contractions(text):
-    """Replace english contractions."""
+def expand_contractions(text, lang='en'):
+    """Expand english contractions."""
     for (pattern, repl) in contractions_patterns:
             (text, count) = re.subn(pattern, repl, text)
     return text
 
-def add_text_end_dot(text):
-     """
-     .. function:: add_text_end_dot
+def replace_punctuation(text):
+    """
+    Replace all punctuation characters based on patterns contained in
+    punctuation script.
+    """
+    punctuation = Replacer()
+    text = punctuation.replace(text)
+    return text
 
-     Procede de clean punctuation, pero ha sido despojada de todas sus funciones exceptuando la de agregar un punto al final del texto.
-     Esta función ha sido rediseñada a partir de considerar que es el primer paso después de tener seccionado el texto al que se tratará con NLP.
+def add_doc_ending_point(text):
+     """
+     .. function:: add_doc_ending_point
+
+     Comes from clean_punctuation script but with less functionalities, except
+     adding an ending point at the end of the document.
+
+     :Explanation:
+
+     This is a function to garantied that the las sentences have an ending
+     point. The sentence tokenization process can be standardized because every
+     sentence, even the last one, have an ending point.
 
      :param text: text to process.
      :param type: string.
 
-     :returns text: The last char will be a dot, this is important for other functions that need to process the last sentence.
+     :returns text: The last char will be an ending point.
 
      .. author: Abel Meneses abad
      Created on Fri, 28 Feb 2014
      Modify on Son Dic 6 2015
-     Finish on XXXXX 2014
+     Finish on
      .. release: 0.2
      """
      # Este fragmento de código coloca un punto en el final del texto. Objetivo: luego hay funciones que necesitan que el último caracter sea el punto final de la última oración.
 
-     first_end_dot = text.rfind('.')      # posición del último punto final
-     fragment = text[first_end_dot+1:]    # fragmento final después del punto
+     first_ending_point = text.rfind('.')     #last ending point position
+     fragment = text[first_ending_point+1:]   #text fragment after endindg point
 
      A = set(LETTERS)
      B = set(fragment)
 
-     if len(B.intersection(A)) != 0: #sí hay letras válidas en el fragmento
+     if len(B.intersection(A)) != 0: #if there are valid letters after ending point insert a new one
           text += ' .'
 
      return text

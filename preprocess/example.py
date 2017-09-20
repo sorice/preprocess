@@ -1,45 +1,42 @@
 #!/usr/bin/env python 3.5
-# -*- coding: utf-8 -*-
 
 import re
 import string
 from .methods import *
-from .punctuation import Replacer
-
-
 
 def preProcessFlow(text):
-    """Text Preprocessing Flow"""
+    """Text Preprocessing Flow demo"""
 
     #-------------------Special tokens recognition and normalization
-    text = url_string_recognition_support(text)
+    text = urls_modification(text)
     #print ('processing urls\n', text)
 
-    text = symbols_filter(text)
+    text = replace_symbols(text)
     #print ('processing symbols like Greek letters',text)
 
-    text = del_contiguous_point_support(text)
+    text = remove_contiguous_points(text)
     #print ('cleaning contiguous dots\n',text)
 
-    text = space_sentence_dot(text)
+    text = add_extra_space_for_sentence_ending_point(text)
 
-    text = abbrev_recognition_support(text)
+    text = abbrev_modification(text)
     #print ('abbrev recognition and normalization\n',text)
 
     # Esta demora mucho, hay que ver porque
-    text = contiguos_string_recognition_support(text)
-    #print ('processing contiguos string recognition support\n', text)
+    text = multi_part_words_modification(text)
+    #print ('Process tokens like "end-of-line"\n', text)
 
-    # Before erase all punctuation chars process contraction
-    text = contractions(text)
+    # TODO: collocations or multiword expressions modification
+    #text = underscoring_multiword_expressions(text)
+
+    # Expand contractions before erase punctuations including single cuote mark.
+    text = expand_contractions(text)
 
     # Clean all punctuations
-    punctuation = Replacer()
-    text = punctuation.replace(text)
-    #print ('processing punctuation signs: ,;:...-*=<>\n',text)
+    text = replace_punctuation(text)
 
-    # Add a final dot to the document.
-    preproc_text = add_text_end_dot(text)
+    # Add an ending point to the document.
+    preproc_text = add_doc_ending_point(text)
     #print ('adding end point if necessary\n',text)
 
     return preproc_text#,texta
