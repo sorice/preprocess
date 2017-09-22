@@ -188,9 +188,9 @@ def jaccard(text1,text2):
     else:
         return len(setA.intersection(setB))/float(len(setA.union(setB))), sentA1, sentB1
 
-def Pipeline():
+class Pipeline():
     """An easier function or class that allow to make a full Pipeline
-    with the parameters that user wants
+    with the parameters that user wants. This will be implemented in version 2.0
 
     TODO: review sklearn Pipeline class to take ideas about how to do it.
     """

@@ -2,6 +2,7 @@ from configparser import ConfigParser
 import os
 from nose import SkipTest
 import preprocess
+from .techniques import lowercase
 
 #This dict strategy is based on sklearn.metrics.pairwaise code example
 TECHNIQUES = {}
