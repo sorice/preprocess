@@ -2,7 +2,6 @@ from configparser import ConfigParser
 import os
 from nose import SkipTest
 import preprocess
-from .techniques import lowercase
 
 #This dict strategy is based on sklearn.metrics.pairwaise code example
 TECHNIQUES = {}
@@ -23,6 +22,8 @@ except ImportError:
     pass
 finally:    #check if NLTK Stanford parser is installed.
     if not NLTKImportError:
+        from .techniques import remove_stopwords
+        TECHNIQUES['remove_stopwords'] = remove_stopwords
         try:
             from nltk.parse.stanford import StanfordParser
         except ImportError:
@@ -46,6 +47,7 @@ finally:    #check if NLTK Stanford parser is installed.
 
                 if StanfordPOSTaggerModelJar:
                     from .techniques import pos
+
 
 #This dict strategy is based on sklearn.metrics.pairwaise code example
 TECHNIQUES['pos'] = pos

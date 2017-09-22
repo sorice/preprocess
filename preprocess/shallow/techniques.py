@@ -22,7 +22,13 @@ __author__ = 'Abel Meneses-Abad'
 from configparser import ConfigParser
 import preprocess
 import os
-from nltk.tag.stanford import StanfordPOSTagger
+
+#TODO verify what happen if nltk there is not.
+try:
+    from nltk.corpus import stopwords
+    from nltk.tag.stanford import StanfordPOSTagger
+except:
+    pass
 
 config = ConfigParser()
 config.read(preprocess.__path__[0]+'/stanford.ini')
@@ -37,6 +43,21 @@ def pos(text, lang='en'):
     """
     st = StanfordPOSTagger(model_filename=stanford_pos_model[lang], path_to_jar=stanford_pos_jar)
     return st.tag(text.split())
+
+def remove_stopwords(text, lang='en', stops_path='', ignore_case = True):
+    """Remove stopwords based on language.
+
+    :Software:
+
+    Based on Normalizr package.
+    """
+    if stops_path:
+        stop_words = set(open(stops_path+'/'+lang+'txt').read().split())
+    else:
+        stop_words = set(stopwords.words(lang))
+
+    return ' '.join(
+            word for word in text.split(' ') if (word.lower() if ignore_case else word) not in stop_words)
 
 if __name__ == '__main__':
     s1=input("Input text A:")
