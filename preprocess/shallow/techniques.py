@@ -39,10 +39,23 @@ stanford_pos_model['en'] = os.path.relpath(stanford_pos_dir[:-1] + config['POS']
 stanford_pos_jar = os.path.relpath(stanford_pos_dir[:-1]+config['POS']['stanford_pos_jar'][2:-1])
 
 def pos(text, lang='en'):
-    """Part of Speech Tagging
+    """Part of Speech Tagging.
+
+    :Model:
+
+    StanfordPOSTagger
+
+    :Explanation:
+
+    The returned string structure is build to use textsim string and token distances.
+
     """
     st = StanfordPOSTagger(model_filename=stanford_pos_model[lang], path_to_jar=stanford_pos_jar)
-    return st.tag(text.split())
+    result = st.tag(text.split())
+    string = ''
+    for (word,tag) in result:
+        string += word+'/'+tag+' '
+    return string
 
 def remove_stopwords(text, lang='en', stops_path='', ignore_case = True):
     """Remove stopwords based on language.
@@ -58,6 +71,8 @@ def remove_stopwords(text, lang='en', stops_path='', ignore_case = True):
 
     return ' '.join(
             word for word in text.split(' ') if (word.lower() if ignore_case else word) not in stop_words)
+
+#TODO Search the Pattern not installed Warning to see how to program a missing installed library
 
 if __name__ == '__main__':
     s1=input("Input text A:")
