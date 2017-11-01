@@ -38,24 +38,62 @@ stanford_pos_dir = os.path.relpath(config['POS']['stanford_pos_dir'][2:])
 stanford_pos_model['en'] = os.path.relpath(stanford_pos_dir[:-1] + config['POS']['stanford_pos_eng_model'][2:-1])
 stanford_pos_jar = os.path.relpath(stanford_pos_dir[:-1]+config['POS']['stanford_pos_jar'][2:-1])
 
-def pos(text, lang='en'):
+def pos(text, lang='en', interface='stanford', multioutput='raw_value'):
     """Part of Speech Tagging.
 
-    :Model:
+    Parameters
+    ----------
+    text: string to parse, generally a sentence.
 
-    StanfordPOSTagger
+    lang: natural languaje of the text.
+
+    interface: a tag of one of the implemented interfaces in preprocess.
+
+    multioutput: Format type of the output.
+                 string in ['raw_value', 'tuple_list', 'raw_tag']
+                 * raw value - string format
+                 * tuple list - format is implemented for ngram generalization of
+                 some token distances in textsim papckage.
+                 * raw tag - string only with POS tags
+
+    Returns
+    -------
+
+    parsed result : string output, list of tuples [(token, POS tag)],
+                    POS-tags substituting tokens.
 
     :Explanation:
 
-    The returned string structure is build to use textsim string and token distances.
+    The returned string structure is build to use textsim string and token
+    distances.
 
     """
+
+    if interface == 'stanford':
+        result = __stanford_pos(text, lang, multioutput)
+    if interface == 'freeling':
+        result = ''
+
+    return result
+
+def __stanford_pos(text,lang='en',multioutput='raw_value'):
+    """Interface for NLTK Stanford POS Tagger interface.
+    """
     st = StanfordPOSTagger(model_filename=stanford_pos_model[lang], path_to_jar=stanford_pos_jar)
-    result = st.tag(text.split())
+    tuple_list = st.tag(text.split())
     string = ''
-    for (word,tag) in result:
+    raw_tag = ''
+    for (word,tag) in tuple_list:
         string += word+'/'+tag+' '
-    return string
+        raw_tag += tag+' '
+
+    if isinstance(multioutput, str):
+        if multioutput == 'raw_value':
+            return string
+        if multioutput == 'tuple_list':
+            return tuple_list
+        if multioutput == 'raw_tag':
+            return raw_tag
 
 def remove_stopwords(text, lang='en', stops_path='', ignore_case = True):
     """Remove stopwords based on language.

@@ -45,19 +45,23 @@ def ner(text, lang='en', interface='stanford', multioutput='raw_value'):
 
     interface: a tag of one of the implemented interfaces in preprocess.
 
-    multioutput: string in ['raw_value', 'tuple_list', 'raw_tag']
-                 Format type of the output.
-                 Tuple list format is implemented for ngram generalization of
+    multioutput: Format type of the output.
+                 string in ['raw_value', 'tuple_list', 'raw_tag']
+                 * raw value - string format
+                 * tuple list - format is implemented for ngram generalization of
                  some token distances in textsim papckage.
+                 * raw tag - string with NE-tokens changed for its NE-tags.
 
     Returns
     -------
 
-    parsed result : string output, list of tuples [(token, NE tag)].
+    parsed result : string output, list of tuples [(token, NE tag)],
+                    NE-tags substituting NE-tokens string.
 
     :Explanation:
 
-    The returned string structure is build to use textsim string and token distances.
+    The returned string structure is build to use textsim string and token
+    distances.
 
     """
     if interface == 'stanford':
@@ -90,6 +94,10 @@ def __stanford_ner(text,lang='en',multioutput='raw_value'):
             return tuple_list
         if multioutput == 'raw_tag':
             return raw_tag
+
+def syntdep():
+    """TODO: Syntactic Dependency parsing"""
+    return
 
 if __name__ == '__main__':
     s1=input("Input text A:")
