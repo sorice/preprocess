@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from configparser import ConfigParser
 import os
 from nose import SkipTest
@@ -31,6 +34,7 @@ finally:    #check if NLTK Stanford parser is installed.
         finally:
             if not StanfordParserImportError:
                 from nltk.tag.stanford import StanfordNERTagger
+                from nltk.parse.stanford import StanfordDependencyParser
 
                 #Test if NER.jar and NER model still there after installation
                 stanford_ner_dir = os.path.abspath(config['NER']['stanford_ner_dir'][2:])
@@ -41,14 +45,32 @@ finally:    #check if NLTK Stanford parser is installed.
                     st = StanfordNERTagger(stanford_ner_eng_model, stanford_ner_jar, 'utf8')
                     StanfordNERTaggerModelJar = True
                 except LookupError:
-                    raise SkipTest('Loading Stanford NER Tagging because one of the stanford parser or CoreNLP jars doesn\'t exist')
+                    raise SkipTest('Fail to loading Stanford NER Tagging because\
+                                    one of the stanford parser or CoreNLP jars \
+                                    doesn\'t exist')
 
                 if StanfordNERTaggerModelJar:
                     from .techniques import ner
 
+                #Checking Stanford Dependency Parser models exist after installation
+                stanford_parser_dir = os.path.realpath(config['SYND']['stanford_parser_dir'][2:])
+                stanford_parser_eng_model = os.path.realpath(stanford_parser_dir[:-1] + config['SYND']['stanford_parser_eng_model'][2:-1])
+                stanford_parser_jar = os.path.realpath(stanford_parser_dir[:-1]+config['SYND']['stanford_parser_jar'][2:-1])
+                print(stanford_parser_jar)
+                try:
+                    st = StanfordDependencyParser(stanford_parser_eng_model, stanford_parser_jar)
+                    StanfordSyntDepModelJar = True
+                except LookupError:
+                    raise SkipTest("""Fail to loading Stanford Syntactic Dependency Parser
+                        because one of its stanford parser or CoreNLP jars doesn't exist""")
+
+                if StanfordSyntDepModelJar:
+                    from .techniques import syntdep
+
 
 #This dict strategy is based on sklearn.metrics.pairwaise code example
 TECHNIQUES['ner'] = ner
+TECHNIQUES['syntdep'] = syntdep
 
 #After compute performance results, default techniques are stablished.
 #from .distances import levenshtein_similarity_jellyfish as levenshtein_similarity #TODO change this
@@ -60,6 +82,7 @@ for technique in TECHNIQUES:
 
 __techniques__ = {
 'NER':ner,
+'SYNTDEP':syntdep
 }
 
 __not_implemented__ = [
@@ -68,4 +91,5 @@ __not_implemented__ = [
 
 __not_documented__ = [
     'NER'
+    'SYNTDEP'
 ]
