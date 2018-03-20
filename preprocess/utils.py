@@ -11,15 +11,9 @@ Finish on
 .. author: Abel Meneses abad
 """
 
-import swalign
 import re
 from preprocess.methods import add_text_end_dot, abbrev_recognition_support
 from preprocess.methods import contiguos_string_recognition_support, del_contiguous_point_support
-
-match = 2
-mismatch = -1
-scoring = swalign.NucleotideScoringMatrix(match, mismatch)
-sw = swalign.LocalAlignment(scoring)
 
 def read_name_files_in_path(path=None):
     """Return a list with the file's names on a path."""

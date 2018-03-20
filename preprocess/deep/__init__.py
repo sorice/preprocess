@@ -86,7 +86,7 @@ __techniques__ = {
 }
 
 __not_implemented__ = [
-    ''
+    'SRL':srl
 ]
 
 __not_documented__ = [

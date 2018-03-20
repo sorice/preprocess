@@ -10,6 +10,6 @@
 
 Older versions of this module. Be careful! Many of this URLs are the ancient versions with different software architectures.
 
-- [QtNLP-Linguist module](file:///media/abelm/Almacen/Doctorado/00_QtNLP-Linguist/modules/TNLP_textNormalization)
+- [QtNLP-Linguist module](https://github.com/sorice/QtNLP-Linguist)
 - 01_Codigos...
 - Resultados...

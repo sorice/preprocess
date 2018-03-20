@@ -9,10 +9,7 @@ NLTK_INSTALLED = True
 try:
     import nltk
 except ImportError:
-    NLTK_INSTALLED = False
-if not NLTK_INSTALLED:
-    raise ImportError:
-        print('NLTK is not installed some functions of this package will not work.')
+    print('NLTK is not installed some functions of this package will not work.')
     pass
 
 # find external data and C libraries
@@ -36,7 +33,7 @@ with open('README.md') as f:
     LONG_DESCRIPTION = f.read()
 
 setup(
-    name='textsim',
+    name='preprocessing',
     version='0.1.0',
     description='Python library for text preprocessing and normalization.',
     long_description=LONG_DESCRIPTION,
@@ -67,11 +64,12 @@ setup(
     packages=packages,
     install_requires=[
         'numpy >= 1.7.0',
-        'nltk >= 3.1',
+        'nltk >= 3.1'
+        'nose >= 1.3.7',
     ],
     setup_requires=[
         'numpy >= 1.7.0'
-    ]
+    ],
     cmdclass=cmdclass,
     include_package_data=True,
     zip_safe=False

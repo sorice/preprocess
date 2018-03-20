@@ -173,6 +173,13 @@ def __stanford_parser(text,lang='en',multioutput='triplet_list', N=2):
         if multioutput == 'sn_grams':
             return sn_gram
 
+#TODO: Semantic Role Labeling
+
+#TODO: variate type of ML technique, using StanfordNeuralDependencyParser
+
+#TODO after have it we can test tensorflow, Torch, etc y ver los test con el PenTreeBank
+
+
 if __name__ == '__main__':
     s1=input("Input text A:")
     print("The inputed text can be lexicalized '%s'" % ner(s1))

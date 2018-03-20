@@ -142,3 +142,5 @@ def sn_grams(st, text,n=2):
                     pendent_words.append((1,gram[0][0]))
 
         return sn_grams
+
+#TODO: optimization of this script making experimentation inside the Notebook of my NLP course "Synt..."
