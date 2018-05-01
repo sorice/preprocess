@@ -24,13 +24,13 @@ from ..utils import sn_grams
 
 #TODO verify what happen if nltk there is not.
 try:
-    from nltk.tag.stanford import StanfordNERTagger
+    from nltk.tag import StanfordNERTagger
     from nltk.parse.stanford import StanfordDependencyParser
 except:
     pass
 
 config = ConfigParser()
-config.read(preprocess.__path__[0]+'/stanford.ini')
+config.read(preprocess.__path__[0]+'/cfg/stanford.cfg')
 stanford_ner_model = {}
 
 stanford_ner_dir = os.path.relpath(config['NER']['stanford_ner_dir'][2:])
@@ -154,7 +154,7 @@ def __stanford_parser(text,lang='en',multioutput='triplet_list', N=2):
     """
 
     st = StanfordDependencyParser(stanford_parser_model[lang], stanford_parser_jar)
-    print(stanford_parser_jar)
+    
     SYNT = [list(parse.triples()) for parse in st.raw_parse(text)]
     triplet_list = []
     triplet_list_tag = []

@@ -10,7 +10,7 @@ import preprocess
 TECHNIQUES = {}
 
 config = ConfigParser()
-config.read(preprocess.__path__[0]+'/stanford.ini')
+config.read(preprocess.__path__[0]+'/cfg/stanford.cfg')
 
 #Import nltk distances from ~/nltk/metric/distance.py and modify after with decorators
 NLTKImportError = False
@@ -33,7 +33,7 @@ finally:    #check if NLTK Stanford parser is installed.
             pass
         finally:
             if not StanfordParserImportError:
-                from nltk.tag.stanford import StanfordNERTagger
+                from nltk.tag import StanfordNERTagger
                 from nltk.parse.stanford import StanfordDependencyParser
 
                 #Test if NER.jar and NER model still there after installation
@@ -56,7 +56,7 @@ finally:    #check if NLTK Stanford parser is installed.
                 stanford_parser_dir = os.path.realpath(config['SYND']['stanford_parser_dir'][2:])
                 stanford_parser_eng_model = os.path.realpath(stanford_parser_dir[:-1] + config['SYND']['stanford_parser_eng_model'][2:-1])
                 stanford_parser_jar = os.path.realpath(stanford_parser_dir[:-1]+config['SYND']['stanford_parser_jar'][2:-1])
-                print(stanford_parser_jar)
+                
                 try:
                     st = StanfordDependencyParser(stanford_parser_eng_model, stanford_parser_jar)
                     StanfordSyntDepModelJar = True
@@ -86,7 +86,7 @@ __techniques__ = {
 }
 
 __not_implemented__ = [
-    'SRL':srl
+    #'SRL':srl
 ]
 
 __not_documented__ = [

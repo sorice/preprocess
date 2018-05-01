@@ -189,8 +189,7 @@ class Pipeline():
     TODO: review sklearn Pipeline class to take ideas about how to do it.
     """
     steps = {
-    urls: True
-    abbrev: True
-    contractions = False
-
+    urls: True,
+    abbrev: True,
+    contractions = False,
     }

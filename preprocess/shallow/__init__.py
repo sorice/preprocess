@@ -7,7 +7,7 @@ import preprocess
 TECHNIQUES = {}
 
 config = ConfigParser()
-config.read(preprocess.__path__[0]+'/stanford.ini')
+config.read(preprocess.__path__[0]+'/cfg/stanford.cfg')
 
 #Import nltk distances from ~/nltk/metric/distance.py and modify after with decorators
 NLTKImportError = False
@@ -32,7 +32,7 @@ finally:    #check if NLTK Stanford parser is installed.
             pass
         finally:
             if not StanfordParserImportError:
-                from nltk.tag.stanford import StanfordPOSTagger
+                from nltk.tag import StanfordPOSTagger
 
                 #Test if POS.jar and POS model still there after installation
                 stanford_pos_dir = os.path.abspath(config['POS']['stanford_pos_dir'][2:])

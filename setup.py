@@ -64,7 +64,7 @@ setup(
     packages=packages,
     install_requires=[
         'numpy >= 1.7.0',
-        'nltk >= 3.1'
+        'nltk >= 3.1',
         'nose >= 1.3.7',
     ],
     setup_requires=[
@@ -72,6 +72,9 @@ setup(
     ],
     cmdclass=cmdclass,
     include_package_data=True,
+
+    data_files=[('config',['preprocess/cfg/stanford.cfg']),
+    ],
     zip_safe=False
 )
 

@@ -26,12 +26,12 @@ import os
 #TODO verify what happen if nltk there is not.
 try:
     from nltk.corpus import stopwords
-    from nltk.tag.stanford import StanfordPOSTagger
+    from nltk.tag import StanfordPOSTagger
 except:
     pass
 
 config = ConfigParser()
-config.read(preprocess.__path__[0]+'/stanford.ini')
+config.read(preprocess.__path__[0]+'/cfg/stanford.cfg')
 stanford_pos_model = {}
 
 stanford_pos_dir = os.path.relpath(config['POS']['stanford_pos_dir'][2:])
