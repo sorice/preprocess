@@ -1,9 +1,40 @@
-Esta es la versión py3 del normalizador.
+# Preprocess Library
 
-Aún está sin revisar la parte de las expresiones regulares y los text normalization methods. Solo el textMode_Functions necesitó ser reelaborado.
+A python package for preprocessing text using some NLP techniques:
 
-Con Py3 esto puede disminuir grandemente en complejidad y # de líneas de código.
+* normalization techniques (Eg. url recognition, etc)
+* punctuation patterns recognition
+* symbol filtering and substitution
+* shallow NLP techniques (Eg. Part of Speech Tagging)
+* deep NLP techniques (Eg. Name Entity Recognition, etc)
 
-Necesito Hacer una versión de QtNLP-Linguist para poder probar el normalizador. Y además aplicarle los cambios pendientes que me pidió Llanes.
+# Installation
 
-Abel 10/08/2016
+```
+$ pip install preprocess
+```
+
+# Usage
+
+```python
+>>> import preprocess
+>>> preprocess.pos('What is the airspeed of an unladen swallow ?')
+[('What', 'WP'),
+ ('is', 'VBZ'),
+ ('the', 'DT'),
+ ('airspeed', 'NN'),
+ ('of', 'IN'),
+ ('an', 'DT'),
+ ('unladen', 'JJ'),
+ ('swallow', 'VB'),
+ ('?', '.')]
+```
+
+# Configuration
+
+For a correct function of preprocess package, the supported NLP models must be configured correctly
+
+```
+cd 
+```
+
