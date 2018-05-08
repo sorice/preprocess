@@ -12,6 +12,7 @@ Version 2.0
 
 Versión 1.x
 
+- str input restriction management with only one decorator (if: isinstance(input,str) do, else: raise error) 
 - Revisar los init y comprobar que no se cargan variables y funciones que no deben. Poner privadas todas las variables y funciones que deben estarlo.
 - Put the normalization funcs in shallow module
 - Set punctuation in shallow module

@@ -1,12 +1,26 @@
-# Preprocess Library
+# _Preprocess_ Library
 
-A python package for preprocessing text using some NLP techniques:
+Preprocess is a python package for preprocessing text using some NLP techniques:
 
 * normalization techniques (Eg. url recognition, etc)
 * punctuation patterns recognition
 * symbol filtering and substitution
 * shallow NLP techniques (Eg. Part of Speech Tagging)
 * deep NLP techniques (Eg. Name Entity Recognition, etc)
+
+The python ecosystem for text preprocessing is large and difficult to configure and to use. When I started to use preprocessing for some more complex NLP task, the process to configure and to generate standalone apps with non heavy dependencies was impossible using _nltk_ as a baseline. At the same time every normalization step taken from a different approach/library have a different input type and arguments. For that reason I decided to wrapped all those functions in a standard and unified library named preprocess, which works as follow:
+
+```python
+from preprocess import func
+func('text')
+'text_result'
+```
+
+This package integrates some text normalization techniques from some python packages likes: _nltk_, _normalizr_. Also contains many ideas extracted from other normalization or text preprocessing packages.
+
+Some regular expressions used on shallow parsing are based on observations made from frequent errors in txt obtained from pdf conversion. 
+
+Additionally some functions intend to let the original length of the text normalizing the input text and letting the same distance. E.gs. _'state-of-the-art'_ by _'state\_of\_the\_art'_; _'doing... some'_ by _'doing    some'_ (there are 4 whitespaces between doing and some).  The objective was to wrangling the data (not munging it), not in all cases this objective was get it, some [alignment examples](https://github.com/sorice/2017paraphrasebsent/02.2c-Jaccard-Align-Preproc-to-Original-Sent.ipynb) can be read.
 
 # Requirements
 
@@ -29,33 +43,43 @@ $ pip install nltk nose numpy
 $ pip install preprocess
 ```
 
-# Usage
+# Basic Usage
 
 ```python
->>> import preprocess
->>> preprocess.pos('What is the airspeed of an unladen swallow ?')
-[('What', 'WP'),
- ('is', 'VBZ'),
- ('the', 'DT'),
- ('airspeed', 'NN'),
- ('of', 'IN'),
- ('an', 'DT'),
- ('unladen', 'JJ'),
- ('swallow', 'VB'),
- ('?', '.')]
+import preprocess
+preprocess.lowercase('Stanford parser was created by Stanford University')
+
+'stanford parser was created by stanford university'
 ```
 
-# Configuration
+Basic usage includes the following functions:
+
+* lowercase 
+* replace_punctuation: based on punctuation regular expressions
+* whitespace 
+
+Advanced usage includes the following functions:
+
+* pos, ner, syntdp
+
+# Advanced Usage 
+
+### Configuration
 
 For a correct function of preprocess package, the supported NLP models must be configured correctly. Use the following steps to get it right:
 
 1. get the stanford _coreNLP_ software on Internet: [Stanford CoreNLP software](https://stanfordnlp.github.io/CoreNLP/download.html)
-   1. pick the language of your preference in stanford models repository: [Stanford CoreNLP models](http://nlp.stanford.edu/software/). (**current version** filename is stanford-parser-full-2015-04-20.zip)
+   1. pick the language of your preference in stanford models repository: [Stanford CoreNLP models](http://nlp.stanford.edu/software/). (**current tested version** filename is stanford-parser-full-2015-04-20.zip)
+
 2. get [Stanford Name Entity parser](http://nlp.stanford.edu/software/stanford-ner-2015-04-20.zip)
+
 3. get [Stanford POSTagger parser](http://nlp.stanford.edu/software/stanford-postagger-full-2015-04-20.zip)
-4. unzip the all the parsers
+
+4. unzip the all the parsers in your /path/to/stanford/jars/
+
 5. extract _Lexical models_ inside /path/to/stanford/jars/stanford-parser-full-2015-04-20/stanford-parser-3.5.2-models.jar
-   1. (__note__: the _Name Entity parser_ contains its models in _classifier_ folder, & the _POSTagger parser_ contains a set of models in the _models_ folder)
+
+   __note__: the _Name Entity parser_ contains its models in _classifier_ folder, & the _POSTagger parser_ contains a set of models in the _models_ folder)
 
 ```
 $ cd /path/to/stanford/jars/
@@ -75,3 +99,22 @@ models <- your extracted models
 ...
 ```
 
+### Usage
+
+```python
+>>> import preprocess
+>>> preprocess.pos('What is the airspeed of an unladen swallow ?')
+[('What', 'WP'),
+ ('is', 'VBZ'),
+ ('the', 'DT'),
+ ('airspeed', 'NN'),
+ ('of', 'IN'),
+ ('an', 'DT'),
+ ('unladen', 'JJ'),
+ ('swallow', 'VB'),
+ ('?', '.')]
+```
+
+# Future
+
+Future

@@ -2,28 +2,28 @@
 
 import re
 import string
-from .methods import *
+from .normalize import *
 
 def preProcessFlow(text):
     """Text Preprocessing Flow demo"""
 
     #-------------------Special tokens recognition and normalization
-    text = urls_modification(text)
+    text = replace_urls(text)
     #print ('processing urls\n', text)
 
     text = replace_symbols(text)
     #print ('processing symbols like Greek letters',text)
 
-    text = remove_contiguous_points(text)
+    text = replace_point_sequence(text)
     #print ('cleaning contiguous dots\n',text)
 
     text = add_extra_space_for_sentence_ending_point(text)
 
-    text = abbrev_modification(text)
+    text = abbreviations(text)
     #print ('abbrev recognition and normalization\n',text)
 
     # Esta demora mucho, hay que ver porque
-    text = multi_part_words_modification(text)
+    text = multipart_words(text)
     #print ('Process tokens like "end-of-line"\n', text)
 
     # TODO: collocations or multiword expressions modification

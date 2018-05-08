@@ -6,17 +6,22 @@ abbr recognition, stopword filter, lemmatization,
 part of speech tagging.
 """
 
-from .normalize import urls_modification
+from .normalize import replace_urls
 from .normalize import replace_symbols
-from .normalize import remove_contiguous_points
-from .normalize import multi_part_words_modification
+from .normalize import replace_point_sequence
+from .normalize import multipart_words
+from .normalize import abbreviations
 from .normalize import expand_contractions
-from .normalize import abbrev_modification
-from .normalize import del_char_len_one
-from .normalize import add_doc_ending_point
+from .normalize import replace_punctuation
 from .normalize import lowercase
+from .normalize import add_extra_space_for_sentence_ending_point
+from .normalize import add_doc_ending_point
+from .normalize import del_char_len_one
 
 
 #from preprocess.techniques import shallow
-from preprocess import shallow
-from preprocess.shallow import *
+from preprocess.shallow import lowercase
+                                
+
+#from preprocess.techniques import deep
+from preprocess.deep import ner, syntdep

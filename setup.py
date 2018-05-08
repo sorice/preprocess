@@ -33,8 +33,8 @@ with open('README.md') as f:
     LONG_DESCRIPTION = f.read()
 
 setup(
-    name='preprocessing',
-    version='0.1.0',
+    name='preprocess',
+    version='0.2.0',
     description='Python library for text preprocessing and normalization.',
     long_description=LONG_DESCRIPTION,
     url='https://github.com/sorice/preprocess',

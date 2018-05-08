@@ -2,10 +2,9 @@
 
 """Set de funciones para normalización de textos.
 Created on Wed Aug 20 2014
-Modified by analysis on Thu Aug 28 2014
-Finish on (esto espera a que termine el experimento 14)
+Modified by comparing with other normalize packs on Tue May 8 28 2018
 .. version: 0.2
-.. release: 0.2-RC1
+.. release: 0.2-RC2
 .. author: Abel Meneses abad
 """
 
@@ -17,7 +16,9 @@ from .symbols import replace as sreplace
 
 LETTERS = ''.join([string.ascii_letters,'ñÑáéíóúÁÉÍÓÚüÜ'])
 
-def urls_modification(text):
+#NORMALIZATION FUNCTIONS
+
+def replace_urls(text):
     for i in re.finditer('www\S*(?=[.]+?\s+?)|www\S*(?=\s+?)|http\S*(?=[.]+?\s+?)|http\S*(?=\s+?)',text):
         for j in range(i.start(),i.end()):
             if text[j] in string.punctuation:
@@ -27,10 +28,10 @@ def urls_modification(text):
 def replace_symbols(text):
     return sreplace(text)
 
-
-def remove_contiguous_points(text):
+def replace_point_sequence(text):
     """
-    Changes contiguous points sequences by the same amount of spaces.
+    Replace a contiguous point sequence by the same amount of 
+    whitespace.
 
     ..Note: can't be reimplemented without the finditer function.
     This expression r'(\w+)[.]\s*[.]+[\s|[.]]*' changes the sequences of points
@@ -44,15 +45,17 @@ def remove_contiguous_points(text):
                 text = text[:j]+' '+text[j+1:]
     return text
 
-def add_extra_space_for_sentence_ending_point(text):
-    """
-    Add one extra space between the last sentence letter and the ending point
-    if there isn't any, allowing an easier way of parsing sentences.
-    """
-    text = re.sub('[.]\s*\n',' .\n ',text) #Garantizo que todos los puntos al final de las oraciones seran separados por si hay algun acronimo.
-    return text
+def multipart_words(text):
+    """Hyphenated words like 'end-of-line' are called in NLP multi-part
+    words.
 
-def multi_part_words_modification(text):
+    All hyphens in multi-part words are changed by underscore 
+    character.
+
+    .. Note that syllable segmentation of reach format text add extra
+    hyphens to every text, those hyphens are removed in 
+    `replace_punctuation` function.
+    """
     text = re.sub('(\w+)[-@.](?=\w+?)','\g<1>_',text)
 
     #Added for Llanes, is under analisis if it most be here.
@@ -64,8 +67,9 @@ def multi_part_words_modification(text):
     text = re.sub('[.]["](?=\s*[.])|[.][:](?=\s*")',' ',text)
     return text
 
-def abbrev_modification(text, lang='en'):
-    """Proper names and abbrev recognition based on regular expressions.
+def abbreviations(text, lang='en'):
+    """Proper names and abbrev recognition and manipulation based on
+    regular expressions.
 
     .. Note: In the case of U_S. the function will expect you filter at the end
     of preprocessing the conditions of the dot in the expression. If a cappital
@@ -76,13 +80,11 @@ def abbrev_modification(text, lang='en'):
     #Proper names acronyms recognition and normalization
     text = re.sub('(\s[A-Z])[.](?!\n)','\g<1>_',text)
 
-    #Abbrev recognition and normalization. TODO: implement to read the list of abbrev and compose the pattern r'(abbrev1|abbrev2|etc).'
+    #Abbreviation recognition and normalization. 
+    #TODO: implement to read the list of abbrev and compose the pattern 
+    # r'(abbrev1|abbrev2|etc).'
     text = re.sub('(Lic|Ph|Corp|Ms|Ing|Dr).','\g<1>_',text)
 
-    return text
-
-def del_char_len_one(text):
-    text = re.sub('\s\w\s',' ',text)
     return text
 
 #----------------------CONTRACTIONS REPLACEMENT
@@ -111,9 +113,34 @@ def replace_punctuation(text):
     """
     Replace all punctuation characters based on patterns contained in
     punctuation script.
+
+    #TODO: program this like re.sub(pattern, repl, text).
+
     """
     punctuation = Replacer()
     text = punctuation.replace(text)
+    return text
+
+def lowercase(text):
+    """Return lowercase of string.
+    """
+    if isinstance(text,str):
+        return text.lower()
+    else:
+        print('Input must be a string')
+
+#PREPROCESSING FUNCTIONS
+
+def add_extra_space_for_sentence_ending_point(text):
+    """
+    Add an extra whitespace (if there isn't any) between the last 
+    sentence letter and the ending point, allowing an easier way 
+    of parsing all sentences by a very distinctive ending point.
+
+    This function allows to avoid acronym dots during the sentence
+    parsing subprocess.
+    """
+    text = re.sub('[.]\s*\n',' .\n ',text)
     return text
 
 def add_doc_ending_point(text):
@@ -125,7 +152,7 @@ def add_doc_ending_point(text):
 
      :Explanation:
 
-     This is a function to garantied that the las sentences have an ending
+     This is a function to garantied that the last sentence have an ending
      point. The sentence tokenization process can be standardized because every
      sentence, even the last one, have an ending point.
 
@@ -153,10 +180,14 @@ def add_doc_ending_point(text):
 
      return text
 
-def lowercase(text):
-    """Return lowercase of string.
+def del_char_len_one(text):
+    """Delete tokens with length = 1.
+
+    This is kind of a basic stopword filtering.
     """
-    if isinstance(text,str):
-        return text.lower()
-    else:
-        print('Input must be a string')
+    text = re.sub('\s\w\s',' ',text)
+    return text
+
+#TODO: implement Deep Learning to sentence parsing.
+
+#TODO: implement collocations based on nltk

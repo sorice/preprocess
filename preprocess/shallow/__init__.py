@@ -3,26 +3,32 @@ import os
 from nose import SkipTest
 import preprocess
 
+#TODO add the rest of shallow techniques
+from ..normalize import lowercase
+
+#TODO add underscore to all variables in the __init__.py to avoid
+#tab completion.
+
 #This dict strategy is based on sklearn.metrics.pairwaise code example
-TECHNIQUES = {}
+TECHNIQUES = {'lowercase':lowercase}
 __techniques__ = {}
 
 config = ConfigParser()
 config.read(preprocess.__path__[0]+'/cfg/stanford.cfg')
 
 #Import nltk distances from ~/nltk/metric/distance.py and modify after with decorators
-NLTKImportError = False
+_NLTKImportError = False
 StanfordParserImportError = False
 StanfordPOSTaggerModelJar = False
 
 try: #check if NLTK is installed
     import nltk
 except ImportError:
-    NLTKImportError = True
+    _NLTKImportError = True
     print("NLTK package isn't installed.")
     pass
 finally:    #check if NLTK Stanford parser is installed.
-    if not NLTKImportError:
+    if not _NLTKImportError:
         from .techniques import remove_stopwords
         TECHNIQUES['remove_stopwords'] = remove_stopwords
         try:
@@ -59,9 +65,10 @@ finally:    #check if NLTK Stanford parser is installed.
 
 # append all verified techniques in module importing argument ALL
 __all__ = []
+
 for technique in TECHNIQUES:
 	__all__.append(technique)
-    __techniques__[technique] = TECHNIQUES[technique]
+	__techniques__[technique] = TECHNIQUES[technique]
 
 #TODO __techniques__ = {}
 
