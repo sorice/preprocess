@@ -191,5 +191,5 @@ class Pipeline():
     steps = {
     urls: True,
     abbrev: True,
-    contractions = False,
+    contractions: False,
     }

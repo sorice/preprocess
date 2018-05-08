@@ -5,6 +5,7 @@ import preprocess
 
 #This dict strategy is based on sklearn.metrics.pairwaise code example
 TECHNIQUES = {}
+__techniques__ = {}
 
 config = ConfigParser()
 config.read(preprocess.__path__[0]+'/cfg/stanford.cfg')
@@ -43,14 +44,15 @@ finally:    #check if NLTK Stanford parser is installed.
                     st = StanfordPOSTagger(model_filename=stanford_pos_eng_model, path_to_jar=stanford_pos_jar)
                     StanfordPOSTaggerModelJar = True
                 except LookupError:
-                    raise SkipTest('Loading Stanford POS Tagging because one of the stanford parser or CoreNLP jars doesn\'t exist')
+                    print('Loading Stanford POS Tagging because one of the stanford parser or CoreNLP jars doesn\'t exist')
+                    pass
 
                 if StanfordPOSTaggerModelJar:
                     from .techniques import pos
 
-
-#This dict strategy is based on sklearn.metrics.pairwaise code example
-TECHNIQUES['pos'] = pos
+                    #This dict strategy is based on sklearn.metrics.pairwaise code example
+                    TECHNIQUES['pos'] = pos
+                    
 
 #After compute performance results, default techniques are stablished.
 #from .distances import levenshtein_similarity_jellyfish as levenshtein_similarity #TODO change this
@@ -59,10 +61,9 @@ TECHNIQUES['pos'] = pos
 __all__ = []
 for technique in TECHNIQUES:
 	__all__.append(technique)
+    __techniques__[technique] = TECHNIQUES[technique]
 
-__techniques__ = {
-'POS':pos,
-}
+#TODO __techniques__ = {}
 
 __not_implemented__ = [
     ''
