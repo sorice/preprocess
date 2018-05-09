@@ -14,6 +14,8 @@ Finish on
 from collections import defaultdict
 from nltk.tree import Tree
 from collections import deque
+from nltk.util import skipgrams as nltk_skipgrams
+from .decorators import Appender
 
 def get_dict_from_list(dicc,lista, nivel,head_nodes):
     pendents = []
@@ -80,7 +82,7 @@ def get_j_from_list(j,bi_grams):
         if j == tupla[1]:
             return tupla[0]
 
-def sn_grams(st, text,n=2):
+def sngrams(st, text,n=2):
 
     SYNT = [parse.tree() for parse in st.raw_parse(text)]
     SYNT1 = [list(parse.triples()) for parse in st.raw_parse(text)]
@@ -203,4 +205,9 @@ def ngrams(text,n=2,gram_type='tokens',multioutput='raw_value'):
     else:
         raise Exception("Not possible, n must be longer than total words.")
 
-#TODO locate or implement char ngrams join with token ngrams.
+@Appender(nltk_skipgrams.__doc__)
+def skipgrams(text,n,k, gram_type='tokens'):
+    if gram_type == 'tokens':
+        return nltk_skipgrams(text.split(),n,k)
+    else:
+        return nltk_skipgrams(text,n,k)

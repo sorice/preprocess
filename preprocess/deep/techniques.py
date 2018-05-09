@@ -20,7 +20,7 @@ __author__ = 'Abel Meneses-Abad'
 from configparser import ConfigParser
 import preprocess
 import os
-from ..utils import sn_grams
+from ..utils import sngrams
 
 #TODO verify what happen if nltk there is not.
 try:
@@ -117,10 +117,10 @@ def syntdep(text, lang='en', interface='stanford', multioutput='triplet_list', N
                default = stanford
 
     multioutput: Format type of the output.
-                 string in ['triplet_list','triplet_list_tag' , 'sn_grams']
+                 string in ['triplet_list','triplet_list_tag' , 'sngrams']
                  * triplet list - Original stanford output [(word,dep-tag,word)]
                  * triplet list tag - Stanford output [(POS-tag,dep-tag,POS-tag)]
-                 * sn_grams - Syntactic N-grams based on [Sidorov2012]_.
+                 * sngrams - Syntactic N-grams based on [Sidorov2012]_.
 
     N: length of N-grams
 
@@ -163,14 +163,14 @@ def __stanford_parser(text,lang='en',multioutput='triplet_list', N=2):
         triplet_list.append((governor[0],relation,dependent[0]))
         triplet_list_tag.append((governor[1],relation,dependent[1]))
 
-    sn_gram = sn_grams(st, text,N)
+    sn_gram = sngrams(st, text,N)
 
     if isinstance(multioutput, str):
         if multioutput == 'triplet_list':
             return triplet_list
         if multioutput == 'triplet_list_tag':
             return triplet_list_tag
-        if multioutput == 'sn_grams':
+        if multioutput == 'sngrams':
             return sn_gram
 
 #TODO: Semantic Role Labeling

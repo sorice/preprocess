@@ -6,4 +6,4 @@ abbr recognition, stopword filter, lemmatization,
 part of speech tagging.
 """
 
-from .ngrams import sn_grams
+from .ngrams import ngrams, skipgrams, sngrams
