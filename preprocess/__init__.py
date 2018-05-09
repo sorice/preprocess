@@ -20,7 +20,7 @@ from .normalize import del_char_len_one
 
 
 #from preprocess.techniques import shallow
-from preprocess.shallow import lowercase
+from preprocess.shallow import lowercase,ngrams
                                 
 
 #from preprocess.techniques import deep

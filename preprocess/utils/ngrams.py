@@ -13,6 +13,7 @@ Finish on
 
 from collections import defaultdict
 from nltk.tree import Tree
+from collections import deque
 
 def get_dict_from_list(dicc,lista, nivel,head_nodes):
     pendents = []
@@ -144,3 +145,49 @@ def sn_grams(st, text,n=2):
         return sn_grams
 
 #TODO: optimization of this script making experimentation inside the Notebook of my NLP course "Synt..."
+
+# Set of util functions for n-gram generation
+def _make_ngrams(l, n):
+    """Auxiliar ngrams generation func."""
+    rez = [l[i:(-n + i + 1)] for i in range(n - 1)]
+    rez.append(l[n - 1:])
+    return zip(*rez)
+
+def _ngram_split(text,n):
+    ngram = ''
+    gram_count = 0
+    for i,word in enumerate(text.split(),1):
+        if gram_count-n == -1 and i > n:
+            ngram = ngram[ngram.find(' ')+1:]
+        ngram += word+' '; gram_count+=1
+        if gram_count == n:
+            gram_count -= 1
+            yield ngram
+
+def _ngrams(text,n):
+    ngrams = []
+    ngrams.__iadd__(_ngram_split(text,n))
+    return ngrams
+
+def ngrams(text,n=2,multioutput='raw_value'):
+    """Generate the list of n-grams.
+
+     Parameters
+    ----------
+    text: string to parse, generally a sentence.
+
+    multioutput: Format type of the output.
+                 string in ['raw_value', 'tuple_list']
+                 * raw value - list of n-grams in string format. Eg: 'a b c'
+                 * tuple list - list of n-grams in tuple format.
+                 Eg: ('a','b','c')
+    """
+    if len(text.split()) >= n:
+        if multioutput == 'raw_value':
+            return _ngrams(text,n)
+        elif multioutput == 'tuple_list':
+            return deque(_make_ngrams(text.split(),n))
+    else:
+        raise Exception("Not possible, n must be longer than total words.")
+
+#TODO locate or implement char ngrams join with token ngrams.

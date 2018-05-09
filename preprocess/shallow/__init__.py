@@ -2,6 +2,7 @@ from configparser import ConfigParser
 import os
 from nose import SkipTest
 import preprocess
+from ..utils.ngrams import ngrams
 
 #TODO add the rest of shallow techniques
 from ..normalize import lowercase
@@ -10,7 +11,9 @@ from ..normalize import lowercase
 #tab completion.
 
 #This dict strategy is based on sklearn.metrics.pairwaise code example
-TECHNIQUES = {'lowercase':lowercase}
+TECHNIQUES = {'lowercase':lowercase,
+              'ngrmas':ngrams,
+              }
 __techniques__ = {}
 
 config = ConfigParser()
