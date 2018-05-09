@@ -169,12 +169,19 @@ def _ngrams(text,n):
     ngrams.__iadd__(_ngram_split(text,n))
     return ngrams
 
-def ngrams(text,n=2,multioutput='raw_value'):
+def _chargrams(s,n):
+    """Generate character n-grams."""
+    return [s[i:i+n] for i in range(len(s)-n+1)]
+
+def ngrams(text,n=2,gram_type='tokens',multioutput='raw_value'):
     """Generate the list of n-grams.
 
      Parameters
     ----------
     text: string to parse, generally a sentence.
+
+    gram_type: Select the type of grams.
+               string in ['chars', 'tokens']
 
     multioutput: Format type of the output.
                  string in ['raw_value', 'tuple_list']
@@ -184,9 +191,15 @@ def ngrams(text,n=2,multioutput='raw_value'):
     """
     if len(text.split()) >= n:
         if multioutput == 'raw_value':
-            return _ngrams(text,n)
+            if gram_type == 'char':
+                return _chargrams(text,n)
+            else:
+                return _ngrams(text,n)
         elif multioutput == 'tuple_list':
-            return deque(_make_ngrams(text.split(),n))
+            if gram_type == 'char':
+                return deque(_make_ngrams(text,n))
+            else:
+                return deque(_make_ngrams(text.split(),n))
     else:
         raise Exception("Not possible, n must be longer than total words.")
 
