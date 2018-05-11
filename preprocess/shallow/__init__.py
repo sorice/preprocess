@@ -5,15 +5,33 @@ import preprocess
 from ..utils.ngrams import ngrams
 
 #TODO add the rest of shallow techniques
-from ..normalize import lowercase
+from ..normalize import (lowercase, replace_urls, replace_symbols,
+                        replace_point_sequence, multipart_words,
+                        abbreviations, expand_contractions,
+                        replace_punctuation,
+                        extraspace_for_endingpoints,
+                        add_doc_ending_point,
+                        del_char_len_one)
 
 #TODO add underscore to all variables in the __init__.py to avoid
 #tab completion.
 
 #This dict strategy is based on sklearn.metrics.pairwaise code example
-TECHNIQUES = {'lowercase':lowercase,
-              'ngrmas':ngrams,
-              }
+TECHNIQUES = {
+    'lowercase':lowercase,
+    'ngrmas':ngrams,
+    'replace_urls':replace_urls,
+    'replace_symbols':replace_symbols,
+    'replace_point_sequence':replace_point_sequence,
+    'multipart_words':multipart_words,
+    'abbreviations':abbreviations,
+    'expand_contractions':expand_contractions,
+    'replace_punctuation':replace_punctuation,
+    'extraspace_for_endingpoints':extraspace_for_endingpoints,
+    'add_doc_ending_point':add_doc_ending_point,
+    'del_char_len_one':del_char_len_one
+    }
+
 __techniques__ = {}
 
 config = ConfigParser()
@@ -72,8 +90,6 @@ __all__ = []
 for technique in TECHNIQUES:
 	__all__.append(technique)
 	__techniques__[technique] = TECHNIQUES[technique]
-
-#TODO __techniques__ = {}
 
 __not_implemented__ = [
     ''

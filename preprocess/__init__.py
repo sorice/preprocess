@@ -14,7 +14,7 @@ from .normalize import abbreviations
 from .normalize import expand_contractions
 from .normalize import replace_punctuation
 from .normalize import lowercase
-from .normalize import add_extra_space_for_sentence_ending_point
+from .normalize import extraspace_for_endingpoints
 from .normalize import add_doc_ending_point
 from .normalize import del_char_len_one
 
@@ -25,3 +25,5 @@ from preprocess.shallow import lowercase,ngrams
 
 #from preprocess.techniques import deep
 from preprocess.deep import ner, syntdep
+
+from preprocess.utils import pipeline

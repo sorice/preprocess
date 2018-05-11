@@ -12,8 +12,14 @@ Finish on
 """
 
 import re
-from preprocess.methods import add_text_end_dot, abbrev_recognition_support
-from preprocess.methods import contiguos_string_recognition_support, del_contiguous_point_support
+from ..normalize import (add_doc_ending_point, abbreviations,
+                    multipart_words, replace_point_sequence)
+
+from preprocess import shallow
+from preprocess import deep
+#stechs,dtechs = {},{}
+
+from collections import OrderedDict
 
 def read_name_files_in_path(path=None):
     """Return a list with the file's names on a path."""
@@ -165,14 +171,15 @@ def extra_normalize(text_orig):
     for (pattern, repl) in replacement_patterns:
             (text_orig, count) = re.subn(pattern, repl, text_orig)
 
-    text_orig = del_contiguous_point_support(text_orig)
-    text_orig = contiguos_string_recognition_support(text_orig)
-    text_orig = abbrev_recognition_support(text_orig)
+    text_orig = replace_point_sequence(text_orig)
+    text_orig = multipart_words(text_orig)
+    text_orig = abbreviations(text_orig)
     text_orig = re.sub(r'apdbx+','.', text_orig)
-    text_orig = add_text_end_dot(text_orig)#append . final si el último caracter no tiene punto, evita un ciclo infinito al final.
+    text_orig = add_doc_ending_point(text_orig)#append . final si el último caracter no tiene punto, evita un ciclo infinito al final.
     return text_orig
 
 def jaccard(text1,text2):
+    """Temporal self implementation of jaccard to apply while aligning sentences."""
     sentA1 = re.sub(r'[!"#$%&()\'*+,-/:;<=>?@\\^_`{|}~.\[\]]',' ', text1)
     sentB1 = re.sub(r'[!"#$%&()\'*+,-/:;<=>?@\\^_`{|}~.\[\]]',' ', text2)
     setA = set(sentA1.split())
@@ -182,14 +189,52 @@ def jaccard(text1,text2):
     else:
         return len(setA.intersection(setB))/float(len(setA.union(setB))), sentA1, sentB1
 
-class Pipeline():
-    """An easier function or class that allow to make a full Pipeline
-    with the parameters that user wants. This will be implemented in version 2.0
+def pipeline(text,flow=None):
+    """An easier function that allows to make a full Pipeline
+    with the subprocess that users wants. Read the restriction-
+    matrix to see what sequences of subprocess are imppossible.
 
-    TODO: review sklearn Pipeline class to take ideas about how to do it.
+    Parameters
+    ----------
+    text: string to parse, generally a sentence.
+
+    steps: string list with the ordered sequence of subprocesses to
+        apply.
+
+    Returns
+    -------
+
+    parsed result : string output
+
+    TODO: make a matrix to restrict impossible sequences.
     """
-    steps = {
-    urls: True,
-    abbrev: True,
-    contractions: False,
-    }
+
+    steps = OrderedDict()
+    bad_steps = []
+
+    DEFAULT_FLOW = ['replace_urls','abbreviations','expand_contractions']
+
+    #If flow is not defined do the default flow.
+    if flow is None:
+        print('pasé x aki')
+        return pipeline(text,DEFAULT_FLOW)
+
+    #If flow is defined check the functions
+    for step in flow:
+        if step in shallow.__techniques__:
+            steps[step]=shallow.__techniques__[step]
+        elif step in deep.__techniques__:
+            steps[step]=deep.__techniques__[step]
+        else:
+            bad_steps.append(step)
+
+    #TODO:Check if the order is possible in the matrix of possible
+    #sequences
+
+    #Apply correct functions
+    for step in steps:
+        text = steps[step](text)
+    print('The following steps are not correct:', bad_steps)
+    return text
+
+#TODO: to separate all this functions in different utils/<concept>.py

@@ -19,7 +19,7 @@ LETTERS = ''.join([string.ascii_letters,'ñÑáéíóúÁÉÍÓÚüÜ'])
 #NORMALIZATION FUNCTIONS
 
 def replace_urls(text):
-    for i in re.finditer('www\S*(?=[.]+?\s+?)|www\S*(?=\s+?)|http\S*(?=[.]+?\s+?)|http\S*(?=\s+?)',text):
+    for i in re.finditer('www\S*(?=[.]+?\s+?|[.]\Z|\w\s)|http\S*(?=[.]+?\s+?|[.]\Z|\w\s)',text):
         for j in range(i.start(),i.end()):
             if text[j] in string.punctuation:
                 text = text[:j]+'_'+text[j+1:]
@@ -33,7 +33,7 @@ def replace_point_sequence(text):
     Replace a contiguous point sequence by the same amount of 
     whitespace.
 
-    ..Note: can't be reimplemented without the finditer function.
+    ..Note: it can't be reimplemented without the finditer function.
     This expression r'(\w+)[.]\s*[.]+[\s|[.]]*' changes the sequences of points
     but it is impossible to handle the number of white spaces.
     This functions it is used latter for the alignment process after normalization.
@@ -131,7 +131,7 @@ def lowercase(text):
 
 #PREPROCESSING FUNCTIONS
 
-def add_extra_space_for_sentence_ending_point(text):
+def extraspace_for_endingpoints(text):
     """
     Add an extra whitespace (if there isn't any) between the last 
     sentence letter and the ending point, allowing an easier way 

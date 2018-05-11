@@ -46,21 +46,25 @@ $ pip install preprocess
 # Basic Usage
 
 ```python
-import preprocess
-preprocess.lowercase('Stanford parser was created by Stanford University')
-
+>>> import preprocess
+>>> preprocess.lowercase('Stanford parser was created by Stanford University')
 'stanford parser was created by stanford university'
 ```
 
 Basic usage includes the following functions:
 
-* lowercase 
+* lowercase, replace_urls, abbreviations, expand_contractions, ngrams
+* replace_symbols: based on recognition of unicode & utf8 representations of Greek symbols, etc. 
 * replace_punctuation: based on punctuation regular expressions
-* whitespace 
+* multipart_words: or hyphenated expressions.
+* some non-classical text manipulation operations like made for easy parsing of text obtained from pdfs:
+  * extraspace_for_endingpoints: add an extra whitespace before the ending point of a sentence.
+  * add_doc_ending_point: check if the last sentence of a doc ends with a dot, if not add it.
+  * del_char_len_one: a primarily way to make stopword removal
 
 Advanced usage includes the following functions:
 
-* pos, ner, syntdp
+* pos, ner, syntdp, sngrams, remove_stopword
 
 # Advanced Usage 
 
@@ -117,4 +121,15 @@ models <- your extracted models
 
 # Future
 
-Future
+The future changes of this library are based in the initial objectives:
+
+- A __pure python library__: at this version the Stanford models dependency, developed in java,  made this milestone impossible.
+  - The future: replace with spacy, or pntl or any other self deep learning tagging implementation with a free and professional collection of texts.
+- __Optimization__ to get better times in processing big collections of data: many functions are in pure python:
+  - The future: implement pure python funcs in cython or rust.
+- __Standard Input__: many libraries, ideas or codes reused in this library have different ways to get the inputs (numerical vectors, strings, set of words, etc), the objective is to pass a simple string or a well known _ObjectType_ like _TfIdfModel_.
+  - The future: check if the input is a string distance and with a decorator change all kind of object type to string.
+- __Low_weight__: to have the less possible dependencies for academical or commercial use deployment.
+  - The future: avoid the nltk dependency or any other, reusing the necessary code and fixing them to integrate them on _preprocess architecture_.
+- __Integration__: add every preprocessing technique mentioned in the papers of SEMEVAL or CLEF to solve _Reused Text Detection_ or _Semantic Text Similiarity_, and other fundamental papers in this area.
+  - The future: add a complete set of cites about all techniques, and link them with its correspondent function on the library.

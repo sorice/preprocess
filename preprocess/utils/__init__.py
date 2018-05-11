@@ -7,3 +7,4 @@ part of speech tagging.
 """
 
 from .ngrams import ngrams, skipgrams, sngrams
+from .others import pipeline 
