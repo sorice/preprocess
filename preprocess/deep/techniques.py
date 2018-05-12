@@ -20,7 +20,7 @@ __author__ = 'Abel Meneses-Abad'
 from configparser import ConfigParser
 import preprocess
 import os
-from ..utils import sngrams
+from preprocess.utils import ngrams
 
 #TODO verify what happen if nltk there is not.
 try:
@@ -163,7 +163,7 @@ def __stanford_parser(text,lang='en',multioutput='triplet_list', N=2):
         triplet_list.append((governor[0],relation,dependent[0]))
         triplet_list_tag.append((governor[1],relation,dependent[1]))
 
-    sn_gram = sngrams(st, text,N)
+    sn_gram = ngrams.sngrams(st, text,N)
 
     if isinstance(multioutput, str):
         if multioutput == 'triplet_list':

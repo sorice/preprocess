@@ -16,12 +16,11 @@ from .normalize import replace_punctuation
 from .normalize import lowercase
 from .normalize import extraspace_for_endingpoints
 from .normalize import add_doc_ending_point
-from .normalize import del_char_len_one
+from .normalize import del_tokens_len_one
 
 
 #from preprocess.techniques import shallow
 from preprocess.shallow import lowercase,ngrams
-                                
 
 #from preprocess.techniques import deep
 from preprocess.deep import ner, syntdep

@@ -180,7 +180,7 @@ def add_doc_ending_point(text):
 
      return text
 
-def del_char_len_one(text):
+def del_tokens_len_one(text):
     """Delete tokens with length = 1.
 
     This is kind of a basic stopword filtering.

@@ -98,9 +98,7 @@ def __stanford_pos(text,lang='en',multioutput='raw_value'):
 def remove_stopwords(text, lang='en', stops_path='', ignore_case = True):
     """Remove stopwords based on language.
 
-    :Software:
-
-    Based on Normalizr package.
+    :Software: Based on Normalizr package remove_stop_words.
     """
     if stops_path:
         stop_words = set(open(stops_path+'/'+lang+'txt').read().split())

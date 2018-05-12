@@ -16,6 +16,14 @@ from nltk.tree import Tree
 from collections import deque
 from nltk.util import skipgrams as nltk_skipgrams
 from .decorators import Appender
+from .others import pipeline
+
+_nltk_stopwords = False
+try:
+    from nltk.corpus import stopwords
+    _nltk_stopwords = True
+except:
+    pass
 
 def get_dict_from_list(dicc,lista, nivel,head_nodes):
     pendents = []
@@ -211,3 +219,51 @@ def skipgrams(text,n,k, gram_type='tokens'):
         return nltk_skipgrams(text.split(),n,k)
     else:
         return nltk_skipgrams(text,n,k)
+
+def contextual_ngrams(text,n,multioutput='raw_value'):
+    """Generates a special kind of ngrams also called CTnG.
+
+    This ngrams are formed by sorting first the words, then removing
+    stopwords and tokens of length one, stemming and sorting the 
+    ngrams.
+
+    :Citation:
+
+    .. [RdguezTorrejon2010b] Diego A. Rodríguez Torrejon & 
+    José Manuel Martín Ramos. (2010b). 
+    Detección de plagio en documentos. Sistema externo monolingüe de 
+    altas prestaciones basado en n-gramas contextuales. 
+    Procesamiento del Lenguaje Natural, 45:49–57
+
+    """
+    temp_text = sorted(text.split())
+    text = ' '.join(word for word in temp_text)
+    flow = ['remove_stopwords','del_tokens_len_one','stemming']
+    text = pipeline(text,flow)
+    text = ngrams(text,n,multioutput=multioutput)
+    return sorted(text)
+
+def stopword_ngrams(text,n, lang='en', stops_path='',multioutput='raw_value'):
+    """Ngrams obtained filtering all non stopwords also called SWNG.
+
+    :Citation:
+
+    ..  [Stamatatos2011b] Stamatatos, Efstathios (2011).
+    Plagiarism Detection Using Stopword n-grams.
+    Journal of the American Society for Information Science 
+    and Technology, 62(12):2512–2527.
+    """
+    stop_words = set()
+    try:
+        stop_words = set(open(stops_path+'/'+lang+'txt').read().split())
+    except:
+        pass
+    if _nltk_stopwords and len(stop_words)==0:
+        stop_words = set(stopwords.words(lang))
+    else:
+        print('There are not stopword corpus available.')
+        return
+    return ngrams(' '.join(
+        word for word in text.split(' ') if word.lower() in stop_words),n,multioutput=multioutput)
+
+#TODO: add a global variable to get stopword files

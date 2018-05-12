@@ -60,11 +60,11 @@ Basic usage includes the following functions:
 * some non-classical text manipulation operations like made for easy parsing of text obtained from pdfs:
   * extraspace_for_endingpoints: add an extra whitespace before the ending point of a sentence.
   * add_doc_ending_point: check if the last sentence of a doc ends with a dot, if not add it.
-  * del_char_len_one: a primarily way to make stopword removal
+  * del_tokens_len_one: a primarily way to make stopword removal
 
 Advanced usage includes the following functions:
 
-* pos, ner, syntdp, sngrams, remove_stopword
+* pos, ner, syntdp, sngrams, remove_stopword, contextual_ngrams, stopword_ngrams
 
 # Advanced Usage 
 
