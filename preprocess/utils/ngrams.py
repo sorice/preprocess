@@ -266,4 +266,5 @@ def stopword_ngrams(text,n, lang='en', stops_path='',multioutput='raw_value'):
     return ngrams(' '.join(
         word for word in text.split(' ') if word.lower() in stop_words),n,multioutput=multioutput)
 
-#TODO: add a global variable to get stopword files
+#TODO: add a global variable (on preprocess.__init.py__) to get 
+# stopword files in all files

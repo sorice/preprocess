@@ -22,11 +22,14 @@ __author__ = 'Abel Meneses-Abad'
 from configparser import ConfigParser
 import preprocess
 import os
+from preprocess.shallow import LANGUAGES
 
 #TODO verify what happen if nltk there is not.
 try:
     from nltk.corpus import stopwords
     from nltk.tag import StanfordPOSTagger
+    from nltk.stem import SnowballStemmer
+    from nltk.stem import WordNetLemmatizer
 except:
     pass
 
@@ -107,6 +110,38 @@ def remove_stopwords(text, lang='en', stops_path='', ignore_case = True):
 
     return ' '.join(
             word for word in text.split(' ') if (word.lower() if ignore_case else word) not in stop_words)
+
+def stemming(text, lang='en'):
+    """Stem words based in Snowball algorithm.
+    """
+    stemmer = SnowballStemmer(LANGUAGES[lang])
+    return ' '.join(stemmer.stem(word) for word in text.split())
+
+POS_LIST = {
+    'ADJ':'a',
+    'ADJ_SAT':'s',
+    'ADV':'r',
+    'NOUN':'n',
+    'VERB':'v',
+}
+
+def lemmatization(text, lang='en', input_type='str'):
+    """Lemmatize words based on WordNet corpus.
+    """
+    lemmatizer = WordNetLemmatizer()
+    if input_type == 'str':
+        return  ' '.join(lemmatizer.lemmatize(word) for word in text.split())
+    elif input_type == 'tuple_list':
+        new_text = ''
+        for word,POS in text:
+            if POS in POS_LIST:
+                print('toy aquí')
+                new_text += lemmatizer.lemmatize(word,POS_LIST[POS])+' '
+            else:
+                new_text += word + ' '
+        return  new_text
+
+#TODO:the nltk.wordnet.exceptions for nouns is not working test with happiness RESULT must be happy
 
 #TODO Search the Pattern not installed Warning to see how to program a missing installed library
 

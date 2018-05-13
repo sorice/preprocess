@@ -2,7 +2,7 @@ from configparser import ConfigParser
 import os
 from nose import SkipTest
 import preprocess
-from ..utils.ngrams import ngrams,sngrams, skipgrams, stopword_ngrams, contextual_ngrams
+from ..utils.ngrams import ngrams,sngrams, stopword_ngrams, contextual_ngrams
 
 #TODO add the rest of shallow techniques
 from ..normalize import (lowercase, replace_urls, replace_symbols,
@@ -15,6 +15,11 @@ from ..normalize import (lowercase, replace_urls, replace_symbols,
 
 #TODO add underscore to all variables in the __init__.py to avoid
 #tab completion.
+
+LANGUAGES = {
+    'en':'english',
+    'es':'spanish',
+}
 
 #This dict strategy is based on sklearn.metrics.pairwaise code example
 TECHNIQUES = {
@@ -35,6 +40,13 @@ TECHNIQUES = {
     'contextual_ngrams':contextual_ngrams,
     }
 
+#TODO: sngrams depend on stanford models; stopword_ngrams depend on
+# nltk_data stopwords files; contextual_ngrams depend on nltk_data 
+# stopwords file and stemming SnowballStemmer class of nltk
+# add this techniques to try/except routines; stemming depends on
+# nltk_data wordnet corpus and stem.WordNetLemmatizer class.
+
+
 __techniques__ = {}
 
 config = ConfigParser()
@@ -53,8 +65,12 @@ except ImportError:
     pass
 finally:    #check if NLTK Stanford parser is installed.
     if not _NLTKImportError:
-        from .techniques import remove_stopwords
+        from .techniques import remove_stopwords, stemming, lemmatization
+        from ..utils.ngrams import skipgrams
         TECHNIQUES['remove_stopwords'] = remove_stopwords
+        TECHNIQUES['stemming'] = stemming
+        TECHNIQUES['skipgrams'] = skipgrams
+        TECHNIQUES['lemmatization'] = lemmatization
         try:
             from nltk.parse.stanford import StanfordParser
         except ImportError:
@@ -84,11 +100,12 @@ finally:    #check if NLTK Stanford parser is installed.
                     TECHNIQUES['pos'] = pos
                     
 
-#After compute performance results, default techniques are stablished.
-#from .distances import levenshtein_similarity_jellyfish as levenshtein_similarity #TODO change this
+# After compute performance results, default techniques are stablished.
+# from .distances import levenshtein_similarity_jellyfish as levenshtein_similarity #TODO change this
+# like in textsim pack when spacy funcs will be test it. 
 
 # append all verified techniques in module importing argument ALL
-__all__ = []
+__all__ = [LANGUAGES]
 
 for technique in TECHNIQUES:
 	__all__.append(technique)
