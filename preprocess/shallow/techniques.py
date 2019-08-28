@@ -125,23 +125,20 @@ POS_LIST = {
     'VERB':'v',
 }
 
-def lemmatization(text, lang='en', input_type='str'):
+def lemmatization(text, lang='en', input_type='raw_value'):
     """Lemmatize words based on WordNet corpus.
     """
     lemmatizer = WordNetLemmatizer()
-    if input_type == 'str':
+    if input_type == 'raw_value':
         return  ' '.join(lemmatizer.lemmatize(word) for word in text.split())
     elif input_type == 'tuple_list':
         new_text = ''
         for word,POS in text:
             if POS in POS_LIST:
-                print('toy aquí')
                 new_text += lemmatizer.lemmatize(word,POS_LIST[POS])+' '
             else:
                 new_text += word + ' '
         return  new_text
-
-#TODO:the nltk.wordnet.exceptions for nouns is not working test with happiness RESULT must be happy
 
 #TODO Search the Pattern not installed Warning to see how to program a missing installed library
 

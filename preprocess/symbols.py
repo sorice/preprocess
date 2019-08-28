@@ -1,5 +1,7 @@
 #!/usr/bin/env python 3.5
 
+import re
+
 def replace(text):
     """
     Replace none common symbols by more common similar char, symbols or tokens.

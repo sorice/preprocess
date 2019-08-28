@@ -66,7 +66,7 @@ X    other: foreign words, typos, abbreviations
 #Func parse_tags based on scipy.constants.parse_constants
 
 def parse_tags(d):
-    """pendent function for future tags not included in nltk_data/taggers/"""
+    """pendent function for future tags not included in nltk_data/taggers/. Eg my-own-tagset"""
     tags = {}
     for line in d.split('\n'):
         name = line[:55].rstrip()

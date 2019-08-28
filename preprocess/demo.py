@@ -17,7 +17,7 @@ def preProcessFlow(text):
     text = replace_point_sequence(text)
     #print ('cleaning contiguous dots\n',text)
 
-    text = add_extra_space_for_sentence_ending_point(text)
+    text = extraspace_for_endingpoints(text)
 
     text = abbreviations(text)
     #print ('abbrev recognition and normalization\n',text)
