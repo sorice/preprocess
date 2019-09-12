@@ -32,6 +32,7 @@ def replace(text):
     text = re.sub(u'\u2217','*',text) #Asterisco.
     text = re.sub(u'\u200b|\u21a8',' ',text) #Espacio en blanco o algo así.
     text = re.sub(u'\x0c','\n',text) #Caracter de control aparece a veces al inicio de un epígrafe
+    text = re.sub(u'\x13',' ',text) #Caracter de control
 
     #Based on letters
     text = re.sub(u'\ufb01','fi',text) #Error que introduce pdf2txt en el string 'fi'
@@ -41,41 +42,41 @@ def replace(text):
     #Todo: faltan más letras pero en Getting Real no están.
 
     #Greek symbols
-    text = re.sub(u'\u03bb','Lambda',text) #Letras griegas.
-    text = re.sub(u'\u03b8|\u0398','Theta',text) #Letras griegas.
-    text = re.sub(u'\u03bc','My',text) #Letras griegas.
-    text = re.sub(u'\u03b5|\u0395|\u03ad','Epsilon',text) #Letras griegas.
-    text = re.sub(u'\u03b1','Alfa',text) #Letras griegas.
-    text = re.sub(u'\u03b4|\u0394','Delta',text) #Letras griegas.
-    text = re.sub(u'\u03b9','Iota',text) #Letras griegas.
-    text = re.sub(u'\u03ba|\u039a','Kappa',text) #Letras griegas.
-    text = re.sub(u'\u03bd','Ny',text) #Letras griegas.
-    text = re.sub(u'\u03c0','Pi',text) #Letras griegas.
-    text = re.sub(u'\u03c1','Ro',text) #Letras griegas.
-    #~ text = re.sub(u'\u03c2','P',text) #Letras griegas.
-    text = re.sub(u'\u03c3|\u03a3','Sigma',text) #Letras griegas.
-    text = re.sub(u'\u03c4','Tau',text) #Letras griegas.
-    text = re.sub(u'\u03c5','Ipsilon',text) #Letras griegas.
-    text = re.sub(u'\u03c6|\u03a6','Fi',text) #Letras griegas.
-    text = re.sub(u'\u03c9|\u03a9','Omega',text) #Letras griegas.
-    text = re.sub(u'\u03cc|\u03bf','Omicron',text) #Letras griegas.
-    text = re.sub(u'\u03c2','Dseta',text) #Letras griegas.
+    # text = re.sub(u'\u03bb','Lambda',text) #Letras griegas.
+    # text = re.sub(u'\u03b8|\u0398','Theta',text) #Letras griegas.
+    # text = re.sub(u'\u03bc','My',text) #Letras griegas.
+    # text = re.sub(u'\u03b5|\u0395|\u03ad','Epsilon',text) #Letras griegas.
+    # text = re.sub(u'\u03b1','Alfa',text) #Letras griegas.
+    # text = re.sub(u'\u03b4|\u0394','Delta',text) #Letras griegas.
+    # text = re.sub(u'\u03b9','Iota',text) #Letras griegas.
+    # text = re.sub(u'\u03ba|\u039a','Kappa',text) #Letras griegas.
+    # text = re.sub(u'\u03bd','Ny',text) #Letras griegas.
+    # text = re.sub(u'\u03c0','Pi',text) #Letras griegas.
+    # text = re.sub(u'\u03c1','Ro',text) #Letras griegas.
+    # #~ text = re.sub(u'\u03c2','P',text) #Letras griegas.
+    # text = re.sub(u'\u03c3|\u03a3','Sigma',text) #Letras griegas.
+    # text = re.sub(u'\u03c4','Tau',text) #Letras griegas.
+    # text = re.sub(u'\u03c5','Ipsilon',text) #Letras griegas.
+    # text = re.sub(u'\u03c6|\u03a6','Fi',text) #Letras griegas.
+    # text = re.sub(u'\u03c9|\u03a9','Omega',text) #Letras griegas.
+    # text = re.sub(u'\u03cc|\u03bf','Omicron',text) #Letras griegas.
+    # text = re.sub(u'\u03c2','Dseta',text) #Letras griegas.
 
 
     #Math symbols
-    text = re.sub(u'\u2260',' no-igual ',text) #desigual.
-    text = re.sub(u'\u2229',' intersect ',text) #.
-    text = re.sub(u'\u2264',' menor-o-igual ',text) #.
-    text = re.sub(u'\u2265',' mayor-o-igual ',text) #.
-    text = re.sub(u'\u2208',' existe ',text) #.
-    text = re.sub(u'\u211d',' reales ',text) #.
-    text = re.sub(u'\u2248',' aproximadamente-igual-a ',text) #.
+    # text = re.sub(u'\u2260',' no-igual ',text) #desigual.
+    # text = re.sub(u'\u2229',' intersect ',text) #.
+    # text = re.sub(u'\u2264',' menor-o-igual ',text) #.
+    # text = re.sub(u'\u2265',' mayor-o-igual ',text) #.
+    # text = re.sub(u'\u2208',' existe ',text) #.
+    # text = re.sub(u'\u211d',' reales ',text) #.
+    # text = re.sub(u'\u2248',' aproximadamente-igual-a ',text) #.
     text = re.sub(u'\u266f','#',text) #.
     text = re.sub(u'\u2032','-',text) # Grados
     text = re.sub(u'\u2033','"',text) #
     text = re.sub(u'\u2219','*',text) #
-    text = re.sub(u'\u2261',' congruente ',text) #
-    text = re.sub(u'\uf0ce',' en ',text) #
+    # text = re.sub(u'\u2261',' congruente ',text) #
+    # text = re.sub(u'\uf0ce',' en ',text) #
 
     #Foreing chars
     text = re.sub(u'\u010d','c',text) #

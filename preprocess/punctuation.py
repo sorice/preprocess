@@ -33,27 +33,29 @@ import string
 replacement_patterns = [
 # Section I: Expressions related to the period at the end of the sentence.
 
-(r'(\w+?\s*?)[.?!](?=\s+?[A-Z])','\g<1> ##1'), # Correct & common end of sentence.
-
-(r'[.?!](?=[\'"`]+?\s+?)','##1'), #Match cases were '.|?|!' are follow by [1 or n quote simbol][1 or n whitespace] -> means that detect the end or a quoted sentence. (Eg. "Where is it?" Jacob asked.)
-(r'[.](?=\s+?[a-z]+?)', '_'),   #Note: Lower case at the begining of the sentence - spell error - isn't trated as uper(Exp1). View grammar and spell checker section article. (Eg1. "U.S. is the nation at north.")(Eg2. "Llegó a las 8 a.m. en auto.")
-(r'[.](?=\s*?["\'-`]+?\s*?\w+?)', '##1'), #Match cases were '.' are follow by [0 or n whitespace][1 or n quote simbol][follow by 0 or n whitespace][follow by any alphanumeric char. (Eg1. "He said.'We most go up.'"; Eg2. "He said. ' We most go up.'") 
-
-# Standarize line skip before paragraph-end-detection.
+# Related to paragraph-end-detection.
 ('\r\n','\n'),                      # Windows period convert to Unix period.
-(r'[\t]','    '),                  # Tabs changed by \n.
+(r'[\t]','    '),                  # Tabs changed by four whitespace.
 (r'[.](?=\s*?\n)','##1\n'),         # Paragraph end detection
 (r'(\w+?)\s*?\|','\g<1> ##1'),      # Rare divition in writed expression. (Explanation: some sentences in PAN corpus)
 (r'(\w+)\n\n', '\g<1> ##1'),
 
+(r'(\w+?\s*?)[.?!](?=\s+?[A-Z])','\g<1> ##1'), # Correct & common end of sentence.
+(r'[?!]','##1'), #Problem: punctuations are not alphanum, so ? predeced by punctuation sign not detected in previous line
+
+(r'[.?!](?=[\'"`]+?\s+?)','##1'), #Match cases were '.|?|!' are follow by [1 or n quote simbol][1 or n whitespace] -> means that detect the end or a quoted sentence. (Eg. "Where is it?" Jacob asked.)
+(r'[.](?=\s+?[a-z]+?)', '_'),   #Note: Lower case after a dot sentence - grammar error - isn't trated as uper(Exp1). View grammar and spell checker in QtNLP-Linguist/doc/arquitectura/normalization article. (Eg1. "U.S. is the nation at north.")(Eg2. "Llegó a las 8 a.m. en auto.")
+(r'[.](?=\s*?["\'-`]+?\s*?\w+?)', '##1'), #Match cases were '.' are follow by [0 or n whitespace][1 or n quote simbol][follow by 0 or n whitespace][follow by any alphanumeric char. (Eg1. "He said.'We most go up.'"; Eg2. "He said. ' We most go up.'") 
+
 #Section II: Regular expressions related to ":".
-(r'(\w\w):(?=\s+?[A-Z]+?)', '\g<1>##2'),
-(r'(\w\w):(?=\s*?"+?[A-Z]+?)', '\g<1>##2'),  #Match cases were ':' are follow by [0 or n whitespace][1 or n simbol chars like '"'][almost 1 uper case]
 (r'[:](?=\s*?\n)','##2'),           #Match cases were ':' are follow by 0 or n whitespace, and then '\n', the next string is always an independent idea.
+(r'(\w\w):(?=\s+?[A-Z]+?)', '\g<1>##2'), #TODO review if this option is better replace by ' '.
+(r'(\w\w):(?=\s*?"+?[A-Z]+?)', '\g<1>##2'),  #Match cases were ':' are follow by [0 or n whitespace][1 or n simbol chars like '"'][almost 1 uper case]
+
 
 #Section III:: Relative to line skip.
 (r'\n(?=\s*?\n)','##6'),        #found empty lines and deleted: "\n" follow by N-1 whitespace char + \n. 
-(r'-\n',''),                    # Word division eliminated.
+(r'-\n(?=[a-z]+?)',''),                    # Word division eliminated.
 (r'\n(?=\s*?[a-z]+?)','##6'),   # Sentence division for end of margin. 
 (r'\n(?=\s*?[A-Z]+?)','##3'),   # New line that start in CAPITAL LETTER is a new sentences. Problem: first name at the beginning.
 (r'\n(?=\w+?)','##7'),          # Delete any '\n' follow by non-alphanumeric.
@@ -74,8 +76,7 @@ replacement_patterns = [
 (r'##6',' '),(r'##7',' '),(r'##8',' '),(r'##9',' '),(r'##0',''),
 
 # Delete consecutives points sections. 'apdb' is a rare code tha represent 'Abel Plagiarism Detection Branch'
-(r'(\w+?\s*?)[.]','\g<1>apdb'),
-#(r'[.](?=\s+?\w+?)', 'apdb'),       # Match '.' follow by alpha-numeric = sentence-end
+(r'(\w+?\s*?)[.]','\g<1>apdb'),    # Match '.' follow by alpha-numeric = sentence-end
 (r'[.]',' '),                       # Every generated point not exactly follow by a letter -> clean
 
 # Refining text

@@ -12,7 +12,7 @@ import re, os
 import string
 from .punctuation import Replacer
 from .symbols import replace as sreplace
-#TODO Add decorator for importing docstring of external functions
+#TODO Add decorator for importing external function's docstring
 
 LETTERS = ''.join([string.ascii_letters,'ñÑáéíóúÁÉÍÓÚüÜ'])
 
@@ -58,13 +58,13 @@ def multipart_words(text):
     """
     text = re.sub('(\w+)[-@.](?=\w+?)','\g<1>_',text)
 
-    #Added for Llanes, is under analisis if it most be here.
-    text = re.sub('[.](?=,)|[.](?=;)|[.][[]|[.][]]',' ',text) #Este hay que modificarlo si vamos a usar abbrev
-    text = re.sub('[.][)](?=\s*\n)|[.]["](?=[\s|)]*\n)|[.][:](?=\s*\n)','. ',text) #Este modificarlo si vamos a usar el replacers1
-    text = re.sub('[.][)](?=\s*\w)|[.]["](?=\s*[\w)[])|[.][:](?=\s*\w)','. ',text) #Este modificarlo si vamos a usar el replacers1
-    text = re.sub('[.][)](?=\s*[.])|[.][)](?=[,])',')',text)
-    text = re.sub('[.][)](?=\s*")|[.]["](?=\s*")','. ',text)
-    text = re.sub('[.]["](?=\s*[.])|[.][:](?=\s*")',' ',text)
+    #Added for Llanes, is under analisis if it most be included.
+    #text = re.sub('[.](?=,)|[.](?=;)|[.][[]|[.][]]',' ',text)
+    #text = re.sub('[.][)](?=\s*\n)|[.]["](?=[\s|)]*\n)|[.][:](?=\s*\n)','. ',text) 
+    #text = re.sub('[.][)](?=\s*\w)|[.]["](?=\s*[\w)[])|[.][:](?=\s*\w)','. ',text)
+    #text = re.sub('[.][)](?=\s*[.])|[.][)](?=[,])',')',text)
+    #text = re.sub('[.][)](?=\s*")|[.]["](?=\s*")','. ',text)
+    #text = re.sub('[.]["](?=\s*[.])|[.][:](?=\s*")',' ',text)
     return text
 
 def abbreviations(text, lang='en'):
@@ -185,7 +185,7 @@ def del_tokens_len_one(text):
 
     This is kind of a basic stopword filtering.
     """
-    text = re.sub('\s\w\s',' ',text)
+    text = re.sub('(\s)\w(\s)',' ',text)
     return text
 
 #TODO: implement Deep Learning to sentence parsing.
