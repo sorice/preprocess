@@ -21,29 +21,6 @@ from preprocess import deep
 
 from collections import OrderedDict
 
-def read_name_files_in_path(path=None):
-    """Return a list with the file's names on a path."""
-
-    if path == None:
-        path = os.getcwd()
-
-    try: # Por lo tanto le digo que lo intente
-        os.system('ls '+ path + ' > ficheros.txt')
-    except: # y lanzo una excepción si no se puede
-        print ('No existe esta ruta o está mal escrita.') # Luego veremos como detectar si está mal o es que no existe.
-
-    lista_ficheros = open('ficheros.txt','r').read()
-
-    # File with the list of files in path
-    count = 0
-    nombres = {}
-
-    for nombre_de_fichero in lista_ficheros.split('\n'):
-        nombres[count] = nombre_de_fichero
-        count+=1
-
-    return nombres
-
 def alignSentences(preprocessed_text, original_text):
     """Align preprocessed sentences vs original sentences returning the original boundaries.
     Useful for real applications, to recover the original sentence position or fragment position

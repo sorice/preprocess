@@ -19,9 +19,19 @@ from .normalize import add_doc_ending_point
 from .normalize import del_tokens_len_one
 
 #from preprocess.techniques import shallow
-from preprocess.shallow import lowercase,ngrams
+from preprocess.shallow import lowercase,ngrams,\
+                            remove_stopwords
 
 #from preprocess.techniques import deep
 from preprocess.deep import ner, syntdep
 
+#importing utils
 from preprocess.utils import pipeline
+
+#file interaction utility functions
+from preprocess.io import files
+
+#Experimental functions based on nltk, spacy, others.
+from .collocations import CollocationList
+
+from demo import preProcessFlow as normalize

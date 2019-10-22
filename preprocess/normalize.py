@@ -1,10 +1,12 @@
 #!/usr/bin/env python 3.5
 
-"""Set de funciones para normalización de textos.
-Created on Wed Aug 20 2014
-Modified by comparing with other normalize packs on Tue May 8 28 2018
-.. version: 0.2
-.. release: 0.2-RC2
+"""Mudule for text normalization, includes:
+- url replacement (func: replace_urls)
+- symbols replacement (func: freplace_symbols)
+- abbreviations dot marking, with '_'
+- replace punctuation and other noisy chars
+- and other functions elaborated for txt comming from pdfMiner, pdf2txt
+
 .. author: Abel Meneses abad
 """
 
