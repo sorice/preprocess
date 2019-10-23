@@ -15,7 +15,7 @@ from preprocess.shallow import remove_stopwords
 class CollocationList:
 	""""Collocations class
 
-	It is strongly recommended that the text must be preprocessed
+	It is strongly recommended that the 'text' must be preprocessed
 	before start class collocations.
 
 	:param text: The text or list of text names to be processed.
@@ -28,6 +28,8 @@ class CollocationList:
 	:type lang: str
 	:rtype: list
 
+	:Example of use:
+
 	from preprocess.demo import preProcessFlow
 	txt = preProcessFlow(open(some.txt)).lower()
 	object = CollocationList(txt)
@@ -36,9 +38,9 @@ class CollocationList:
 	The results of collocation list is more understandable after ejecute 
 	all the preprocessing pipeline.
 	
-	This class internaly remove stopwords.
+	This class internaly use the function remove_stopwords.
 	"""
-	def __init__ (self,text, ngrams=2, stopwds=True, lang='en'):
+	def __init__ (self,text, ngrams=2, stopwords=True, lang='en'):
 		self.text = text
 		self.words = []
 		self.ngrams = ngrams
@@ -57,17 +59,20 @@ class CollocationList:
 		}
 		
 		if isinstance(self.text,str):
-			if stopwds:
-				print("removing stops")
-				input()
+			if stopwords:
+				print("Removing stop words active, \
+					run CollocationList(txt,stopwords=False)\
+					to change behavior.")
 				self.words = remove_stopwords(self.text, lang=self.lang).split()
-				input()
 			else:
 				self.words = self.text.split()
 		elif isinstance(self.text,list):
 			for file in self.text:
 				with open(file) as doc:
-					if stopwds:
+					if stopwords:
+						print("Removing stop words active, \
+							run CollocationList(txt,stopwords=False)\
+							to change behavior.")
 						self.words.extend(remove_stopwords(doc.read(), lang=self.lang).split())
 					else:
 						self.words.extend(doc.read().split())

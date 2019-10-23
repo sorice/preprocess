@@ -6,8 +6,7 @@ If the user enter a path to preprocess a list of document, or a doc the module w
 Created on Fry Sept 02 2016
 Modified by analysis on
 Finish on
-.. version: 0.1
-.. release: 0.1-RC1
+
 .. author: Abel Meneses abad
 """
 

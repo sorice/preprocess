@@ -123,13 +123,14 @@ def replace_punctuation(text):
     text = punctuation.replace(text)
     return text
 
-def lowercase(text):
+def lowercase(text :str): -> str
     """Return lowercase of string.
     """
     if isinstance(text,str):
         return text.lower()
     else:
         print('Input must be a string')
+    #TODO: after adding typing check delete if/else structure
 
 #PREPROCESSING FUNCTIONS
 
@@ -165,9 +166,6 @@ def add_doc_ending_point(text):
 
      .. author: Abel Meneses abad
      Created on Fri, 28 Feb 2014
-     Modify on Son Dic 6 2015
-     Finish on
-     .. release: 0.2
      """
      # Este fragmento de código coloca un punto en el final del texto. Objetivo: luego hay funciones que necesitan que el último caracter sea el punto final de la última oración.
 
@@ -190,6 +188,5 @@ def del_tokens_len_one(text):
     text = re.sub('(\s)\w(\s)',' ',text)
     return text
 
-#TODO: implement Deep Learning to sentence parsing.
-
-#TODO: implement collocations based on nltk
+# TODO: implement Deep Learning for sentence parsing. This is experimental,
+# because after preProcessFlow all sentences are well defined by char '.'.

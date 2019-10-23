@@ -114,7 +114,6 @@ def remove_stopwords(text, lang='en', stops_path='', ignore_case = True):
 
     for word in text.split(' '):
         if word.lower() not in stop_words and len(word)>3:
-            print('adding',word, len(word))
             if ignore_case:
                 new_text += ' ' + word
             else:
@@ -151,7 +150,7 @@ def lemmatization(text, lang='en', input_type='raw_value'):
                 new_text += word + ' '
         return  new_text
 
-#TODO Search the Pattern not installed Warning to see how to program a missing installed library
+#TODO Search the spacy not installed Warning to see how to program a missing installed library
 
 if __name__ == '__main__':
     s1=input("Input text A:")
