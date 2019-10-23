@@ -23,6 +23,7 @@ from configparser import ConfigParser
 import preprocess
 import os
 from preprocess.shallow import LANGUAGES
+from string import punctuation
 
 #TODO verify what happen if nltk there is not.
 try:
@@ -103,13 +104,23 @@ def remove_stopwords(text, lang='en', stops_path='', ignore_case = True):
 
     :Software: Based on Normalizr package remove_stop_words.
     """
+    new_text = ''
     if stops_path:
         stop_words = set(open(stops_path+'/'+lang+'txt').read().split())
     else:
         stop_words = set(stopwords.words(lang))
+    for char in punctuation:
+        stop_words.add(char)
 
-    return ' '.join(
-            word for word in text.split(' ') if (word.lower() if ignore_case else word) not in stop_words)
+    for word in text.split(' '):
+        if word.lower() not in stop_words and len(word)>3:
+            print('adding',word, len(word))
+            if ignore_case:
+                new_text += ' ' + word
+            else:
+                new_text += ' ' + word.lower()
+    return new_text
+    
 
 def stemming(text, lang='en'):
     """Stem words based in Snowball algorithm.

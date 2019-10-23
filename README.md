@@ -20,7 +20,7 @@ This package integrates some text normalization techniques from some python pack
 
 Some regular expressions used on shallow parsing are based on observations made from frequent errors in txt obtained from pdf conversion. 
 
-Additionally some functions intend to let the original length of the text normalizing the input text and letting the same distance. E.gs. _'state-of-the-art'_ by _'state\_of\_the\_art'_; _'doing... some'_ by _'doing    some'_ (there are 4 whitespaces between doing and some).  The objective was to wrangling the data (not munging it), not in all cases this objective was get it, some [alignment examples](https://github.com/sorice/2017paraphrasebsent/02.2c-Jaccard-Align-Preproc-to-Original-Sent.ipynb) can be read.
+Additionally some functions intend to keep the original length of the text after normalization. E.gs. _'state-of-the-art'_ by _'state\_of\_the\_art'_; _'doing... some'_ by _'doing    some'_ (there are 4 whitespaces between _doing_ and _some_).  The objective was to wrangling the data (not munging it), not in all cases this objective was get it, some [alignment examples](https://github.com/sorice/2017paraphrasebsent/02.2c-Jaccard-Align-Preproc-to-Original-Sent.ipynb) can be read.
 
 # Requirements
 
@@ -28,7 +28,7 @@ __Linux__
 
 java X is needed, but you need to check your downloaded Stanford model requirements to get the correct version.
 
-(__current version__ for this example is _stanford-xxx-2015-04-20_)
+(__current version__ for this example are _stanford-xxx-2015-04-20_ models)
 
 ```
 $ apt install openjdk-8-jre
@@ -57,10 +57,10 @@ Basic usage includes the following functions:
 * replace_symbols: based on recognition of unicode & utf8 representations of Greek symbols, etc. 
 * replace_punctuation: based on punctuation regular expressions
 * multipart_words: or hyphenated expressions.
-* some non-classical text manipulation operations like made for easy parsing of text obtained from pdfs:
+* some non-classical text manipulation operations such those made to easy parse the texts obtained from PDF:
   * extraspace_for_endingpoints: add an extra whitespace before the ending point of a sentence.
   * add_doc_ending_point: check if the last sentence of a doc ends with a dot, if not add it.
-  * del_tokens_len_one: a primarily way to make stopword removal
+  * del_tokens_len_one: a primariy way to make stopword removal
 
 Advanced usage includes the following functions:
 
