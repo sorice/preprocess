@@ -34,4 +34,4 @@ from preprocess.io import files
 #Experimental functions based on nltk, spacy, others.
 from .collocations import CollocationList
 
-from demo import preProcessFlow as normalize
+from .demo import preProcessFlow as normalize

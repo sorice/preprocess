@@ -7,5 +7,6 @@ part of speech tagging.
 """
 
 from .ngrams import ngrams, skipgrams, sngrams
-from .others import pipeline 
+from .extra import pipeline 
 from .tagsetconverter import ptb2universal
+from .extra import hypenation

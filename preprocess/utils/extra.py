@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python 3.6
 
 """Utilitie functions to standarize the IN-object to the preprocessing method.
 If the user enter a path to preprocess a list of document, or a doc the module will no fail.
@@ -32,7 +31,7 @@ def alignSentences(preprocessed_text, original_text):
 
     .. author: Abel Meneses abad
     Finish on Fri, 9 Sept 2016
-    Next_revision on (an Optimization is predicted)
+    A new revision was made in September of 2019, but not included here until close v0.3
     """
     alignedSentences = []
     offsetB = 0
@@ -128,7 +127,7 @@ def extra_normalize(text_orig):
 
     :Note: very important, every rule in replacement_patterns do not change the
     length of the original text, only replace patterns with same length string.
-    This process is different to the in preProcessFlow.
+    This process is different to preProcessFlow.
     """
     replacement_patterns = [(r'[:](?=\s*?\n)','##1'),
                             (r'\xc2|\xa0',' '),
@@ -192,7 +191,7 @@ def pipeline(text,flow=None):
 
     #If flow is not defined do the default flow.
     if flow is None:
-        print('pasé x aki')
+        print('Runing default pipeline')
         return pipeline(text,DEFAULT_FLOW)
 
     #If flow is defined check the functions
@@ -214,3 +213,37 @@ def pipeline(text,flow=None):
     return text
 
 #TODO: to separate all this functions in different utils/<concept>.py
+
+def hypenation(text :str, collocations :list) -> str:
+    """Made originaly to hypenate the collocations in the original text
+    The recursive looking for collocations allow to find important 
+    expressions that define topic (of course there are better techniques
+    to do this, using Deep Learning and more complex techniques.)
+
+    Once hypenated the collocations turns into single words and are not
+    mixed with the rest. For example, if you hypenate de collocation:
+
+    [natural,language] as "natural_language" will be more informative in
+    a Luhn term evaluation than just using "natural" and "language" 
+    separately.
+
+    :param text: normalized text
+    :param collocations
+    :rtype collocations: Tuple list
+
+    """
+    window = len(collocations[0]) #get len ngrams
+    words = text.split()
+
+    for tuple in collocations:
+        expression = ''
+        replacement = ''
+        for word in tuple:
+            expression += ' ' + word
+            replacement += '_' + word
+        expression = expression.strip()
+        replacement = replacement[1:]
+
+        text = text.replace(expression,replacement)
+    return text
+
