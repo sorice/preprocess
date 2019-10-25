@@ -232,9 +232,6 @@ def hypenation(text :str, collocations :list) -> str:
     :rtype collocations: Tuple list
 
     """
-    window = len(collocations[0]) #get len ngrams
-    words = text.split()
-
     for tuple in collocations:
         expression = ''
         replacement = ''

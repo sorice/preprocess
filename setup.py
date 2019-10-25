@@ -66,6 +66,8 @@ setup(
         'numpy >= 1.7.0',
         'nltk >= 3.1',
         'nose >= 1.3.7',
+        'pdfminer>=20191020',
+        'PyPDF2>=1.26.0'
     ],
     setup_requires=[
         'numpy >= 1.7.0'
