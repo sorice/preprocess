@@ -41,7 +41,8 @@ def ner(text, lang='en', interface='stanford', multioutput='raw_value'):
     """Name Entity Recognition.
 
      Parameters
-    ----------
+    ------------
+
     text: string to parse, generally a sentence.
 
     lang: natural languaje of the text.
@@ -107,36 +108,27 @@ stanford_parser_jar = os.path.realpath(stanford_parser_dir[:-1]+config['SYND']['
 def syntdep(text, lang='en', interface='stanford', multioutput='triplet_list', N=2):
     """Syntactic Dependency Parser.
 
-     Parameters
-    ----------
-    text: string to parse, generally a sentence.
-
-    lang: natural languaje of the text.
-
-    interface: a tag of one of the implemented interfaces in preprocess.
-               default = stanford
-
-    multioutput: Format type of the output.
-                 string in ['triplet_list','triplet_list_tag' , 'sngrams']
-                 * triplet list - Original stanford output [(word,dep-tag,word)]
-                 * triplet list tag - Stanford output [(POS-tag,dep-tag,POS-tag)]
-                 * sngrams - Syntactic N-grams based on [Sidorov2012]_.
-
-    N: length of N-grams
-
-    Returns
-    -------
-
-    parsed result : string output, list of tuples [(token, NE tag)],
-                    NE-tags substituting NE-tokens string.
-
-    :Explanation:
-
-    The returned string structure is build to use textsim string and token
+    The returned string structure is build to use textsim string and token 
     distances.
+    
+    :param text: string to parse, generally a sentence.
 
-    :Citation:
+    :param lang: natural languaje of the text.
 
+    :param interface: a tag of one of the implemented interfaces in preprocess.
+            default = stanford
+
+    :param multioutput: Format type of the output.
+        string in ['triplet_list','triplet_list_tag' , 'sngrams']
+            - triplet list - Original stanford output [(word,dep-tag,word)]
+            - triplet list tag - Stanford output [(POS-tag,dep-tag,POS-tag)]
+            - sngrams - Syntactic N-grams based on [Sidorov2012]_.
+
+    :param N: length of N-grams
+
+    :returns: str - parsed result, string output, list of tuples [(token, NE tag)],
+                    NE-tags substituting NE-tokens string. 
+    
     .. [Sidorov2012] Grigori Sidorov et all (2012). Syntactic N-grams as Machine
         Learning Features for Natural Language Processing.
         Journal Expert Systems with Applications, 4(3): 853-860. Elsevier.
