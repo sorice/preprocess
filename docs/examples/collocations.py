@@ -1,7 +1,7 @@
 #!/usr/bin/env python 3.6
 
 import preprocess
-A = open('/media/DATA/Repo/preprocess/preprocess/data/SLP-2ed-Draft_Jurafsky-Martin.txt').read()
+A = open('data/FS_FSociety.txt').read()
 B = preprocess.normalize(A).lower()
 C = preprocess.remove_stopwords(B)
 from preprocess import CollocationList

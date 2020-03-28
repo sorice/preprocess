@@ -29,7 +29,7 @@ from preprocess.deep import ner, syntdep
 from preprocess.utils import pipeline
 
 #file interaction utility functions
-from preprocess.io import files
+from preprocess.utils.io import files
 
 #Experimental functions based on nltk, spacy, others.
 from .collocations import CollocationList
