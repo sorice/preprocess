@@ -65,7 +65,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Preprocess'
-copyright = u'2019, Abel Meneses-Abad'
+copyright = u'2020, Abel Meneses-Abad'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -301,9 +301,9 @@ latex_elements = {
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'MyDoc with Sphinx Example', u'MyDoc with Sphinx Example',
-   u'Abel Meneses Abad', 'MyDoc with Sphinx Example', 'Web project',
-   'Miscellaneous'),
+  ('index', 'Preprocess Documentation', u'NLP',
+   u'Abel Meneses Abad', 'Research and ML Engineer', 'Text preprocessing',
+   'Science Apps'),
 ]
 
 # Documents to append as an appendix to all manuals.
@@ -319,7 +319,7 @@ texinfo_documents = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'MyDoc with Sphinx Example'
+epub_title = u'Preprocess Documentation'
 epub_author = u'Abel Meneses Abad'
 epub_publisher = u'Abel Meneses Abad'
 epub_copyright = u'2013, Abel Meneses Abad'

@@ -6,7 +6,9 @@ pdfminer>=20191020
 PyPDF2>=1.26.0
 
 #doc
+sphinx
 sphinx-rtd-theme
 sphinxcontrib-napoleon
 sphinxcontrib-spelling
 recommonmark
+nbsphinx

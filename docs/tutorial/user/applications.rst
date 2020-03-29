@@ -1,4 +1,7 @@
-#Current Path Uses
+.. _applications:
+
+Current Path Uses
+==================
 
 - [Text Preprocessing Chapter of MyNLP Course Py3 version](file:///media/abelm/Almacen/Doctorado/Notas_de_la_Investigacion/03_Mi_Curso_Postgrado_Natural_Language_Process/02_Pre-Procesamiento_py3/)
 - [Text Preprocessing Chapter of MyNLP Course Py2 version](file:///media/abelm/Almacen/Doctorado/Notas_de_la_Investigacion/03_Mi_Curso_Postgrado_Natural_Language_Process/02_Pre-Procesamiento)
