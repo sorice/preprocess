@@ -40,7 +40,7 @@ setup(
     url='https://github.com/sorice/preprocess',
     author='Abel Meneses-Abad',
     author_email='abelma1980@gmail.com',
-    license='BSD',
+    license='BSD 3-Clause License',
     classifiers=[
         'Development Status :: 1 - Production',
         'Intended Audience :: Developers',
@@ -75,7 +75,7 @@ setup(
     cmdclass=cmdclass,
     include_package_data=True,
 
-    data_files=[('config',['preprocess/cfg/stanford.cfg']),
+    data_files=[('config',['preprocess/data/cfg/stanford.cfg']),
     ],
     zip_safe=False
 )
