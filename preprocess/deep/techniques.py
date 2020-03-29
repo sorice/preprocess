@@ -19,7 +19,7 @@ __author__ = 'Abel Meneses-Abad'
 
 from configparser import ConfigParser
 import preprocess
-import os
+from os.path import join, relpath
 from preprocess.utils import ngrams
 
 #TODO verify what happen if nltk there is not.
@@ -30,12 +30,12 @@ except:
     pass
 
 config = ConfigParser()
-config.read(preprocess.__path__[0]+'/cfg/stanford.cfg')
+config.read(preprocess.__path__[0]+'/data/cfg/stanford.cfg')
 stanford_ner_model = {}
 
-stanford_ner_dir = os.path.relpath(config['NER']['stanford_ner_dir'][2:])
-stanford_ner_model['en'] = os.path.relpath(stanford_ner_dir[:-1] + config['NER']['stanford_ner_eng_model'][2:-1])
-stanford_ner_jar = os.path.relpath(stanford_ner_dir[:-1]+config['NER']['stanford_ner_jar'][2:-1])
+st4_ner_dir = relpath(config['NER']['stanford_dir'])
+stanford_ner_model['en'] = relpath(join(st4_ner_dir,config['NER']['stanford_eng_model']))
+stanford_ner_jar = relpath(join(st4_ner_dir[:-1],config['NER']['stanford_jar']))
 
 def ner(text, lang='en', interface='stanford', multioutput='raw_value'):
     """Name Entity Recognition.
@@ -101,9 +101,9 @@ def __stanford_ner(text,lang='en',multioutput='raw_value'):
 
 stanford_parser_model = {}
 
-stanford_parser_dir = os.path.realpath(config['SYND']['stanford_parser_dir'][2:])
-stanford_parser_model['en'] = os.path.realpath(stanford_parser_dir[:-1] + config['SYND']['stanford_parser_eng_model'][2:-1])
-stanford_parser_jar = os.path.realpath(stanford_parser_dir[:-1]+config['SYND']['stanford_parser_jar'][2:-1])
+st4_parser_dir = relpath(config['SYND']['stanford_parser_dir'])
+stanford_parser_model['en'] = relpath(join(st4_parser_dir,config['SYND']['stanford_parser_eng_model']))
+stanford_parser_jar = relpath(join(st4_parser_dir,config['SYND']['stanford_parser_jar']))
 
 def syntdep(text, lang='en', interface='stanford', multioutput='triplet_list', N=2):
     """Syntactic Dependency Parser.

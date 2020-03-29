@@ -50,7 +50,7 @@ TECHNIQUES = {
 __techniques__ = {}
 
 config = ConfigParser()
-config.read(preprocess.__path__[0]+'/cfg/stanford.cfg')
+config.read(preprocess.__path__[0]+'/data/cfg/stanford.cfg')
 
 #Import nltk distances from ~/nltk/metric/distance.py and modify after with decorators
 _NLTKImportError = False
@@ -82,9 +82,9 @@ finally:    #check if NLTK Stanford parser is installed.
                 from nltk.tag import StanfordPOSTagger
 
                 #Test if POS.jar and POS model still there after installation
-                stanford_pos_dir = os.path.abspath(config['POS']['stanford_pos_dir'][2:])
-                stanford_pos_eng_model = os.path.abspath(stanford_pos_dir[:-1] + config['POS']['stanford_pos_eng_model'][2:-1])
-                stanford_pos_jar = os.path.abspath(stanford_pos_dir[:-1]+config['POS']['stanford_pos_jar'][2:-1])
+                stanford_pos_dir = os.path.abspath(config['POS']['stanford_dir'])
+                stanford_pos_eng_model = os.path.abspath(os.path.join(stanford_pos_dir,config['POS']['stanford_eng_model']))
+                stanford_pos_jar = os.path.abspath(os.path.join(stanford_pos_dir,config['POS']['stanford_jar']))
 
                 try:
                     st = StanfordPOSTagger(model_filename=stanford_pos_eng_model, path_to_jar=stanford_pos_jar)
