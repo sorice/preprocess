@@ -4,8 +4,8 @@
 Summary
 ========
 
-This is a detailed documentation about `codebuilder` to allow programmers
-to extend `codebuilder` functions, commands and patterns.
+This is a detailed documentation about `preprocess` to allow users
+to play with all the nlp techniques implemented.
 
 	* Install and Config
 	* Doing Normalization
@@ -15,7 +15,7 @@ to extend `codebuilder` functions, commands and patterns.
 	* Read more about NLP
 
 .. toctree::
-	:caption: Others
+	:caption: Applications
 	:maxdepth: 1
 
     user/applications.rst

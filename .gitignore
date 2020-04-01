@@ -10,6 +10,7 @@
 *checkpoint.ipynb
 */data
 */docs/build
+*/html
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

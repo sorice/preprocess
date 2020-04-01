@@ -3,7 +3,7 @@ Preprocess-Documentation
 
 **preprocess** is a preprocessing languaje for natural language tasks
 usually implements methods of normalization. This library integrates
-methods for the above purpose from NLTK, spacy and others.
+methods for the above purpose from NLTK, spacy and others [manning2008]_.
 
 .. toctree::
    :maxdepth: 1
@@ -47,9 +47,10 @@ Testing some codes (delete later)
 
     y_k = \frac{x_0}{\sqrt{N}}+ \frac{1}{\sqrt{N}} \sum_{n=1}^{N-1} x_n \cos (\frac{\pi n(2k+1)}{2N}) \qquad 0 \leq k < N.
 
-.. topic:: References:
+References
+============
 
-    * C.D. Manning, P. Raghavan and H. Schütze (2008). Introduction to
+.. [manning2008] C.D. Manning, P. Raghavan and H. Schütze (2008). Introduction to
       Information Retrieval. Cambridge University Press.
       http://nlp.stanford.edu/IR-book/html/htmledition/the-vector-space-model-for-scoring-1.html
 
