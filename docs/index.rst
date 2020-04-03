@@ -1,24 +1,28 @@
 Preprocess-Documentation
 =========================
 
-**preprocess** is a preprocessing languaje for natural language tasks
-usually implements methods of normalization. This library integrates
-methods for the above purpose from NLTK, spacy and others [manning2008]_.
+**preprocess** is a preprocessing language for natural language tasks
+usually implements methods of normalization. This library collects
+methods to accomplish this purpose from NLTK, spacy and others.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: User Guide
 
    tutorial/user_guide_summary.rst
+   tutorial/user/applications.rst
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Developers Guide
+
+   tutorial/dev_guide_summary.rst
+   tutorial/dev/deep.rst
 
 .. toctree::
 	:caption: Others
 	:maxdepth: 1
 
-    shallow
-    deep
-    tutorial/index
-    user_guide
     glossary
     about
 
@@ -30,15 +34,6 @@ Helpers functions of preprocessing library.
 .. automodule:: preprocess.utils
    :members:
 
-Deep Module
------------
-
-Module for deep preprocessing techniques: NER, SRL, etc.
-
-.. automodule:: preprocess.deep
-   :members:
-
-
 
 Testing some codes (delete later)
 -------------------------------------
@@ -46,13 +41,6 @@ Testing some codes (delete later)
 .. math::
 
     y_k = \frac{x_0}{\sqrt{N}}+ \frac{1}{\sqrt{N}} \sum_{n=1}^{N-1} x_n \cos (\frac{\pi n(2k+1)}{2N}) \qquad 0 \leq k < N.
-
-References
-============
-
-.. [manning2008] C.D. Manning, P. Raghavan and H. Schütze (2008). Introduction to
-      Information Retrieval. Cambridge University Press.
-      http://nlp.stanford.edu/IR-book/html/htmledition/the-vector-space-model-for-scoring-1.html
 
 .. math::
 
@@ -66,8 +54,8 @@ where :math:`c_{ij}` is the number of occurrences of
 
    \frac{\sum |u_i-v_i|}{\sum |u_i+v_i|}
 
-sublevel 4 of markdown simbol ^
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sublevel 4 of markdown
+^^^^^^^^^^^^^^^^^^^^^^
 
 As you can see de :func:`interval_distance` inside :py:mod:`textsim` package does'n have any docstring, the result of sphinx-build is dynamically constructed from :func:`nltk.metrics.interval_distance` and other texts.
 

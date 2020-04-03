@@ -13,9 +13,3 @@ to play with all the nlp techniques implemented.
 	* Doing deep preprocessing
 	* Future features
 	* Read more about NLP
-
-.. toctree::
-	:caption: Applications
-	:maxdepth: 1
-
-    user/applications.rst

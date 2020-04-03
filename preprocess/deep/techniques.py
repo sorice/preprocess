@@ -40,32 +40,36 @@ stanford_ner_jar = relpath(join(st4_ner_dir[:-1],config['NER']['stanford_jar']))
 def ner(text, lang='en', interface='stanford', multioutput='raw_value'):
     """Name Entity Recognition.
 
-     Parameters
-    ------------
+    Parameters
+    ----------
 
-    text: string to parse, generally a sentence.
+    text : str
+           String value to parse, generally a sentence.
 
-    lang: natural languaje of the text.
+    lang : str
+           Natural language of the text.
 
-    interface: a tag of one of the implemented interfaces in preprocess.
+    interface : str
+                A tag of one of the implemented interfaces in preprocess.
 
-    multioutput: Format type of the output.
-                 string in ['raw_value', 'tuple_list', 'raw_tag']
-                 * raw value - string format
-                 * tuple list - format is implemented for ngram generalization of
-                 some token distances in textsim papckage.
-                 * raw tag - string with NE-tokens changed for its NE-tags.
+    multioutput : str
+                  Format type of the output. Is an string on this values
+                  ['raw_value', 'tuple_list', 'raw_tag']
+                    * raw_value - string format 'token tag'
+                    * tuple_list - [(token, NE tag)]
+                    * raw tag - string with NE-tokens changed for its NE-tags.
 
     Returns
     -------
 
-    parsed result : string output, list of tuples [(token, NE tag)],
+    parsed text : string output, list of tuples [(token, NE tag)],
                     NE-tags substituting NE-tokens string.
 
-    :Explanation:
+    Note
+    ----
 
-    The returned string structure is build to use textsim string and token
-    distances.
+    The returned string structure is build to use string and token
+    distances of __textsim__ library.
 
     """
     if interface == 'stanford':
@@ -110,25 +114,40 @@ def syntdep(text, lang='en', interface='stanford', multioutput='triplet_list', N
 
     The returned string structure is build to use textsim string and token 
     distances.
+
+    Parameters
+    ----------
     
-    :param text: string to parse, generally a sentence.
+    text :  string
+            text to parse, generally a sentence.
 
-    :param lang: natural languaje of the text.
+    lang :  str
+            natural languaje of the text.
 
-    :param interface: a tag of one of the implemented interfaces in preprocess.
+    interface : str
+                a tag of one of the implemented interfaces in preprocess.
             default = stanford
 
-    :param multioutput: Format type of the output.
-        string in ['triplet_list','triplet_list_tag' , 'sngrams']
-            - triplet list - Original stanford output [(word,dep-tag,word)]
-            - triplet list tag - Stanford output [(POS-tag,dep-tag,POS-tag)]
-            - sngrams - Syntactic N-grams based on [Sidorov2012]_.
+    multioutput :
+                    Format type of the output. It is a string in ['triplet_list','triplet_list_tag' , 'sngrams']
+                    - triplet list - Original stanford output [(word,dep-tag,word)]
+                    - triplet list tag - Stanford output [(POS-tag,dep-tag,POS-tag)]
+                    - sngrams - Syntactic N-grams based on [Sidorov2012]_.
 
-    :param N: length of N-grams
+    N : int
+        length of N-grams
 
-    :returns: str - parsed result, string output, list of tuples [(token, NE tag)],
-                    NE-tags substituting NE-tokens string. 
+    Returns
+    -------
     
+    parsed text : list of tuples
+                    Sequence of [(head token, DEP tag, dependent token)],
+                    head POS-tags SYNTDEP-tag dependent POS-tag, or sngrams.
+
+
+    References
+    ----------
+
     .. [Sidorov2012] Grigori Sidorov et all (2012). Syntactic N-grams as Machine
         Learning Features for Natural Language Processing.
         Journal Expert Systems with Applications, 4(3): 853-860. Elsevier.
