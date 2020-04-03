@@ -40,11 +40,12 @@ replacement_patterns = [
 (r'(\w+?)\s*?\|','\g<1> ##1'),      # Rare divition in writed expression. (Explanation: some sentences in PAN corpus)
 (r'(\w+)\n\n', '\g<1> ##1'),
 
+# Related to Sentence Boundaries Detection
 (r'(\w+?\s*?)[.?!](?=\s+?[A-Z])','\g<1> ##1'), # Correct & common end of sentence.
 (r'[?!]','##1'), #Problem: punctuations are not alphanum, so ? predeced by punctuation sign not detected in previous line
 
 (r'[.?!](?=[\'"`]+?\s+?)','##1'), #Match cases were '.|?|!' are follow by [1 or n quote simbol][1 or n whitespace] -> means that detect the end or a quoted sentence. (Eg. "Where is it?" Jacob asked.)
-(r'[.](?=\s+?[a-z]+?)', '_'),   #Note: Lower case after a dot sentence - grammar error - isn't trated as uper(Exp1). View grammar and spell checker in QtNLP-Linguist/doc/arquitectura/normalization article. (Eg1. "U.S. is the nation at north.")(Eg2. "Llegó a las 8 a.m. en auto.")
+(r'[.](?=\s+?[a-z]+?)', '_'),   #Note: Lower case after a dot sentence - grammar error - isn't analyzed as uppercase (##1). View grammar and spell checker in QtNLP-Linguist/doc/arquitectura/normalization article. (Eg1. "U.S. is the nation at north.")(Eg2. "Llegó a las 8 a.m. en auto.")
 (r'[.](?=\s*?["\'-`]+?\s*?\w+?)', '##1'), #Match cases were '.' are follow by [0 or n whitespace][1 or n quote simbol][follow by 0 or n whitespace][follow by any alphanumeric char. (Eg1. "He said.'We most go up.'"; Eg2. "He said. ' We most go up.'") 
 
 #Section II: Regular expressions related to ":".

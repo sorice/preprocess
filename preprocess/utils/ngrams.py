@@ -213,6 +213,8 @@ def ngrams(text,n=2,gram_type='tokens',multioutput='raw_value'):
     else:
         raise Exception("Not possible, n must be longer than total words.")
 
+#TODO: here Appender must be used to add examples to ngrams func
+
 @Appender(nltk_skipgrams.__doc__)
 def skipgrams(text,n,k, gram_type='tokens'):
     if gram_type == 'tokens':
