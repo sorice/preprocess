@@ -8,7 +8,7 @@ Preprocess is a python package for preprocessing text using some NLP techniques:
 * shallow NLP techniques (Eg. Part of Speech Tagging)
 * deep NLP techniques (Eg. Name Entity Recognition, etc)
 
-The python ecosystem for text preprocessing is large and difficult to configure and to use. When I started to use preprocessing for some more complex NLP task, the process to configure and to generate standalone apps with non heavy dependencies was impossible using _nltk_ as a baseline. At the same time every normalization step taken from a different approach/library have a different input type and arguments. For that reason I decided to wrapped all those functions in a standard and unified library named preprocess, which works as follow:
+The python ecosystem for text preprocessing is large and difficult to configure and use. When I started to use preprocessing for some more complex NLP task, the process to configure and generate standalone apps with non heavy dependencies was impossible using _nltk_ as a baseline. At the same time every normalization step taken from a different approach/library have a different input type and arguments. For that reason I decided to wrapped all those functions in a standard and unified library named preprocess, which works as follow:
 
 ```python
 from preprocess import func
@@ -18,9 +18,9 @@ func('text')
 
 This package integrates some text normalization techniques from some python packages likes: _nltk_, _normalizr_. Also contains many ideas extracted from other normalization or text preprocessing packages.
 
-Some regular expressions used on shallow parsing are based on observations made from frequent errors in txt obtained from pdf conversion. 
+Some regular expressions used on shallow parsing are based on observations made from frequent errors in txt obtained from pdf conversion.
 
-Additionally some functions intend to keep the original length of the text after normalization. E.gs. _'state-of-the-art'_ by _'state\_of\_the\_art'_; _'doing... some'_ by _'doing    some'_ (there are 4 whitespaces between _doing_ and _some_).  The objective was to wrangling the data (not munging it), not in all cases this objective was get it, some [alignment examples](https://github.com/sorice/2017paraphrasebsent/02.2c-Jaccard-Align-Preproc-to-Original-Sent.ipynb) can be read.
+Additionally some functions intend to keep the original length of the text after normalization. E.gs. _'state-of-the-art'_ by _'state\_of\_the\_art'_; _'doing... some'_ by _'doing    some'_ (there are 4 whitespaces between _doing_ and _some_).  The objective was to wrangling the data (not munging it), not in all cases this objective was get it, some [alignment examples](https://github.com/sorice/2017paraphrasebsent/02.2-Jaccard-Align-Preproc-to-Original-Sent.ipynb) can be read.
 
 # Requirements
 
@@ -123,13 +123,23 @@ models <- your extracted models
 
 The future changes of this library are based in the initial objectives:
 
-- A __pure python library__: at this version the Stanford models dependency, developed in java,  made this milestone impossible.
-  - The future: replace with spacy, or pntl or any other self deep learning tagging implementation with a free and professional collection of texts.
-- __Optimization__ to get better times in processing big collections of data: many functions are in pure python:
-  - The future: implement pure python funcs in cython or rust.
-- __Standard Input__: many libraries, ideas or codes reused in this library have different ways to get the inputs (numerical vectors, strings, set of words, etc), the objective is to pass a simple string or a well known _ObjectType_ like _TfIdfModel_.
-  - The future: check if the input is a string distance and with a decorator change all kind of object type to string.
-- __Low_weight__: to have the less possible dependencies for academical or commercial use deployment.
-  - The future: avoid the nltk dependency or any other, reusing the necessary code and fixing them to integrate them on _preprocess architecture_.
-- __Integration__: add every preprocessing technique mentioned in the papers of SEMEVAL or CLEF to solve _Reused Text Detection_ or _Semantic Text Similiarity_, and other fundamental papers in this area.
-  - The future: add a complete set of cites about all techniques, and link them with its correspondent function on the library.
+1. A __pure python library__: at this version the Stanford models dependency, developed in java,  made this milestone impossible.
+
+    - The future: replace with spacy, or pntl or any other self deep learning tagging implementation with a free and professional collection of texts.
+
+2. __Optimization__ to get better times in processing big collections of data: many functions are in pure python:
+
+    - The future: implement pure python funcs in cython or rust.
+
+3. __Standard Input__: many libraries, ideas or codes reused in this library have different ways to get the inputs (numerical vectors, strings, set of words, etc), the objective is to pass a simple string or a well known _ObjectType_ like _TfIdfModel_.
+
+    - The future: check if the input is a string distance and with a decorator change all kind of object type to string.
+
+4. __Low-weight__: to have the less possible dependencies for academical or commercial use deployment, and the least possible complexity.
+
+    - The future: avoid the nltk dependency or any other, reusing the necessary code and fixing them to integrate them on _preprocess architecture_.
+
+5. __Integration__: add every preprocessing technique mentioned in the papers of SEMEVAL or CLEF to solve _Reused Text Detection_ or _Semantic Text Similiarity_, and other fundamental papers in this area.
+
+    - __Citation__: add a complete set of cites about all techniques, and link them with its correspondent function on the library.
+

@@ -33,6 +33,9 @@ Objective:
 #### Version 0.3.3
 
 * Introduce OOP in all possible funcs in pack 'utils'
+* introduce binary text writing in all functions
+* preprocess('some_txt') -> return 'preprocessed_txt'
+* preprocess.config must acept a dict to stablish the preprocess techniques active by default
 
 #### Version 0.3.1
 

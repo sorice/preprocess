@@ -64,7 +64,7 @@ def pdftotxt(path, pages=None, out=None):
     text = output.getvalue()
 
     if out:
-        with open(out, 'wb') as doc:
+        with open(out, 'w') as doc:
             doc.write(text)
 
     return text
