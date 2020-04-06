@@ -19,8 +19,10 @@ from .normalize import add_doc_ending_point
 from .normalize import del_tokens_len_one
 
 #from preprocess.techniques import shallow
-from preprocess.shallow import lowercase,ngrams,\
-                            remove_stopwords
+from preprocess.shallow import lowercase,remove_stopwords
+
+#section to import all possible ngram techniques
+from preprocess.grams import ngrams
 
 #from preprocess.techniques import deep
 from preprocess.deep import ner, syntdep
@@ -38,12 +40,11 @@ from .demo import preProcessFlow as normalize
 
 # This idea was taken from oscar project
 # Use 'alpha', 'beta', 'rc' or 'final' as the 4th element to indicate release type.
-VERSION = (0, 3, 1, 'alpha')
+VERSION = (0, 3, 0, 'alpha')
 
 
 def get_short_version():
     return '%s.%s' % (VERSION[0], VERSION[1])
-
 
 def get_version():
     version = '%s.%s' % (VERSION[0], VERSION[1])

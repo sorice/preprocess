@@ -10,7 +10,6 @@ complement the shallow and deep module.
 
 """
 
-from .ngrams import ngrams, skipgrams, sngrams
 from .extra import pipeline 
 from .tagsetconverter import ptb2universal
 from .extra import hypenation

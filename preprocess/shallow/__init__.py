@@ -1,8 +1,7 @@
 from configparser import ConfigParser
 import os
 from nose import SkipTest
-import preprocess
-from ..utils.ngrams import ngrams, sngrams, stopword_ngrams, contextual_ngrams
+import preprocess as prep
 
 #TODO add the rest of shallow techniques
 from ..normalize import (lowercase, replace_urls, replace_symbols,
@@ -34,13 +33,9 @@ TECHNIQUES = {
     'extraspace_for_endingpoints':extraspace_for_endingpoints,
     'add_doc_ending_point':add_doc_ending_point,
     'del_tokens_len_one':del_tokens_len_one,
-    'ngrams':ngrams,
-    'sngrams':sngrams,
-    'stopword_ngrams':stopword_ngrams,
-    'contextual_ngrams':contextual_ngrams,
     }
 
-#TODO: sngrams depend on stanford models; stopword_ngrams depend on
+#TODO: reduce dependencies: sngrams depend on stanford models; stopword_ngrams depend on
 # nltk_data stopwords files; contextual_ngrams depend on nltk_data 
 # stopwords file and stemming SnowballStemmer class of nltk
 # add this techniques to try/except routines; stemming depends on
@@ -50,7 +45,7 @@ TECHNIQUES = {
 __techniques__ = {}
 
 config = ConfigParser()
-config.read(preprocess.__path__[0]+'/data/cfg/stanford.cfg')
+config.read(prep.__path__[0]+'/data/cfg/stanford.cfg')
 
 #Import nltk distances from ~/nltk/metric/distance.py and modify after with decorators
 _NLTKImportError = False
@@ -66,10 +61,8 @@ except ImportError:
 finally:    #check if NLTK Stanford parser is installed.
     if not _NLTKImportError:
         from .techniques import remove_stopwords, stemming, lemmatization
-        from ..utils.ngrams import skipgrams
         TECHNIQUES['remove_stopwords'] = remove_stopwords
         TECHNIQUES['stemming'] = stemming
-        TECHNIQUES['skipgrams'] = skipgrams
         TECHNIQUES['lemmatization'] = lemmatization
         try:
             from nltk.parse.stanford import StanfordParser

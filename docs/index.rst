@@ -42,6 +42,7 @@ the goals are:
    tutorial/dev_guide_summary.rst
    tutorial/dev/deep.rst
    tutorial/dev/shallow.rst
+   tutorial/dev/ngrams.rst
 
 Util module
 -----------

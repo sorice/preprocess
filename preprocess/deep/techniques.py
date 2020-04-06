@@ -20,7 +20,7 @@ __author__ = 'Abel Meneses-Abad'
 from configparser import ConfigParser
 import preprocess
 from os.path import join, relpath
-from preprocess.utils import ngrams
+from preprocess.grams import ngrams
 
 #TODO verify what happen if nltk there is not.
 try:
@@ -131,7 +131,7 @@ def syntdep(text, lang='en', interface='stanford', multioutput='triplet_list', N
                   Format type of the output. It is a string in ['triplet_list','triplet_list_tag' , 'sngrams']
                     - triplet list - Original stanford output [(word,dep-tag,word)]
                     - triplet list tag - Stanford output [(POS-tag,dep-tag,POS-tag)]
-                    - sngrams - Syntactic N-grams based on [Sidorov2012]_.
+                    - sngrams - Syntactic N-grams.
 
     N : int
         length of N-grams
@@ -142,14 +142,6 @@ def syntdep(text, lang='en', interface='stanford', multioutput='triplet_list', N
     parsed text : list of tuples
                     Sequence of [(head token, DEP tag, dependent token)],
                     head POS-tags SYNTDEP-tag dependent POS-tag, or sngrams.
-
-
-    References
-    ----------
-
-    .. [Sidorov2012] Grigori Sidorov et all (2012). Syntactic N-grams as Machine
-        Learning Features for Natural Language Processing.
-        Journal Expert Systems with Applications, 4(3): 853-860. Elsevier.
 
     """
     if interface == 'stanford':
