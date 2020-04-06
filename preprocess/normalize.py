@@ -1,11 +1,12 @@
 #!/usr/bin/env python 3.5
 
-"""Mudule for text normalization, includes:
-- url replacement (func: replace_urls)
-- symbols replacement (func: freplace_symbols)
-- abbreviations dot marking, with '_'
-- replace punctuation and other noisy chars
-- and other functions elaborated for txt comming from pdfMiner, pdf2txt
+"""Module for text normalization, includes:
+
+    - url replacement (func: replace_urls)
+    - symbols replacement (func: freplace_symbols)
+    - abbreviations dot marking, with '_'
+    - replace punctuation and other noisy chars
+    - and other functions elaborated for txt comming from pdfMiner, pdf2txt
 
 .. author: Abel Meneses abad
 """
@@ -35,10 +36,14 @@ def replace_point_sequence(text):
     Replace a contiguous point sequence by the same amount of 
     whitespace.
 
-    ..Note: it can't be reimplemented without the finditer function.
+    Note
+    ----
+
+    It can't be reimplemented without the finditer function.
     This expression r'(\w+)[.]\s*[.]+[\s|[.]]*' changes the sequences of points
     but it is impossible to handle the number of white spaces.
     This functions it is used latter for the alignment process after normalization.
+
     """
 
     for i in re.finditer('[.]\s*?[.]+?[\s|[.]]*',text):
@@ -54,9 +59,12 @@ def multipart_words(text):
     All hyphens in multi-part words are changed by underscore 
     character.
 
-    .. Note that syllable segmentation of reach format text add extra
+    Note
+    ----
+
+    That syllable segmentation of reach format text add extra
     hyphens to every text, those hyphens are removed in 
-    `replace_punctuation` function.
+    :func: `replace_punctuation`.
     """
     text = re.sub('(\w+)[-@.](?=\w+?)','\g<1>_',text)
 
@@ -73,7 +81,10 @@ def abbreviations(text, lang='en'):
     """Proper names and abbrev recognition and manipulation based on
     regular expressions.
 
-    .. Note: In the case of U_S. the function will expect you filter at the end
+    Note
+    ----
+
+    In the case of U_S. the function will expect you filter at the end
     of preprocessing the conditions of the dot in the expression. If a cappital
     letter follows then this dot match with and end of sentence, else must be
     erased.
@@ -106,7 +117,8 @@ contractions_patterns = [
 ]
 
 def expand_contractions(text, lang='en'):
-    """Expand english contractions."""
+    """Expand english contractions.
+    """
     for (pattern, repl) in contractions_patterns:
             (text, count) = re.subn(pattern, repl, text)
     return text
@@ -116,9 +128,8 @@ def replace_punctuation(text):
     Replace all punctuation characters based on patterns contained in
     punctuation script.
 
-    #TODO: program this like re.sub(pattern, repl, text).
-
     """
+    #TODO: program this like re.sub(pattern, repl, text).
     punctuation = Replacer()
     text = punctuation.replace(text)
     return text
@@ -147,38 +158,43 @@ def extraspace_for_endingpoints(text):
     return text
 
 def add_doc_ending_point(text):
-     """
-     .. function:: add_doc_ending_point
+    """
+    Add Final Text Dot
 
-     Comes from clean_punctuation script but with less functionalities, except
-     adding an ending point at the end of the document.
+    Comes from clean_punctuation script but with less functionalities, except
+    adding an ending point at the end of the document.
 
-     :Explanation:
+    Note
+    -----
 
-     This is a function to garantied that the last sentence have an ending
-     point. The sentence tokenization process can be standardized because every
-     sentence, even the last one, have an ending point.
+    This is a function to garantied that the last sentence have an ending
+    point. The sentence tokenization process can be standardized because every
+    sentence, even the last one, have an ending point.
 
-     :param text: text to process.
-     :param type: string.
+    Parameters
+    -----------
 
-     :returns text: The last char will be an ending point.
+    text : str
+           text to process
 
-     .. author: Abel Meneses abad
-     Created on Fri, 28 Feb 2014
-     """
-     # Este fragmento de código coloca un punto en el final del texto. Objetivo: luego hay funciones que necesitan que el último caracter sea el punto final de la última oración.
+    Returns
+    -------
 
-     first_ending_point = text.rfind('.')     #last ending point position
-     fragment = text[first_ending_point+1:]   #text fragment after endindg point
+    text: str
+          The same text but, if missing, with a dot at the end
+    """
+    # Este fragmento de código coloca un punto en el final del texto. Objetivo: luego hay funciones que necesitan que el último caracter sea el punto final de la última oración.
 
-     A = set(LETTERS)
-     B = set(fragment)
+    first_ending_point = text.rfind('.')     #last ending point position
+    fragment = text[first_ending_point+1:]   #text fragment after endindg point
 
-     if len(B.intersection(A)) != 0: #if there are valid letters after ending point insert a new one
-          text += ' .'
+    A = set(LETTERS)
+    B = set(fragment)
 
-     return text
+    if len(B.intersection(A)) != 0: #if there are valid letters after ending point insert a new one
+        text += ' .'
+
+    return text
 
 def del_tokens_len_one(text):
     """Delete tokens with length = 1.

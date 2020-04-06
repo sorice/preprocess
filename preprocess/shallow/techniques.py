@@ -66,7 +66,8 @@ def pos(text, lang='en', interface='stanford', multioutput='raw_value'):
     parsed result : string output, list of tuples [(token, POS tag)],
                     POS-tags substituting tokens.
 
-    :Explanation:
+    Note
+    ----
 
     The returned string structure is build to use textsim string and token
     distances.

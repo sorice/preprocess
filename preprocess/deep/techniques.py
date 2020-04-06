@@ -7,8 +7,8 @@ Deep parsing techniques for NLP text
 
 Techniques to transform text into informed strings not just the senteces.
 
-Text can gain more information if:
-- Name Entity Recognition
+Text can gain more information if contains:
+- Name Entities
 
 This module concentrate the majority of deeper parsing techniques identified
 in Paraphrase Detection papers.
@@ -53,8 +53,7 @@ def ner(text, lang='en', interface='stanford', multioutput='raw_value'):
                 A tag of one of the implemented interfaces in preprocess.
 
     multioutput : str
-                  Format type of the output. Is an string on this values
-                  ['raw_value', 'tuple_list', 'raw_tag']
+                  Format type of the output. Is an string on this values ['raw_value', 'tuple_list', 'raw_tag']
                     * raw_value - string format 'token tag'
                     * tuple_list - [(token, NE tag)]
                     * raw tag - string with NE-tokens changed for its NE-tags.
@@ -63,13 +62,13 @@ def ner(text, lang='en', interface='stanford', multioutput='raw_value'):
     -------
 
     parsed text : string output, list of tuples [(token, NE tag)],
-                    NE-tags substituting NE-tokens string.
+                  NE-tags substituting NE-tokens string.
 
     Note
     ----
 
     The returned string structure is build to use string and token
-    distances of __textsim__ library.
+    distances of *textsim* library.
 
     """
     if interface == 'stanford':
@@ -128,8 +127,8 @@ def syntdep(text, lang='en', interface='stanford', multioutput='triplet_list', N
                 a tag of one of the implemented interfaces in preprocess.
             default = stanford
 
-    multioutput :
-                    Format type of the output. It is a string in ['triplet_list','triplet_list_tag' , 'sngrams']
+    multioutput : str
+                  Format type of the output. It is a string in ['triplet_list','triplet_list_tag' , 'sngrams']
                     - triplet list - Original stanford output [(word,dep-tag,word)]
                     - triplet list tag - Stanford output [(POS-tag,dep-tag,POS-tag)]
                     - sngrams - Syntactic N-grams based on [Sidorov2012]_.

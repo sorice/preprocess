@@ -42,6 +42,7 @@ Objective:
 * Review the regular expressions for symbols.
 * punctuation needs to be tested with human labeled data (books)
 * for organization, readability and testing purpose make a subpack preprocess.normalization
+* Review the mechanism of LANGUAGE in shallow.__init__ it is not being used
 
 #### Version 0.3 'Packaging' (current)
 

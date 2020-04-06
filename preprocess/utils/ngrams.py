@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Util functions based on ngrams elaboration.
+"""
+Ngrams
+=======
 
-Created on Fry Nov 10 2017
-Modified by analysis on
-Finish on
-.. version: 0.1
-.. release: 0.1-RC1
-.. author: Abel Meneses abad
+This module implement different kind of ngrams.
+
 """
 
 from collections import defaultdict
@@ -158,7 +156,8 @@ def sngrams(st, text,n=2):
 
 # Set of util functions for n-gram generation
 def _make_ngrams(l, n):
-    """Auxiliar ngrams generation func."""
+    """Auxiliar ngrams generation func.
+    """
     rez = [l[i:(-n + i + 1)] for i in range(n - 1)]
     rez.append(l[n - 1:])
     return zip(*rez)
@@ -180,24 +179,28 @@ def _ngrams(text,n):
     return ngrams
 
 def _chargrams(s,n):
-    """Generate character n-grams."""
+    """Generate character n-grams.
+    """
     return [s[i:i+n] for i in range(len(s)-n+1)]
 
 def ngrams(text,n=2,gram_type='tokens',multioutput='raw_value'):
     """Generate the list of n-grams.
 
-     Parameters
+    Parameters
     ----------
-    text: string to parse, generally a sentence.
 
-    gram_type: Select the type of grams.
-               string in ['chars', 'tokens']
+    text : str
+           string to parse, generally a sentence.
 
-    multioutput: Format type of the output.
-                 string in ['raw_value', 'tuple_list']
-                 * raw value - list of n-grams in string format. Eg: 'a b c'
-                 * tuple list - list of n-grams in tuple format.
-                 Eg: ('a','b','c')
+    gram_type : str
+                Select the type of grams.
+                string in ['chars', 'tokens']
+
+    multioutput : str
+                  Format type of the output. String in ['raw_value', 'tuple_list']
+                    * raw value - list of n-grams in string format. Eg: 'a b c'
+                    * tuple list - list of n-grams in tuple format. Eg: ('a','b','c')
+
     """
     if len(text.split()) >= n:
         if multioutput == 'raw_value':
@@ -227,15 +230,16 @@ def contextual_ngrams(text,n,multioutput='raw_value'):
 
     This ngrams are formed by sorting first the words, then removing
     stopwords and tokens of length one, stemming and sorting the 
-    ngrams.
+    ngrams [RdguezTorrejon2010b]_.
 
-    :Citation:
+    References
+    -----------
 
-    .. [RdguezTorrejon2010b] Diego A. Rodríguez Torrejon & 
-    José Manuel Martín Ramos. (2010b). 
-    Detección de plagio en documentos. Sistema externo monolingüe de 
-    altas prestaciones basado en n-gramas contextuales. 
-    Procesamiento del Lenguaje Natural, 45:49–57
+    .. [RdguezTorrejon2010b] Diego A. Rodríguez Torrejon &
+        José Manuel Martín Ramos. (2010b).
+        Detección de plagio en documentos. Sistema externo monolingüe de
+        altas prestaciones basado en n-gramas contextuales.
+        Procesamiento del Lenguaje Natural, 45:49–57
 
     """
     temp_text = sorted(text.split())
@@ -246,14 +250,17 @@ def contextual_ngrams(text,n,multioutput='raw_value'):
     return sorted(text)
 
 def stopword_ngrams(text,n, lang='en', stops_path='',multioutput='raw_value'):
-    """Ngrams obtained filtering all non stopwords also called SWNG.
+    """Ngrams obtained filtering all non stopwords also called SWNG
+    [Stamatatos2011b]_.
 
-    :Citation:
+    References
+    -----------
 
     ..  [Stamatatos2011b] Stamatatos, Efstathios (2011).
-    Plagiarism Detection Using Stopword n-grams.
-    Journal of the American Society for Information Science 
-    and Technology, 62(12):2512–2527.
+        Plagiarism Detection Using Stopword n-grams.
+        Journal of the American Society for Information Science
+        and Technology, 62(12):2512–2527.
+
     """
     stop_words = set()
     try:

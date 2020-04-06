@@ -2,7 +2,7 @@ from configparser import ConfigParser
 import os
 from nose import SkipTest
 import preprocess
-from ..utils.ngrams import ngrams,sngrams, stopword_ngrams, contextual_ngrams
+from ..utils.ngrams import ngrams, sngrams, stopword_ngrams, contextual_ngrams
 
 #TODO add the rest of shallow techniques
 from ..normalize import (lowercase, replace_urls, replace_symbols,
@@ -34,7 +34,7 @@ TECHNIQUES = {
     'extraspace_for_endingpoints':extraspace_for_endingpoints,
     'add_doc_ending_point':add_doc_ending_point,
     'del_tokens_len_one':del_tokens_len_one,
-    'ngrmas':ngrams,
+    'ngrams':ngrams,
     'sngrams':sngrams,
     'stopword_ngrams':stopword_ngrams,
     'contextual_ngrams':contextual_ngrams,
@@ -105,7 +105,7 @@ finally:    #check if NLTK Stanford parser is installed.
 # like in textsim pack when spacy funcs will be test it. 
 
 # append all verified techniques in module importing argument ALL
-__all__ = [LANGUAGES]
+__all__ = []
 
 for technique in TECHNIQUES:
 	__all__.append(technique)
