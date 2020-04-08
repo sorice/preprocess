@@ -1,5 +1,9 @@
-Preprocess-Documentation
-=========================
+.. -*- mode: rst -*-
+.. preprocess documentation master file, created by
+    sphinx-quickstart on Tue Apr 7 21:31:28 2020
+
+Preprocess: Wrangling Text
+==========================
 
 **preprocess** is a python library for natural language tasks. The
 principal reason for its implementation it is to avoid the still
@@ -10,8 +14,15 @@ it is to convert everything to *Pandas DataFrame*, this project start
 when that trend wasn't alive and *Sklearn library* needed Bunch objects
 and some of my colleague were using Weka (java) and arff format. So the
 comparison of performances was a nightmare. This library integrates
-methods to accomplish this purpose from NLTK, Spacy and others. Some of
-the goals are:
+methods to accomplish this purpose from NLTK, Spacy and others. 
+
+QuickStart
+-----------
+
+1. :doc: `foo`
+
+Future Goals
+-------------
 
   - **Implement/Reuse** the open source better methods (performance
     speaking).
@@ -32,8 +43,9 @@ the goals are:
    :maxdepth: 2
    :caption: User Guide
 
-   tutorial/user_guide_summary.rst
-   tutorial/user/applications.rst
+   tutorial/user_guide_summary
+   tutorial/user/applications
+   foo
 
 .. toctree::
    :maxdepth: 2

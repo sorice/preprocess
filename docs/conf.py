@@ -39,6 +39,8 @@ extensions = ['sphinx.ext.autodoc',
             'nbsphinx', #to render html from notebooks
             'sphinxcontrib.spelling',
             'sphinx.ext.todo',
+            'jupyter_sphinx.execute',
+            'nbsphinx_link'
             ]
 
     
@@ -138,6 +140,7 @@ show_authors = True
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
+nbsphinx_execute ='never'
 
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
