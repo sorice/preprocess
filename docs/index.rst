@@ -19,7 +19,8 @@ methods to accomplish this purpose from NLTK, Spacy and others.
 QuickStart
 -----------
 
-1. :doc: `foo`
+1. Bases of :doc:`normalization`
+
 
 Future Goals
 -------------
@@ -45,7 +46,7 @@ Future Goals
 
    tutorial/user_guide_summary
    tutorial/user/applications
-   foo
+   normalization
 
 .. toctree::
    :maxdepth: 2

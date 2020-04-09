@@ -48,13 +48,15 @@ Objective:
 
 * type checking and remove support for Py2
 * add tox.ini, requirements.txt, .travis.yml, LICENSE, MANIFEST, .pypirc 
-* doc v0.3
+* doc v0.3 [OK 50%]
 * test v0.3
 * Finish decorator Appender to link docstring to doc
 * separate aligning and helpers in utils.aling.py
-* dfine if the hypenation functions must be in normalization
-* doc ngrams.py + Basic docstring of sn_gram
-* separated pack for ngrams, because sngrams is to long
+* define if the hypenation functions must be in normalization
+* doc ngrams.py + Basic docstring of sn_gram [OK]
+* separated pack for ngrams, because sngrams is to long [OK]
+* embedding notebook examples to the sphinx doc[OK]
+* translate to English the notebooks involved
 
 ### Version 0.2.x 'Testing in Reality'</u>
 
