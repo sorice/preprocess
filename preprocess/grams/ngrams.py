@@ -14,7 +14,7 @@ from nltk.tree import Tree
 from collections import deque
 from nltk.util import skipgrams as nltk_skipgrams
 from preprocess.utils.decorators import Appender
-from preprocess.utils.extra import pipeline
+from preprocess.utils import pipeline
 
 _nltk_stopwords = False
 try:

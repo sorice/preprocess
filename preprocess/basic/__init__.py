@@ -9,6 +9,7 @@ from .normalize import lowercase
 from .normalize import extraspace_for_endingpoints
 from .normalize import add_doc_ending_point
 from .normalize import del_tokens_len_one
+from .hyphen import hyphenation
 
 TECHNIQUES = {
     'lowercase':lowercase,
@@ -22,6 +23,7 @@ TECHNIQUES = {
     'extraspace_for_endingpoints':extraspace_for_endingpoints,
     'add_doc_ending_point':add_doc_ending_point,
     'del_tokens_len_one':del_tokens_len_one,
+    'hyphenation':hyphenation,
     }
 
 # append all verified techniques in module importing argument ALL

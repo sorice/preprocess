@@ -10,6 +10,5 @@ complement the shallow and deep module.
 
 """
 
-from .extra import pipeline 
+from .pipeline import pipeline 
 from .tagsetconverter import ptb2universal
-from .extra import hypenation
