@@ -19,7 +19,8 @@ methods to accomplish this purpose from NLTK, Spacy and others.
 QuickStart
 -----------
 
-1. Bases of :doc:`normalization`
+1. QuickStart with `preprocessing`.
+2. Bases of :doc:`normalization`.
 
 
 Future Goals
@@ -41,21 +42,24 @@ Future Goals
     module.
 
 .. toctree::
-   :maxdepth: 2
-   :caption: User Guide
+  :maxdepth: 2
+  :caption: User Guide
 
-   tutorial/user_guide_summary
-   tutorial/user/applications
-   normalization
+  tutorial/user_guide_summary
+  tutorial/user/applications
+  normalization
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Developers Guide
+  :maxdepth: 2
+  :caption: Developers Guide
 
-   tutorial/dev_guide_summary.rst
-   tutorial/dev/deep.rst
-   tutorial/dev/shallow.rst
-   tutorial/dev/ngrams.rst
+  tutorial/dev_guide_summary.rst
+  tutorial/dev/basic.rst
+  tutorial/dev/ngrams.rst
+  tutorial/dev/shallow.rst
+  tutorial/dev/deep.rst
+
+
 
 Util module
 -----------

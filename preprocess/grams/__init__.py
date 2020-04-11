@@ -1,4 +1,5 @@
 from .ngrams import ngrams, sngrams, stopword_ngrams, contextual_ngrams
+from .collocations import CollocationList
 
 __techniques__ = {}
 
@@ -7,6 +8,7 @@ TECHNIQUES = {
     'sngrams':sngrams,
     'stopword_ngrams':stopword_ngrams,
     'contextual_ngrams':contextual_ngrams,
+    'collocations':CollocationList,
     }
 
 _NLTKImportError = False

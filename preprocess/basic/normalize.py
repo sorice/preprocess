@@ -1,6 +1,6 @@
 #!/usr/bin/env python 3.5
 
-"""Module for text normalization, includes:
+"""Module for popular text normalization techniques:
 
     - url replacement (func: replace_urls)
     - symbols replacement (func: freplace_symbols)
@@ -17,6 +17,7 @@ from .punctuation import Replacer
 from .symbols import replace as sreplace
 #TODO Add decorator for importing external function's docstring
 
+#Support for spanish texts
 LETTERS = ''.join([string.ascii_letters,'ñÑáéíóúÁÉÍÓÚüÜ'])
 
 #NORMALIZATION FUNCTIONS
@@ -67,14 +68,7 @@ def multipart_words(text):
     :func: `replace_punctuation`.
     """
     text = re.sub('(\w+)[-@.](?=\w+?)','\g<1>_',text)
-
-    #Added for Llanes, is under analisis if it most be included.
-    #text = re.sub('[.](?=,)|[.](?=;)|[.][[]|[.][]]',' ',text)
-    #text = re.sub('[.][)](?=\s*\n)|[.]["](?=[\s|)]*\n)|[.][:](?=\s*\n)','. ',text) 
-    #text = re.sub('[.][)](?=\s*\w)|[.]["](?=\s*[\w)[])|[.][:](?=\s*\w)','. ',text)
-    #text = re.sub('[.][)](?=\s*[.])|[.][)](?=[,])',')',text)
-    #text = re.sub('[.][)](?=\s*")|[.]["](?=\s*")','. ',text)
-    #text = re.sub('[.]["](?=\s*[.])|[.][:](?=\s*")',' ',text)
+    
     return text
 
 def abbreviations(text, lang='en'):

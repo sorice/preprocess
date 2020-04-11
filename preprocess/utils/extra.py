@@ -10,7 +10,7 @@ Finish on
 """
 
 import re
-from ..normalize import (add_doc_ending_point, abbreviations,
+from preprocess.basic import (add_doc_ending_point, abbreviations,
                     multipart_words, replace_point_sequence)
 
 from preprocess import shallow

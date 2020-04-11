@@ -1,25 +1,25 @@
 #!/usr/bin/env python 3.5
 
 """
-The :mod:`preprocessing` module includes normalization,
+The :mod:`preprocessing` module includes: url replacement,
 abbr recognition, stopword filter, lemmatization,
 part of speech tagging.
 """
 
-from .normalize import replace_urls
-from .normalize import replace_symbols
-from .normalize import replace_point_sequence
-from .normalize import multipart_words
-from .normalize import abbreviations
-from .normalize import expand_contractions
-from .normalize import replace_punctuation
-from .normalize import lowercase
-from .normalize import extraspace_for_endingpoints
-from .normalize import add_doc_ending_point
-from .normalize import del_tokens_len_one
+from preprocess.basic import replace_urls
+from preprocess.basic import replace_symbols
+from preprocess.basic import replace_point_sequence
+from preprocess.basic import multipart_words
+from preprocess.basic import abbreviations
+from preprocess.basic import expand_contractions
+from preprocess.basic import replace_punctuation
+from preprocess.basic import lowercase
+from preprocess.basic import extraspace_for_endingpoints
+from preprocess.basic import add_doc_ending_point
+from preprocess.basic import del_tokens_len_one
 
 #from preprocess.techniques import shallow
-from preprocess.shallow import lowercase,remove_stopwords
+from preprocess.shallow import remove_stopwords
 
 #section to import all possible ngram techniques
 from preprocess.grams import ngrams
@@ -34,14 +34,14 @@ from preprocess.utils import pipeline
 from preprocess.utils.io import files
 
 #Experimental functions based on nltk, spacy, others.
-from .collocations import CollocationList
+from preprocess.grams import CollocationList
 
 from .demo import preProcessFlow as normalize
 
-# This idea was taken from oscar project
-# Use 'alpha', 'beta', 'rc' or 'final' as the 4th element to indicate release type.
+# This idea was taken from oscar project, this funcs are used in conf.py
+# Use 'alpha', 'beta', 'rc' or 'final' as the 4th element to indicate 
+# release type.
 VERSION = (0, 3, 0, 'alpha')
-
 
 def get_short_version():
     return '%s.%s' % (VERSION[0], VERSION[1])

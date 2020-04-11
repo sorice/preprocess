@@ -2,7 +2,7 @@
 
 import re
 import string
-from .normalize import *
+from preprocess.basic import *
 
 def preProcessFlow(text):
     """Text Preprocessing Flow demo"""

@@ -3,15 +3,6 @@ import os
 from nose import SkipTest
 import preprocess as prep
 
-#TODO add the rest of shallow techniques
-from ..normalize import (lowercase, replace_urls, replace_symbols,
-                        replace_point_sequence, multipart_words,
-                        abbreviations, expand_contractions,
-                        replace_punctuation,
-                        extraspace_for_endingpoints,
-                        add_doc_ending_point,
-                        del_tokens_len_one)
-
 #TODO add underscore to all variables in the __init__.py to avoid
 #tab completion.
 
@@ -21,19 +12,7 @@ LANGUAGES = {
 }
 
 #This dict strategy is based on sklearn.metrics.pairwaise code example
-TECHNIQUES = {
-    'lowercase':lowercase,
-    'replace_urls':replace_urls,
-    'replace_symbols':replace_symbols,
-    'replace_point_sequence':replace_point_sequence,
-    'multipart_words':multipart_words,
-    'abbreviations':abbreviations,
-    'expand_contractions':expand_contractions,
-    'replace_punctuation':replace_punctuation,
-    'extraspace_for_endingpoints':extraspace_for_endingpoints,
-    'add_doc_ending_point':add_doc_ending_point,
-    'del_tokens_len_one':del_tokens_len_one,
-    }
+TECHNIQUES = {}
 
 #TODO: reduce dependencies: sngrams depend on stanford models; stopword_ngrams depend on
 # nltk_data stopwords files; contextual_ngrams depend on nltk_data 
