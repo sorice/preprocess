@@ -14,12 +14,12 @@ it is to convert everything to *Pandas DataFrame*, this project start
 when that trend wasn't alive and *Sklearn library* needed Bunch objects
 and some of my colleague were using Weka (java) and arff format. So the
 comparison of performances was a nightmare. This library integrates
-methods to accomplish this purpose from NLTK, Spacy and others. 
+methods to accomplish this purpose from NLTK, Spacy and others.
 
 QuickStart
 -----------
 
-1. QuickStart with `preprocessing`.
+1. QuickStart with :doc:`tutorial/user/quickstart`.
 2. Bases of :doc:`normalization`.
 
 
@@ -46,6 +46,7 @@ Future Goals
   :caption: User Guide
 
   tutorial/user_guide_summary
+  tutorial/user/quickstart
   tutorial/user/applications
   normalization
 
