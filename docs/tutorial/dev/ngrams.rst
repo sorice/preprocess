@@ -9,3 +9,6 @@ Module for preprocessing techniques related to division of ngrams: syntactic gra
 
 .. automodule:: preprocess.grams
    :members:
+
+.. autoclass:: Collocations
+    :members:
