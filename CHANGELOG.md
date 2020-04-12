@@ -16,6 +16,7 @@
 - test all deep techniques(stanford, spacy, nltk) using nltk-trainer package.
   - Pick the best tech as DEFAULT
 * If the test result shows it is possible abandon nltk/standfordNLP and only use spacy and sklearn
+* implement a method to include regular expression passed by the user (like spacy)
 
 #### Version 0.4.x 'Optimize'
 
@@ -29,6 +30,7 @@ Objective:
 - add synonym replacement
 - add spelling correction
 * New version of collocations without nltk
+* Completly in OOP if that has sense after 0.3.3
 
 #### Version 0.3.3
 
@@ -36,6 +38,8 @@ Objective:
 * introduce binary text writing in all functions
 * preprocess('some_txt') -> return 'preprocessed_txt'
 * preprocess.config must acept a dict to stablish the preprocess techniques active by default
+* build __all__ for deep, shallow, basic
+* build __pendent__ for deep, shallow, basic
 
 #### Version 0.3.1
 
@@ -43,6 +47,8 @@ Objective:
 * punctuation needs to be tested with human labeled data (books)
 * for organization, readability and testing purpose make a subpack preprocess.normalization
 * Review the mechanism of LANGUAGE in shallow.__init__ it is not being used
+* add shallow.sentence_segmentation
+* add shallow.number_replacement
 
 #### Version 0.3 'Packaging' (current)
 
@@ -50,13 +56,14 @@ Objective:
 * add tox.ini, requirements.txt, .travis.yml, LICENSE, MANIFEST, .pypirc 
 * doc v0.3 [OK 50%]
 * test v0.3
-* Finish decorator Appender to link docstring to doc
-* separate aligning and helpers in utils.aling.py
-* define if the hypenation functions must be in normalization
+* separate aligning and helpers in utils.aling.py[OK]
 * doc ngrams.py + Basic docstring of sn_gram [OK]
 * separated pack for ngrams, because sngrams is to long [OK]
 * embedding notebook examples to the sphinx doc[OK]
 * translate to English the notebooks involved
+* include the test data from NLP course for Text Normalization Jupyter ntb
+* define if the hypenation functions must be in normalization[OK]
+* Finish decorator Appender to link docstring to doc
 
 ### Version 0.2.x 'Testing in Reality'</u>
 

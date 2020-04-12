@@ -128,7 +128,7 @@ def replace_punctuation(text):
     text = punctuation.replace(text)
     return text
 
-def lowercase(text :str) -> str:
+def lowercase(text: str) -> str:
     """Return lowercase of string.
     """
     if isinstance(text,str):

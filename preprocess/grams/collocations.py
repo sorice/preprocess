@@ -46,7 +46,7 @@ class CollocationList:
 		self.ngrams = ngrams
 		self.lang = lang
 
-		self.granms = {
+		self.grams = {
 			2: BigramCollocationFinder,
 			3: TrigramCollocationFinder,
 			4: QuadgramCollocationFinder
@@ -60,9 +60,8 @@ class CollocationList:
 		
 		if isinstance(self.text,str):
 			if stopwords:
-				print("Removing stop words active, \
-					run CollocationList(txt,stopwords=False)\
-					to change behavior.")
+				print("Removing stop words active, to change behavior run:\n \
+					CollocationList(txt,stopwords=False)")
 				self.words = remove_stopwords(self.text, lang=self.lang).split()
 			else:
 				self.words = self.text.split()
@@ -70,23 +69,15 @@ class CollocationList:
 			for file in self.text:
 				with open(file) as doc:
 					if stopwords:
-						print("Removing stop words active, \
-							run CollocationList(txt,stopwords=False)\
-							to change behavior.")
+						print("Removing stop words active, to change behavior run:\n \
+					CollocationList(txt,stopwords=False)")
 						self.words.extend(remove_stopwords(doc.read(), lang=self.lang).split())
 					else:
 						self.words.extend(doc.read().split())
 		
 		self.score_fn = self.measures[ngrams].likelihood_ratio
 
-	#TODO: apply from toolz.curried import compose
-	#find_collocations = compose(collocations(),remove_stopwords())
-	#Delete the problem to handle to many if/else and manipulate parameters of both
-
-	def find_collocations(self):
-		"""Find collocations based on NLTK
-		"""
-		self.collocations_list = self.granms[self.ngrams].from_words(self.words)
+		self.collocations_list = self.grams[self.ngrams].from_words(self.words)
 
 	def write(self, path :str):
 		"""Write the list of collocations tuples in a txt."""
@@ -105,3 +96,6 @@ class CollocationList:
 		on the score function "likelihood_ratio."""
 		return [p for p, s in self.collocations_list.score_ngrams(self.score_fn)[-N:]]
 
+	#TODO: apply from toolz.curried import compose
+	#find_collocations = compose(collocations(),remove_stopwords())
+	#Delete the problem to handle to many if/else and manipulate parameters of both

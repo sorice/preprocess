@@ -3,9 +3,13 @@
 import re
 import string
 from preprocess.basic import *
+import os
 
-def preProcessFlow(text):
+def preProcessFlow(text: str) -> str:
     """Text Preprocessing Flow demo"""
+    if os.path.isfile(text):
+        with open(text) as doc:
+            text = doc.read()
 
     #-------------------Special tokens recognition and normalization
     text = replace_urls(text)
