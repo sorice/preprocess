@@ -7,8 +7,8 @@ Deep parsing techniques for NLP text
 
 Techniques to transform text into informed strings not just the senteces.
 
-Text can gain more information if:
-- Name Entity Recognition
+Text can gain more information if contains:
+- Name Entities
 
 This module concentrate the majority of deeper parsing techniques identified
 in Paraphrase Detection papers.
@@ -19,8 +19,8 @@ __author__ = 'Abel Meneses-Abad'
 
 from configparser import ConfigParser
 import preprocess
-import os
-from preprocess.utils import ngrams
+from os.path import join, relpath
+from preprocess.grams import ngrams
 
 #TODO verify what happen if nltk there is not.
 try:
@@ -30,41 +30,45 @@ except:
     pass
 
 config = ConfigParser()
-config.read(preprocess.__path__[0]+'/cfg/stanford.cfg')
+config.read(preprocess.__path__[0]+'/data/cfg/stanford.cfg')
 stanford_ner_model = {}
 
-stanford_ner_dir = os.path.relpath(config['NER']['stanford_ner_dir'][2:])
-stanford_ner_model['en'] = os.path.relpath(stanford_ner_dir[:-1] + config['NER']['stanford_ner_eng_model'][2:-1])
-stanford_ner_jar = os.path.relpath(stanford_ner_dir[:-1]+config['NER']['stanford_ner_jar'][2:-1])
+st4_ner_dir = relpath(config['NER']['stanford_dir'])
+stanford_ner_model['en'] = relpath(join(st4_ner_dir,config['NER']['stanford_eng_model']))
+stanford_ner_jar = relpath(join(st4_ner_dir[:-1],config['NER']['stanford_jar']))
 
 def ner(text, lang='en', interface='stanford', multioutput='raw_value'):
     """Name Entity Recognition.
 
-     Parameters
+    Parameters
     ----------
-    text: string to parse, generally a sentence.
 
-    lang: natural languaje of the text.
+    text : str
+           String value to parse, generally a sentence.
 
-    interface: a tag of one of the implemented interfaces in preprocess.
+    lang : str
+           Natural language of the text.
 
-    multioutput: Format type of the output.
-                 string in ['raw_value', 'tuple_list', 'raw_tag']
-                 * raw value - string format
-                 * tuple list - format is implemented for ngram generalization of
-                 some token distances in textsim papckage.
-                 * raw tag - string with NE-tokens changed for its NE-tags.
+    interface : str
+                A tag of one of the implemented interfaces in preprocess.
+
+    multioutput : str
+                  Format type of the output. Is an string on this values ['raw_value', 'tuple_list', 'raw_tag']
+                    * raw_value - string format 'token tag'
+                    * tuple_list - [(token, NE tag)]
+                    * raw tag - string with NE-tokens changed for its NE-tags.
 
     Returns
     -------
 
-    parsed result : string output, list of tuples [(token, NE tag)],
-                    NE-tags substituting NE-tokens string.
+    parsed text : string output, list of tuples [(token, NE tag)],
+                  NE-tags substituting NE-tokens string.
 
-    :Explanation:
+    Note
+    ----
 
-    The returned string structure is build to use textsim string and token
-    distances.
+    The returned string structure is build to use string and token
+    distances of *textsim* library.
 
     """
     if interface == 'stanford':
@@ -100,46 +104,44 @@ def __stanford_ner(text,lang='en',multioutput='raw_value'):
 
 stanford_parser_model = {}
 
-stanford_parser_dir = os.path.realpath(config['SYND']['stanford_parser_dir'][2:])
-stanford_parser_model['en'] = os.path.realpath(stanford_parser_dir[:-1] + config['SYND']['stanford_parser_eng_model'][2:-1])
-stanford_parser_jar = os.path.realpath(stanford_parser_dir[:-1]+config['SYND']['stanford_parser_jar'][2:-1])
+st4_parser_dir = relpath(config['SYND']['stanford_parser_dir'])
+stanford_parser_model['en'] = relpath(join(st4_parser_dir,config['SYND']['stanford_parser_eng_model']))
+stanford_parser_jar = relpath(join(st4_parser_dir,config['SYND']['stanford_parser_jar']))
 
 def syntdep(text, lang='en', interface='stanford', multioutput='triplet_list', N=2):
     """Syntactic Dependency Parser.
 
-     Parameters
+    The returned string structure is build to use textsim string and token 
+    distances.
+
+    Parameters
     ----------
-    text: string to parse, generally a sentence.
+    
+    text :  string
+            text to parse, generally a sentence.
 
-    lang: natural languaje of the text.
+    lang :  str
+            natural languaje of the text.
 
-    interface: a tag of one of the implemented interfaces in preprocess.
-               default = stanford
+    interface : str
+                a tag of one of the implemented interfaces in preprocess.
+            default = stanford
 
-    multioutput: Format type of the output.
-                 string in ['triplet_list','triplet_list_tag' , 'sngrams']
-                 * triplet list - Original stanford output [(word,dep-tag,word)]
-                 * triplet list tag - Stanford output [(POS-tag,dep-tag,POS-tag)]
-                 * sngrams - Syntactic N-grams based on [Sidorov2012]_.
+    multioutput : str
+                  Format type of the output. It is a string in ['triplet_list','triplet_list_tag' , 'sngrams']
+                    - triplet list - Original stanford output [(word,dep-tag,word)]
+                    - triplet list tag - Stanford output [(POS-tag,dep-tag,POS-tag)]
+                    - sngrams - Syntactic N-grams.
 
-    N: length of N-grams
+    N : int
+        length of N-grams
 
     Returns
     -------
-
-    parsed result : string output, list of tuples [(token, NE tag)],
-                    NE-tags substituting NE-tokens string.
-
-    :Explanation:
-
-    The returned string structure is build to use textsim string and token
-    distances.
-
-    :Citation:
-
-    .. [Sidorov2012] Grigori Sidorov et all (2012). Syntactic N-grams as Machine
-        Learning Features for Natural Language Processing.
-        Journal Expert Systems with Applications, 4(3): 853-860. Elsevier.
+    
+    parsed text : list of tuples
+                    Sequence of [(head token, DEP tag, dependent token)],
+                    head POS-tags SYNTDEP-tag dependent POS-tag, or sngrams.
 
     """
     if interface == 'stanford':

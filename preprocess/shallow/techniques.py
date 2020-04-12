@@ -21,7 +21,7 @@ __author__ = 'Abel Meneses-Abad'
 
 from configparser import ConfigParser
 import preprocess
-import os
+from os.path import join, relpath
 from preprocess.shallow import LANGUAGES
 from string import punctuation
 
@@ -35,12 +35,12 @@ except:
     pass
 
 config = ConfigParser()
-config.read(preprocess.__path__[0]+'/cfg/stanford.cfg')
+config.read(preprocess.__path__[0]+'/data/cfg/stanford.cfg')
 stanford_pos_model = {}
 
-stanford_pos_dir = os.path.relpath(config['POS']['stanford_pos_dir'][2:])
-stanford_pos_model['en'] = os.path.relpath(stanford_pos_dir[:-1] + config['POS']['stanford_pos_eng_model'][2:-1])
-stanford_pos_jar = os.path.relpath(stanford_pos_dir[:-1]+config['POS']['stanford_pos_jar'][2:-1])
+st4_pos_dir = relpath(config['POS']['stanford_dir'])
+stanford_pos_model['en'] = relpath(join(st4_pos_dir,config['POS']['stanford_eng_model']))
+stanford_pos_jar = relpath(join(st4_pos_dir,config['POS']['stanford_jar']))
 
 def pos(text, lang='en', interface='stanford', multioutput='raw_value'):
     """Part of Speech Tagging.
@@ -66,7 +66,8 @@ def pos(text, lang='en', interface='stanford', multioutput='raw_value'):
     parsed result : string output, list of tuples [(token, POS tag)],
                     POS-tags substituting tokens.
 
-    :Explanation:
+    Note
+    ----
 
     The returned string structure is build to use textsim string and token
     distances.

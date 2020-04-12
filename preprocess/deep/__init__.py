@@ -10,7 +10,7 @@ import preprocess
 TECHNIQUES = {}
 
 config = ConfigParser()
-config.read(preprocess.__path__[0]+'/cfg/stanford.cfg')
+config.read(preprocess.__path__[0]+'/data/cfg/stanford.cfg')
 
 #Import nltk distances from ~/nltk/metric/distance.py and modify after with decorators
 NLTKImportError = False
@@ -37,12 +37,12 @@ finally:    #check if NLTK Stanford parser is installed.
                 from nltk.parse.stanford import StanfordDependencyParser
 
                 #Test if NER.jar and NER model still there after installation
-                stanford_ner_dir = os.path.abspath(config['NER']['stanford_ner_dir'][2:])
-                stanford_ner_eng_model = os.path.abspath(stanford_ner_dir[:-1] + config['NER']['stanford_ner_eng_model'][2:-1])
-                stanford_ner_jar = os.path.abspath(stanford_ner_dir[:-1]+config['NER']['stanford_ner_jar'][2:-1])
+                st4_ner_dir = os.path.abspath(config['NER']['stanford_dir'])
+                st4_ner_eng_model = os.path.abspath(os.path.join(st4_ner_dir,config['NER']['stanford_eng_model']))
+                st4_ner_jar = os.path.abspath(os.path.join(st4_ner_dir,config['NER']['stanford_jar']))
 
                 try:
-                    st = StanfordNERTagger(stanford_ner_eng_model, stanford_ner_jar, 'utf8')
+                    st = StanfordNERTagger(st4_ner_eng_model, st4_ner_jar, 'utf8')
                     StanfordNERTaggerModelJar = True
                 except LookupError:
                     raise SkipTest('Fail to loading Stanford NER Tagging because\
@@ -53,9 +53,9 @@ finally:    #check if NLTK Stanford parser is installed.
                     from .techniques import ner
 
                 #Checking Stanford Dependency Parser models exist after installation
-                stanford_parser_dir = os.path.realpath(config['SYND']['stanford_parser_dir'][2:])
-                stanford_parser_eng_model = os.path.realpath(stanford_parser_dir[:-1] + config['SYND']['stanford_parser_eng_model'][2:-1])
-                stanford_parser_jar = os.path.realpath(stanford_parser_dir[:-1]+config['SYND']['stanford_parser_jar'][2:-1])
+                stanford_parser_dir = os.path.realpath(config['SYND']['stanford_parser_dir'])
+                stanford_parser_eng_model = os.path.realpath(os.path.join(stanford_parser_dir,config['SYND']['stanford_parser_eng_model']))
+                stanford_parser_jar = os.path.realpath(os.path.join(stanford_parser_dir,config['SYND']['stanford_parser_jar']))
                 
                 try:
                     st = StanfordDependencyParser(stanford_parser_eng_model, stanford_parser_jar)

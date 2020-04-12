@@ -42,11 +42,15 @@ class pdf:
 #TODO doing a test PyPDF2 fail in a book processing. 
 # The same book was processed by pdftotext without problems.
 
-def pdftotext(path, pages=None):
+def pdftotxt(path, pages=None, out=None):
+    """PDF to txt using PDFMiner library.
+    """
+
     if not pages:
         pagenums = set()
     else:
         pagenums = set(pages)
+
     output = StringIO()
     manager = PDFResourceManager()
     converter = TextConverter(manager, output, laparams=LAParams())
@@ -58,5 +62,9 @@ def pdftotext(path, pages=None):
     infile.close()
     converter.close()
     text = output.getvalue()
-    output.close()
+
+    if out:
+        with open(out, 'w') as doc:
+            doc.write(text)
+
     return text
