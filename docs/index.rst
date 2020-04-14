@@ -5,7 +5,7 @@
 Preprocess: Wrangling Text
 ==========================
 
-**preprocess** is a python library for natural language tasks. The
+``preprocess`` is a python library for natural language tasks. The
 principal reason for its implementation it is to avoid the still
 current dispersion in python ecosystem for the next list of NLP
 sub-process: stopword removal, hyphenation, POS tagging, general text
@@ -19,9 +19,23 @@ methods to accomplish this purpose from NLTK, Spacy and others.
 QuickStart
 -----------
 
-1. QuickStart with :doc:`tutorial/user/quickstart`.
+1. QuickStart with :doc:`edu/quickstart`.
 2. Bases of :doc:`normalization`.
 
+Basic Techniques
+----------------
+
+.. toctree::
+  :maxdepth: 2
+  :caption: Table of Contents
+
+  collab/about
+  edu/quickstart
+  normalization
+  edu/applied_preprocessing
+  api/index
+  collab/contributing
+  collab/changelog
 
 Future Goals
 -------------
@@ -40,32 +54,3 @@ Future Goals
     Pipeline* and *GreadSearch* parameter tuning technique. If 
     possible to combine with *Sklearn library* in some independent 
     module.
-
-.. toctree::
-  :maxdepth: 2
-  :caption: User Guide
-
-  tutorial/user_guide_summary
-  tutorial/user/quickstart
-  tutorial/user/applications
-  normalization
-
-.. toctree::
-  :maxdepth: 2
-  :caption: Developers Guide
-
-  tutorial/dev_guide_summary.rst
-  tutorial/dev/basic.rst
-  tutorial/dev/ngrams.rst
-  tutorial/dev/shallow.rst
-  tutorial/dev/deep.rst
-
-
-
-Util module
------------
-
-Helpers functions of preprocessing library.
-
-.. automodule:: preprocess.utils
-   :members:

@@ -17,6 +17,7 @@
   - Pick the best tech as DEFAULT
 * If the test result shows it is possible abandon nltk/standfordNLP and only use spacy and sklearn
 * implement a method to include regular expression passed by the user (like spacy)
+* implement self function of nltk.measures to pass to grams.CollocationList
 
 #### Version 0.4.x 'Optimize'
 
@@ -49,21 +50,26 @@ Objective:
 * Review the mechanism of LANGUAGE in shallow.__init__ it is not being used
 * add shallow.sentence_segmentation
 * add shallow.number_replacement
+* increment dataset loading docstring
 
 #### Version 0.3 'Packaging' (current)
 
 * type checking and remove support for Py2
 * add tox.ini, requirements.txt, .travis.yml, LICENSE, MANIFEST, .pypirc 
 * doc v0.3 [OK 50%]
+	- changing doc to API style of yellowbrick[OK]
+	- include data for examples[OK]
+	- include datasets rst
 * test v0.3
-* separate aligning and helpers in utils.aling.py[OK]
+* separate aligning and helpers in utils.aling.py [OK]
 * doc ngrams.py + Basic docstring of sn_gram [OK]
 * separated pack for ngrams, because sngrams is to long [OK]
-* embedding notebook examples to the sphinx doc[OK]
-* translate to English the notebooks involved
-* include the test data from NLP course for Text Normalization Jupyter ntb
-* define if the hypenation functions must be in normalization[OK]
-* Finish decorator Appender to link docstring to doc
+* embedding notebook examples to the sphinx doc [OK]
+* translate to English the notebooks involved.
+* include the test data from NLP course for Text Normalization Jupyter ntb 
+* define if the hypenation functions must be in normalization [OK]
+* Write the Quickstart [OK, 10%]
+* Finish @Appender to link docstrings to .py with close to 200 LOC
 
 ### Version 0.2.x 'Testing in Reality'</u>
 
