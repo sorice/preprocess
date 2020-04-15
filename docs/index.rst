@@ -22,8 +22,22 @@ QuickStart
 1. QuickStart with :doc:`edu/quickstart`.
 2. Bases of :doc:`normalization`.
 
+Preprocessing Techniques
+------------------------
+
+Are wrangling techniques that convert an original text object in some
+modified text suitable for NLP tasks. Usuarlly are not complicated to
+understand but its diversity and combined forms make difficult to
+apply or to program because are distributed in many libraries or not
+public available in open source, only mentioned in scientific papers.
+
 Basic Techniques
-----------------
+~~~~~~~~~~~~~~~~
+
+- :doc:`api/basic/normalize`: usually called normalization techeniques
+- :doc:`api/basic/punctuation`: related to recognition and replacement of punctuation signs
+- :doc:`api/basic/hypen`: changes some sign conventions that modify words
+- :doc:`api/basic/symbols`: substitution of rare chars that represents symbols, frecuently apears in math texts.
 
 .. toctree::
   :maxdepth: 2

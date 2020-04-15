@@ -3,7 +3,7 @@
 .. _basic-module:
 
 Basic Module
---------------
+============
 
 Module for basic preprocessing techniques: lowercase, urls replacement
 symbols replacement, multipart words union, etc.

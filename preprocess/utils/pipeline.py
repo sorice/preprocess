@@ -1,4 +1,4 @@
-def pipeline(text,flow=None):
+def pipeline(text: str,flow=None) -> str:
     """An easier function that allows to make a full Pipeline
     with the subprocess that users wants. Read the restriction-
     matrix to see what sequences of subprocess are imppossible.
@@ -14,10 +14,11 @@ def pipeline(text,flow=None):
     -------
 
     parsed result : string output
-
-    TODO: make a matrix to restrict impossible sequences.
+                    Initial text preprocessed with techniques def
+                    in the pipeline.
     """
-
+    #TODO: make a matrix to restrict impossible sequences.
+    
     steps = OrderedDict()
     bad_steps = []
 

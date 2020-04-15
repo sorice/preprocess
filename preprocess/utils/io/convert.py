@@ -42,7 +42,7 @@ class pdf:
 #TODO doing a test PyPDF2 fail in a book processing. 
 # The same book was processed by pdftotext without problems.
 
-def pdftotxt(path, pages=None, out=None):
+def pdftotxt(path: str, pages=None, out=None) -> str:
     """PDF to txt using PDFMiner library.
     """
 

@@ -12,3 +12,10 @@ complement the shallow and deep module.
 
 from .pipeline import pipeline 
 from .tagsetconverter import ptb2universal
+from preprocess.utils.io.convert import pdftotxt
+
+__all__ = [
+    'pipeline',
+    'ptb2universal',
+    'pdftotxt',
+]
