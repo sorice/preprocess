@@ -78,7 +78,25 @@ def parse_tags(d):
         constants[name] = (val, units, uncert)
     return constants
 
-def ptb2universal(tagged_text):
+def ptb2universal(tagged_text: list) -> list:
+    """Convert Pen Tree Bank POS extended tag set (36 tags) into 
+    universal tag set (12 tags).
+
+    Parameters
+    ----------
+
+    tagged_text: list
+                 A list of (word,POS Tag) returned by a pos tagger
+                 in the extended form Eg. VBD, VBG, VBN, VBP, VBZ.
+
+    Return
+    ------
+
+    new_text: list
+              The same list of (word, POS Tag) but in the universal
+              form, the above tags are change by VERB.
+
+    """
     new_text = []
     mapa = tagset_mapping('en-ptb','universal')
     for word,pos in tagged_text:

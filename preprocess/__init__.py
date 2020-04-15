@@ -34,7 +34,7 @@ from preprocess.utils import pipeline
 from preprocess.utils.io import files
 
 #Experimental functions based on nltk, spacy, others.
-from preprocess.grams import CollocationList
+from preprocess.grams import Collocations
 
 from .demo import preProcessFlow as normalize
 

@@ -22,7 +22,8 @@ def get_stanford_data():
     try:
         StanfordPOSTagger(model_filename=eng_model_filename, path_to_jar=my_path_to_jar)
     except LookupError:
-        raise ('Some preprocessing techniques will not work because one of the stanford parser or CoreNLP jars doesn\'t exist')
+        raise ('Some preprocessing techniques will not work because one of the stanford \
+    parser or CoreNLP jars doesn\'t exist')
 
 # find packages to be included. exclude benchmarks.
 packages = setuptools.find_packages(exclude=['docs','notebooks'])
@@ -75,7 +76,10 @@ setup(
     cmdclass=cmdclass,
     include_package_data=True,
 
-    data_files=[('config',['preprocess/data/cfg/stanford.cfg']),
+    data_files=[
+        ('config',['preprocess/data/cfg/stanford.cfg']),
+        ('data', ['preprocess/data/books/Cultura_Libre.txt', 
+        'preprocess/data/books/FS_FSociety.txt']),
     ],
     zip_safe=False
 )

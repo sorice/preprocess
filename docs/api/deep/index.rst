@@ -3,7 +3,7 @@
 .. _deep-module:
 
 Deep Module
------------
+===========
 
 Module for deep preprocessing techniques: NER, SRL, etc.
 

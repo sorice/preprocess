@@ -18,7 +18,7 @@ from preprocess import deep
 
 from collections import OrderedDict
 
-def alignSentences(preprocessed_text, original_text):
+def alignSentences(preprocessed_text: str, original_text: str) -> list:
     """Align preprocessed sentences vs original sentences returning the original boundaries.
     Useful for real applications, to recover the original sentence position or fragment position
     and show in a web or desktop application view.
@@ -96,7 +96,7 @@ def alignSentences(preprocessed_text, original_text):
 
     return alignedSentences
 
-def getSentA(doc1):
+def getSentA(doc1: str):
     """
     alignSentences auxiliar function to get the sentences of the preprocessed text.
     """
@@ -106,7 +106,7 @@ def getSentA(doc1):
         yield sentA, offset, i.end()
         offset = i.end()+1
 
-def getSentB(text2, offsetB, nextPoint,sentLength):
+def getSentB(text2: str, offsetB: int, nextPoint: int, sentLength: int):
     """
     alignSentences auxiliar function to get the sentences of the original text.
     """
@@ -116,7 +116,7 @@ def getSentB(text2, offsetB, nextPoint,sentLength):
     nextPoint = offsetB + sentLength
     return sentB, nextPoint, sentLength
 
-def extra_normalize(text_orig):
+def extra_normalize(text_orig: str):
     """
     This function allows a simple normalization to the original text to make
     possible the aligning process.

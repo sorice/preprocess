@@ -8,9 +8,9 @@
 *sublime*
 /.ipynb_checkpoints
 *checkpoint.ipynb
-*/data
+*/data/tmp/
 */docs/build
-*/html
+/html
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -5,7 +5,7 @@
 Preprocess: Wrangling Text
 ==========================
 
-**preprocess** is a python library for natural language tasks. The
+``preprocess`` is a python library for natural language tasks. The
 principal reason for its implementation it is to avoid the still
 current dispersion in python ecosystem for the next list of NLP
 sub-process: stopword removal, hyphenation, POS tagging, general text
@@ -14,14 +14,42 @@ it is to convert everything to *Pandas DataFrame*, this project start
 when that trend wasn't alive and *Sklearn library* needed Bunch objects
 and some of my colleague were using Weka (java) and arff format. So the
 comparison of performances was a nightmare. This library integrates
-methods to accomplish this purpose from NLTK, Spacy and others. 
+methods to accomplish this purpose from NLTK, Spacy and others.
 
 QuickStart
 -----------
 
-1. QuickStart with `preprocessing`.
+1. QuickStart with :doc:`edu/quickstart`.
 2. Bases of :doc:`normalization`.
 
+Preprocessing Techniques
+------------------------
+
+Are wrangling techniques that convert an original text object in some
+modified text suitable for NLP tasks. Usuarlly are not complicated to
+understand but its diversity and combined forms make difficult to
+apply or to program because are distributed in many libraries or not
+public available in open source, only mentioned in scientific papers.
+
+Basic Techniques
+~~~~~~~~~~~~~~~~
+
+- :doc:`api/basic/normalize`: usually called normalization techeniques
+- :doc:`api/basic/punctuation`: related to recognition and replacement of punctuation signs
+- :doc:`api/basic/hypen`: changes some sign conventions that modify words
+- :doc:`api/basic/symbols`: substitution of rare chars that represents symbols, frecuently apears in math texts.
+
+.. toctree::
+  :maxdepth: 2
+  :caption: Table of Contents
+
+  collab/about
+  edu/quickstart
+  normalization
+  edu/applied_preprocessing
+  api/index
+  collab/contributing
+  collab/changelog
 
 Future Goals
 -------------
@@ -40,31 +68,3 @@ Future Goals
     Pipeline* and *GreadSearch* parameter tuning technique. If 
     possible to combine with *Sklearn library* in some independent 
     module.
-
-.. toctree::
-  :maxdepth: 2
-  :caption: User Guide
-
-  tutorial/user_guide_summary
-  tutorial/user/applications
-  normalization
-
-.. toctree::
-  :maxdepth: 2
-  :caption: Developers Guide
-
-  tutorial/dev_guide_summary.rst
-  tutorial/dev/basic.rst
-  tutorial/dev/ngrams.rst
-  tutorial/dev/shallow.rst
-  tutorial/dev/deep.rst
-
-
-
-Util module
------------
-
-Helpers functions of preprocessing library.
-
-.. automodule:: preprocess.utils
-   :members:

@@ -3,7 +3,7 @@
 .. _shallow-module:
 
 Shallow Module
---------------
+===============
 
 Module for shallow preprocessing techniques: lowercase, contractions expansion, urls replacement, abbreviations substiturion, POS tagging, etc.
 
