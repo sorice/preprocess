@@ -35,11 +35,11 @@ References
 ----------
 
 .. [Shannon1948] C.E. Shannon, A mathematical theory of communications,
-The Bell Systems Tech. J. 27 (1948), 379-423.
+	The Bell Systems Tech. J. 27 (1948), 379-423.
 
 .. [Chong2013] Chong M. M. Y. A Study on Plagiarism Detection and
-Plagiarism Direction Identification Using Natural Language Processing 
-Techniques, University of Wolverhampton, 2013, PhD Thesis, 326 pags.
+	Plagiarism Direction Identification Using Natural Language Processing
+	Techniques, University of Wolverhampton, 2013, PhD Thesis, 326 pags.
 
 .. toctree::
    :maxdepth: 2

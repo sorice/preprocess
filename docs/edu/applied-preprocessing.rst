@@ -1,7 +1,24 @@
 .. _applications:
 
-Has been used in
-==================
+Applying Preprocessing for Real
+================================
+
+This tutorial intends to show ``preprocess`` in a real context. After a 
+quickstart in the library, and the bases of text normalization with 
+python, the next obvious step is to apply preprocessing techniques in a 
+real NLP problem
+
+The selected problem is "Semantic Text Similarity".
+
+Semantic Text Similarity
+------------------------
+
+
+
+Has been used successfully in
+------------------------------
+
+``preprocess`` has been used in the following projects:
 
 - [Text Preprocessing Chapter of MyNLP Course Py3 version](file:///media/abelm/Almacen/Doctorado/Notas_de_la_Investigacion/03_Mi_Curso_Postgrado_Natural_Language_Process/02_Pre-Procesamiento_py3/)
 - [Text Preprocessing Chapter of MyNLP Course Py2 version](file:///media/abelm/Almacen/Doctorado/Notas_de_la_Investigacion/03_Mi_Curso_Postgrado_Natural_Language_Process/02_Pre-Procesamiento)

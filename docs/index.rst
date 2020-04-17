@@ -21,6 +21,7 @@ QuickStart
 
 1. QuickStart with :doc:`edu/quickstart`.
 2. Bases of `Text Normalization <edu/text-normalization.ipynb>`_.
+3. `Applied preprocessing <edu/applied-preprocessing>`_
 
 Preprocessing Techniques
 ------------------------
@@ -46,7 +47,7 @@ Basic Techniques
   collab/about
   edu/quickstart
   edu/text-normalization
-  edu/applied_preprocessing
+  edu/applied-preprocessing
   api/index
   collab/contributing
   collab/changelog

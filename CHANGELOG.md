@@ -51,6 +51,7 @@ Objective:
 * add shallow.sentence_segmentation
 * add shallow.number_replacement
 * increment dataset loading docstring
+* prepare the semantic text similarity in applied_preprocessing.rst
 
 #### Version 0.3 'Packaging' (current)
 
