@@ -31,15 +31,8 @@ The main objective of this library is to obtain the original text in a
 suitable form for later NLP tasks like: Text Similarity, Text
 Classification, Automatic translation, Text Retrieval, etc.
 
-References
-----------
-
-.. [Shannon1948] C.E. Shannon, A mathematical theory of communications,
-The Bell Systems Tech. J. 27 (1948), 379-423.
-
-.. [Chong2013] Chong M. M. Y. A Study on Plagiarism Detection and
-Plagiarism Direction Identification Using Natural Language Processing 
-Techniques, University of Wolverhampton, 2013, PhD Thesis, 326 pags.
+Modules
+-------
 
 .. toctree::
    :maxdepth: 2
@@ -49,3 +42,13 @@ Techniques, University of Wolverhampton, 2013, PhD Thesis, 326 pags.
    shallow/index
    deep/index
    utils/index
+
+References
+----------
+
+.. [Shannon1948] C.E. Shannon, A mathematical theory of communications,
+	The Bell Systems Tech. J. 27 (1948), 379-423.
+
+.. [Chong2013] Chong M. M. Y. A Study on Plagiarism Detection and
+	Plagiarism Direction Identification Using Natural Language Processing
+	Techniques, University of Wolverhampton, 2013, PhD Thesis, 326 pags.

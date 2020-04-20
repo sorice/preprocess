@@ -18,7 +18,7 @@ def preProcessFlow(text: str) -> str:
     text = replace_symbols(text)
     #print ('processing symbols like Greek letters',text)
 
-    text = replace_point_sequence(text)
+    text = replace_dot_sequence(text)
     #print ('cleaning contiguous dots\n',text)
 
     text = extraspace_for_endingpoints(text)

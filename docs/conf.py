@@ -43,12 +43,6 @@ extensions = ['sphinx.ext.autodoc',
             'nbsphinx_link'
             ]
 
-    
-
-# Spelling with British English this files were took from orange documentation.
-spelling_lang = "en_GB"
-spelling_word_list_filename = "spelling_wordlist.txt"
-
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 

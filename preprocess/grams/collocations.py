@@ -68,6 +68,9 @@ class Collocations:
 	This class internaly use the function :func:`remove_stopwords`.
 	"""
 	def __init__ (self,text, ngrams=2, stopwords=True, lang='en'):
+		#advise about text length
+		if text.count(' ') < 100:
+			print('This text is to short for proper collocations!') 
 		self.text = text
 		self.words = []
 		self.ngrams = ngrams

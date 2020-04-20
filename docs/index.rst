@@ -20,7 +20,8 @@ QuickStart
 -----------
 
 1. QuickStart with :doc:`edu/quickstart`.
-2. Bases of :doc:`normalization`.
+2. Bases of `Text Normalization <edu/text-normalization.ipynb>`_.
+3. `Applied preprocessing <edu/applied-preprocessing>`_
 
 Preprocessing Techniques
 ------------------------
@@ -34,10 +35,10 @@ public available in open source, only mentioned in scientific papers.
 Basic Techniques
 ~~~~~~~~~~~~~~~~
 
-- :doc:`api/basic/normalize`: usually called normalization techeniques
-- :doc:`api/basic/punctuation`: related to recognition and replacement of punctuation signs
-- :doc:`api/basic/hypen`: changes some sign conventions that modify words
-- :doc:`api/basic/symbols`: substitution of rare chars that represents symbols, frecuently apears in math texts.
+- :doc:`api/basic/normalize`: usually called normalization techeniques 
+- :doc:`api/basic/punctuation`: related to recognition and replacement of punctuation signs 
+- :doc:`api/basic/hypen`: changes some sign conventions that modify words 
+- :doc:`api/basic/symbols`: substitution of rare chars that represents symbols, frecuently apears in math texts 
 
 .. toctree::
   :maxdepth: 2
@@ -45,8 +46,8 @@ Basic Techniques
 
   collab/about
   edu/quickstart
-  normalization
-  edu/applied_preprocessing
+  edu/text-normalization
+  edu/applied-preprocessing
   api/index
   collab/contributing
   collab/changelog
