@@ -32,9 +32,9 @@ def replace_urls(text):
 def replace_symbols(text):
     return sreplace(text)
 
-def replace_point_sequence(text):
+def replace_dot_sequence(text):
     """
-    Replace a contiguous point sequence by the same amount of 
+    Replace a contiguous dot sequence by the same amount of 
     whitespace.
 
     Note
@@ -72,8 +72,8 @@ def multipart_words(text):
     return text
 
 def abbreviations(text, lang='en'):
-    """Proper names and abbrev recognition and manipulation based on
-    regular expressions.
+    """Proper names and abbrev recognition are underscored based on
+    a list of international abbreviations
 
     Note
     ----

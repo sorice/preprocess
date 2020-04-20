@@ -35,7 +35,7 @@ stanford_ner_model = {}
 
 st4_ner_dir = relpath(config['NER']['stanford_dir'])
 stanford_ner_model['en'] = relpath(join(st4_ner_dir,config['NER']['stanford_eng_model']))
-stanford_ner_jar = relpath(join(st4_ner_dir[:-1],config['NER']['stanford_jar']))
+stanford_ner_jar = relpath(join(st4_ner_dir,config['NER']['stanford_jar']))
 
 def ner(text, lang='en', interface='stanford', multioutput='raw_value'):
     """Name Entity Recognition.
@@ -165,14 +165,13 @@ def __stanford_parser(text,lang='en',multioutput='triplet_list', N=2):
         triplet_list.append((governor[0],relation,dependent[0]))
         triplet_list_tag.append((governor[1],relation,dependent[1]))
 
-    sn_gram = ngrams.sngrams(st, text,N)
-
     if isinstance(multioutput, str):
         if multioutput == 'triplet_list':
             return triplet_list
         if multioutput == 'triplet_list_tag':
             return triplet_list_tag
         if multioutput == 'sngrams':
+            sn_gram = ngrams.sngrams(st, text,N)
             return sn_gram
 
 #TODO: Semantic Role Labeling

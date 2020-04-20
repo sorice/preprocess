@@ -21,11 +21,13 @@ import os
 __all__ = [
     "load_freesoftware",
     "load_culturalibre",
+    "freesoftware_pdfpath",
     ]
 
 DATASETS = {
     "load_freesoftware": "FS_FSociety.txt",
     "load_culturalibre": "Cultura_Libre.txt",
+    "freesoftware_pdfpath": "FS_FSociety.pdf",
     }
 
 ##########################################################################
@@ -53,3 +55,7 @@ def load_culturalibre():
     """Load the book Cultura Libre.
     """
     return _load_dataset('load_culturalibre')
+
+def freesoftware_pdfpath():
+    path = os.path.join(os.path.dirname(__file__), 'books', DATASETS['freesoftware_pdfpath'])
+    return path

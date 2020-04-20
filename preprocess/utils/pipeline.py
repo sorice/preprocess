@@ -1,3 +1,6 @@
+from collections import OrderedDict
+from preprocess import basic, shallow
+
 def pipeline(text: str,flow=None) -> str:
     """An easier function that allows to make a full Pipeline
     with the subprocess that users wants. Read the restriction-
@@ -31,18 +34,23 @@ def pipeline(text: str,flow=None) -> str:
 
     #If flow is defined check the functions
     for step in flow:
-        if step in shallow.__techniques__:
+        if step in basic.__techniques__:
+            steps[step]=basic.__techniques__[step]
+        elif step in shallow.__techniques__:
             steps[step]=shallow.__techniques__[step]
-        elif step in deep.__techniques__:
-            steps[step]=deep.__techniques__[step]
         else:
             bad_steps.append(step)
+            print("the %s technique could not be found" % step)
 
     #TODO:Check if the order is possible in the matrix of possible
     #sequences
 
     #Apply correct functions
     for step in steps:
-        text = steps[step](text)
-    print('The following steps are not correct:', bad_steps)
+        try:
+            text = steps[step](text)
+        except:
+            print("%s technique can be concatenated" % step)
+            return False
+    
     return text

@@ -11,12 +11,10 @@ Finish on
 
 import re
 from preprocess.basic import (add_doc_ending_point, abbreviations,
-                    multipart_words, replace_point_sequence)
+                    multipart_words, replace_dot_sequence)
 
 from preprocess import shallow
 from preprocess import deep
-
-from collections import OrderedDict
 
 def alignSentences(preprocessed_text: str, original_text: str) -> list:
     """Align preprocessed sentences vs original sentences returning the original boundaries.
@@ -145,7 +143,7 @@ def extra_normalize(text_orig: str):
     for (pattern, repl) in replacement_patterns:
             (text_orig, count) = re.subn(pattern, repl, text_orig)
 
-    text_orig = replace_point_sequence(text_orig)
+    text_orig = replace_dot_sequence(text_orig)
     text_orig = multipart_words(text_orig)
     text_orig = abbreviations(text_orig)
     text_orig = re.sub(r'apdbx+','.', text_orig)

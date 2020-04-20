@@ -1,6 +1,6 @@
 from .normalize import replace_urls
 from .normalize import replace_symbols
-from .normalize import replace_point_sequence
+from .normalize import replace_dot_sequence
 from .normalize import multipart_words
 from .normalize import abbreviations
 from .normalize import expand_contractions
@@ -15,7 +15,7 @@ TECHNIQUES = {
     'lowercase':lowercase,
     'replace_urls':replace_urls,
     'replace_symbols':replace_symbols,
-    'replace_point_sequence':replace_point_sequence,
+    'replace_dot_sequence':replace_dot_sequence,
     'multipart_words':multipart_words,
     'abbreviations':abbreviations,
     'expand_contractions':expand_contractions,

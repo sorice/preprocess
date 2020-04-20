@@ -8,7 +8,7 @@ part of speech tagging.
 
 from preprocess.basic import replace_urls
 from preprocess.basic import replace_symbols
-from preprocess.basic import replace_point_sequence
+from preprocess.basic import replace_dot_sequence
 from preprocess.basic import multipart_words
 from preprocess.basic import abbreviations
 from preprocess.basic import expand_contractions
@@ -17,6 +17,7 @@ from preprocess.basic import lowercase
 from preprocess.basic import extraspace_for_endingpoints
 from preprocess.basic import add_doc_ending_point
 from preprocess.basic import del_tokens_len_one
+from preprocess.basic import hyphenation
 
 #from preprocess.techniques import shallow
 from preprocess.shallow import remove_stopwords

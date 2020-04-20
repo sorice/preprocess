@@ -41,6 +41,9 @@ Objective:
 * preprocess.config must acept a dict to stablish the preprocess techniques active by default
 * build __all__ for deep, shallow, basic
 * build __pendent__ for deep, shallow, basic
+* create preprocess.config 
+	- hyphenation can't be used in pipelines because of collocations parameter so if None
+		collocations = preprocess.config.collocations a default value
 
 #### Version 0.3.1
 
@@ -52,10 +55,11 @@ Objective:
 * add shallow.number_replacement
 * increment dataset loading docstring
 * prepare the semantic text similarity in applied_preprocessing.rst
+* introduce abbreviation list from freeling as a cfg data
 
 #### Version 0.3 'Packaging' (current)
 
-* type checking and remove support for Py2
+* type checking and remove support for Py2[OK, 30%]
 * add tox.ini, requirements.txt, .travis.yml, LICENSE, MANIFEST, .pypirc 
 * doc v0.3 [OK 50%]
 	- changing doc to API style of yellowbrick[OK]
@@ -67,10 +71,12 @@ Objective:
 * separated pack for ngrams, because sngrams is to long [OK]
 * embedding notebook examples to the sphinx doc [OK]
 * translate to English the notebooks involved.
-* include the test data from NLP course for Text Normalization Jupyter ntb 
+* include the test data from NLP course for Text Normalization Jupyter ntb
+	- revisar los paths a esas datas en el notebook
 * define if the hypenation functions must be in normalization [OK]
 * Write the Quickstart [OK, 10%]
 * Finish @Appender to link docstrings to .py with close to 200 LOC
+* Add main section Advanced Examples (include POS.ipynb)
 
 ### Version 0.2.x 'Testing in Reality'</u>
 
