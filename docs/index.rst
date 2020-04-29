@@ -22,6 +22,8 @@ QuickStart
 1. QuickStart with :doc:`edu/quickstart`.
 2. Bases of `Text Normalization <edu/text-normalization.ipynb>`_.
 3. `Applied preprocessing <edu/applied-preprocessing>`_
+4. ``preprocess`` and ``NLTK`` entangles :doc:`edu/entangled-nltk`.
+5. Playfull Programming `filtering important words with Luhn <edu/filtering-words-with-luhn>`_.
 
 Preprocessing Techniques
 ------------------------
