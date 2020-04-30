@@ -23,7 +23,7 @@ QuickStart
 2. Bases of `Text Normalization <edu/text-normalization.ipynb>`_.
 3. `Applied preprocessing <edu/applied-preprocessing>`_
 4. ``preprocess`` and ``NLTK`` entangles :doc:`edu/entangled-nltk`.
-5. Playfull Programming `filtering important words with Luhn <edu/filtering-words-with-luhn>`_.
+5. Playfull Programming `filtering important words with Luhn <edu/filtering-words-with-luhn.ipynb>`_.
 
 Preprocessing Techniques
 ------------------------
@@ -37,10 +37,10 @@ public available in open source, only mentioned in scientific papers.
 Basic Techniques
 ~~~~~~~~~~~~~~~~
 
-- :doc:`api/basic/normalize`: usually called normalization techeniques 
-- :doc:`api/basic/punctuation`: related to recognition and replacement of punctuation signs 
-- :doc:`api/basic/hypen`: changes some sign conventions that modify words 
-- :doc:`api/basic/symbols`: substitution of rare chars that represents symbols, frecuently apears in math texts 
+- :doc:`api/basic/normalize`: usually called normalization techniques
+- :doc:`api/basic/punctuation`: set of regular expressions for punctuation sign treatment
+- :doc:`api/basic/hypen`: changes some sign conventions that modify words, specially to identify collocations
+- :doc:`api/basic/symbols`: substitution of rare chars that represents symbols, frecuently appears in math texts
 
 .. toctree::
   :maxdepth: 2
@@ -53,6 +53,8 @@ Basic Techniques
   api/index
   collab/contributing
   collab/changelog
+  edu/entangled-nltk
+  edu/filtering-words-with-luhn
 
 Future Goals
 -------------

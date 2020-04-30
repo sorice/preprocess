@@ -24,14 +24,18 @@ __all__ = [
     "freesoftware_pdfpath",
     "tnlp1_path",
     "tnlp1h_path",
+    "test_text_path",
+    "test_texth_path",
     ]
 
 DATASETS = {
     "load_freesoftware": "FS_FSociety.txt",
     "load_culturalibre": "Cultura_Libre.txt",
     "freesoftware_pdfpath": "FS_FSociety.pdf",
-    "tnlp1_path": "srctnlp1.txt"
-    "tnlp1h_path": "srctnlp1_human.txt"
+    "tnlp1_path": "srctnlp1.txt",
+    "tnlp1h_path": "srctnlp1_human.txt",
+    "test_text_path": "test_text.txt",
+    "test_texth_path": "test_text_human.txt",
     }
 
 ##########################################################################
@@ -70,4 +74,12 @@ def tnlp1_path():
 
 def tnlp1h_path():
     path = os.path.join(os.path.dirname(__file__), 'short', DATASETS['tnlp1h_path'])
+    return path
+
+def test_text_path():
+    path = os.path.join(os.path.dirname(__file__), 'short', DATASETS['test_text_path'])
+    return path
+
+def test_texth_path():
+    path = os.path.join(os.path.dirname(__file__), 'short', DATASETS['test_texth_path'])
     return path
