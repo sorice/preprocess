@@ -37,13 +37,19 @@ def replace_dot_sequence(text):
     Replace a contiguous dot sequence by the same amount of 
     whitespace.
 
+    Please read carefully the documentation to see all the 
+    conventions adopted to replace this sequences, and how to 
+    maintain dot sentence delimiters for sentence tokenizers.
+
     Note
     ----
 
-    It can't be reimplemented without the finditer function.
-    This expression r'(\w+)[.]\s*[.]+[\s|[.]]*' changes the sequences of points
-    but it is impossible to handle the number of white spaces.
-    This functions it is used latter for the alignment process after normalization.
+    It can't be implemented without the finditer function.
+    This expression r'(\w+)[.]\s*[.]+[\s|[.]]*' changes the sequences 
+    of points but it is impossible to handle the number of white spaces.
+    This functions it is used also for the alignment process after 
+    normalization, where maintaining the length of the original text is
+    important.
 
     """
 

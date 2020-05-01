@@ -18,13 +18,20 @@ class TestNormalize(unittest.TestCase):
     def test_replace_urls(self):
         """Test replacing urls punctuation signs by underscore.
         """
-
         #Init data
         text = URL
-
         #Applying the function to test
         result = replace_urls(text)
+        self.assertEqual(tURL,result,"Transformed URL must be underscored.")
 
-        #Deactivating track changes
-        self.assertEqual(tURL,result,"Transforme URL must be underscored.")
+    def test_replace_dot_sequence(self):
+        """Test for replacing dots sequences with white spaces.
+        """
+        #Init data
+        text = DOT_SEQUENCE
+        #Applying the function to test
+        result = replace_dot_sequence(text)
+        self.assertEqual(rDOT_SEQUENCE,result,"Dot sequences must be replaced by white spaces.")
+        
+
  
