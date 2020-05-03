@@ -33,5 +33,12 @@ class TestNormalize(unittest.TestCase):
         result = replace_dot_sequence(text)
         self.assertEqual(rDOT_SEQUENCE,result,"Dot sequences must be replaced by white spaces.")
         
+    def multipart_words(self):
+        """Test for replacing hyphens with underscore in multi-part-words.
+        """
+        #Init data
+        text = MULTIPART_WORDS
+        #Applying the function to test
+        result = multipart_words(text)
+        self.assertEqual(rMWORDS,result,"Transformed URL must be underscored.")
 
- 

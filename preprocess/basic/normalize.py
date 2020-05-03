@@ -3,7 +3,7 @@
 """Module for popular text normalization techniques:
 
     - url replacement (func: replace_urls)
-    - symbols replacement (func: freplace_symbols)
+    - symbols replacement (func: replace_symbols)
     - abbreviations dot marking, with '_'
     - replace punctuation and other noisy chars
     - and other functions elaborated for txt comming from pdfMiner, pdf2txt
