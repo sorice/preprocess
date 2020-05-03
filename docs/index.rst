@@ -16,8 +16,8 @@ and some of my colleague were using Weka (java) and arff format. So the
 comparison of performances was a nightmare. This library integrates
 methods to accomplish this purpose from NLTK, Spacy and others.
 
-QuickStart
------------
+Recommendded Learning Path
+---------------------------
 
 1. :doc:`edu/quickstart`.
 2. Bases of `Text Normalization <edu/text-normalization.ipynb>`_.
@@ -25,8 +25,26 @@ QuickStart
 4. ``preprocess`` and ``NLTK`` entangles :doc:`edu/entangled-nltk`.
 5. Playfull Programming `Filtering Important Words with Luhn <edu/filtering-words-with-Luhn.ipynb>`_.
 
+Contributing
+------------
+
+Interested in contributing to ``preprocess``? ``preprocess`` is a welcoming, inclusive project and we would love to have you.
+We follow the `Python Software Foundation Code of Conduct <http://www.python.org/psf/codeofconduct/>`_.
+
+No matter your level of technical skill, you can be helpful. We appreciate bug reports, user testing, feature requests, bug fixes, product enhancements, and documentation improvements.
+
+Check out the :doc:`collab/contributing` guide!
+
+If you've signed up to do user testing, head over to the :doc:`collab/evaluation`.
+
+Thank you for your contributions!
+
+
+Concepts & API
+--------------
+
 Preprocessing Techniques
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Are wrangling techniques that convert an original text object in some
 modified text suitable for NLP tasks. Usuarlly are not complicated to
@@ -51,6 +69,7 @@ Basic Techniques
   edu/text-normalization
   api/index
   collab/contributing
+  collab/code_of_conduct
   collab/changelog
   edu/applied-preprocessing
   edu/entangled-nltk
