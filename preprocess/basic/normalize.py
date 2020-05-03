@@ -22,17 +22,17 @@ LETTERS = ''.join([string.ascii_letters,'ñÑáéíóúÁÉÍÓÚüÜ'])
 
 #NORMALIZATION FUNCTIONS
 
-def replace_urls(text):
+def replace_urls(text: str) -> str:
     for i in re.finditer('www\S*(?=[.]+?\s+?|[.]\Z|\w\s)|http\S*(?=[.]+?\s+?|[.]\Z|\w\s)',text):
         for j in range(i.start(),i.end()):
             if text[j] in string.punctuation:
                 text = text[:j]+'_'+text[j+1:]
     return text
 
-def replace_symbols(text):
+def replace_symbols(text: str) -> str:
     return sreplace(text)
 
-def replace_dot_sequence(text):
+def replace_dot_sequence(text: str) -> str:
     """
     Replace a contiguous dot sequence by the same amount of 
     whitespace.
@@ -59,7 +59,7 @@ def replace_dot_sequence(text):
                 text = text[:j]+' '+text[j+1:]
     return text
 
-def multipart_words(text):
+def multipart_words(text: str) -> str:
     """Hyphenated words like 'end-of-line' are called in NLP multi-part
     words.
 
@@ -77,7 +77,7 @@ def multipart_words(text):
     
     return text
 
-def abbreviations(text, lang='en'):
+def abbreviations(text: str, lang='en') -> str:
     """Proper names and abbrev recognition are underscored based on
     a list of international abbreviations
 
@@ -116,14 +116,14 @@ contractions_patterns = [
 (r'(\w+)\'d', '\g<1> would')
 ]
 
-def expand_contractions(text, lang='en'):
+def expand_contractions(text: str, lang='en') -> str:
     """Expand english contractions.
     """
     for (pattern, repl) in contractions_patterns:
             (text, count) = re.subn(pattern, repl, text)
     return text
 
-def replace_punctuation(text):
+def replace_punctuation(text: str) -> str:
     """
     Replace all punctuation characters based on patterns contained in
     punctuation script.
@@ -145,7 +145,7 @@ def lowercase(text: str) -> str:
 
 #PREPROCESSING FUNCTIONS
 
-def extraspace_for_endingpoints(text):
+def extraspace_for_endingpoints(text: str) -> str:
     """
     Add an extra whitespace (if there isn't any) between the last 
     sentence letter and the ending point, allowing an easier way 
@@ -157,7 +157,7 @@ def extraspace_for_endingpoints(text):
     text = re.sub('[.]\s*\n',' .\n ',text)
     return text
 
-def add_doc_ending_point(text):
+def add_doc_ending_point(text: str) -> str:
     """
     Add Final Text Dot
 
@@ -196,7 +196,7 @@ def add_doc_ending_point(text):
 
     return text
 
-def del_tokens_len_one(text):
+def del_tokens_len_one(text: str) -> str:
     """Delete tokens with length = 1.
 
     This is kind of a basic stopword filtering.

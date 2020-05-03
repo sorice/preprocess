@@ -19,11 +19,11 @@ methods to accomplish this purpose from NLTK, Spacy and others.
 QuickStart
 -----------
 
-1. QuickStart with :doc:`edu/quickstart`.
+1. :doc:`edu/quickstart`.
 2. Bases of `Text Normalization <edu/text-normalization.ipynb>`_.
-3. `Applied preprocessing <edu/applied-preprocessing>`_
+3. `Applying Preprocess <edu/applied-preprocessing.html>`_.
 4. ``preprocess`` and ``NLTK`` entangles :doc:`edu/entangled-nltk`.
-5. Playfull Programming `filtering important words with Luhn <edu/filtering-words-with-luhn.ipynb>`_.
+5. Playfull Programming `Filtering Important Words with Luhn <edu/filtering-words-with-Luhn.ipynb>`_.
 
 Preprocessing Techniques
 ------------------------
@@ -37,7 +37,7 @@ public available in open source, only mentioned in scientific papers.
 Basic Techniques
 ~~~~~~~~~~~~~~~~
 
-- :doc:`api/basic/normalize`: usually called normalization techniques
+- :doc:`api/basic/normalize`: contains usually called normalization techniques
 - :doc:`api/basic/punctuation`: set of regular expressions for punctuation sign treatment
 - :doc:`api/basic/hypen`: changes some sign conventions that modify words, specially to identify collocations
 - :doc:`api/basic/symbols`: substitution of rare chars that represents symbols, frecuently appears in math texts
@@ -49,12 +49,12 @@ Basic Techniques
   collab/about
   edu/quickstart
   edu/text-normalization
-  edu/applied-preprocessing
   api/index
   collab/contributing
   collab/changelog
+  edu/applied-preprocessing
   edu/entangled-nltk
-  edu/filtering-words-with-luhn
+  edu/filtering-words-with-Luhn
 
 Future Goals
 -------------
