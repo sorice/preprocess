@@ -1,6 +1,6 @@
 .. _applications:
 
-Applying Preprocessing for Real
+Applying Preprocess for Real
 ================================
 
 This tutorial intends to show ``preprocess`` in a real context. After a 

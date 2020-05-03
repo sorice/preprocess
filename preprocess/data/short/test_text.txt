@@ -1,0 +1,42 @@
+For other (optional) flags of <opencv_createsamples>, see the official... documentation
+at http://Docs.opencv.org/doc/user_guide/ug_traincascade.html.
+[ 99 ]
+www.it-ebooks.info.
+Generating Haar Cascades for Custom 8.4 Targets
+Creating <cascade> by running:
+<opencv_traincascade>
+3. anoche.
+4 Después. . . 
+
+Over 110 recipes to master this full-stack Python web
+framework
+1.	 Take your web2py skills to the next level by
+   dipping into delicious,.. usable recipes in this
+  cookbook
+2.	 Learn advanced.. .	. web2py usage from building
+   advanced forms to creating PDF reports
+3.	 Written by developers of the web2py project
+   with plenty of code examples for interesting
+  and comprehensive learning
+
+....................
+ Mi correo es abelm@uclv.cu. A ver si lo coge
+
+Please check www.PacktPub.com for information on our titles
+
+www.it-ebooks.info
+
+Learning SciPy for Numerical and
+Scientific Computing
+ISBN: 978-1-78216-162-2
+
+Ahora probaremos la división al final de ca-
+da línea. U.S. es un país desarrollado, luego
+de la guerra la NASA fue creada.
+
+–Reunieronse pues Lic., Dr., Ing., Ph.D. y todos los que de una for-
+ma u otra poseían títulos honoríficos.
+
+“Elimina las comillas dobles y ‘simples’ al final y al principio de la oración.”
+
+Probando tildes y caracteres de español: áéíóú ñÑÁÉÍÓÚ

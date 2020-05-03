@@ -16,15 +16,35 @@ and some of my colleague were using Weka (java) and arff format. So the
 comparison of performances was a nightmare. This library integrates
 methods to accomplish this purpose from NLTK, Spacy and others.
 
-QuickStart
------------
+Recommendded Learning Path
+---------------------------
 
-1. QuickStart with :doc:`edu/quickstart`.
+1. :doc:`edu/quickstart`.
 2. Bases of `Text Normalization <edu/text-normalization.ipynb>`_.
-3. `Applied preprocessing <edu/applied-preprocessing>`_
+3. `Applying Preprocess <edu/applied-preprocessing.html>`_.
+4. ``preprocess`` and ``NLTK`` entangles :doc:`edu/entangled-nltk`.
+5. Playfull Programming `Filtering Important Words with Luhn <edu/filtering-words-with-Luhn.ipynb>`_.
+
+Contributing
+------------
+
+Interested in contributing to ``preprocess``? ``preprocess`` is a welcoming, inclusive project and we would love to have you.
+We follow the `Python Software Foundation Code of Conduct <http://www.python.org/psf/codeofconduct/>`_.
+
+No matter your level of technical skill, you can be helpful. We appreciate bug reports, user testing, feature requests, bug fixes, product enhancements, and documentation improvements.
+
+Check out the :doc:`collab/contributing` guide!
+
+If you've signed up to do user testing, head over to the :doc:`collab/evaluation`.
+
+Thank you for your contributions!
+
+
+Concepts & API
+--------------
 
 Preprocessing Techniques
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Are wrangling techniques that convert an original text object in some
 modified text suitable for NLP tasks. Usuarlly are not complicated to
@@ -35,10 +55,10 @@ public available in open source, only mentioned in scientific papers.
 Basic Techniques
 ~~~~~~~~~~~~~~~~
 
-- :doc:`api/basic/normalize`: usually called normalization techeniques 
-- :doc:`api/basic/punctuation`: related to recognition and replacement of punctuation signs 
-- :doc:`api/basic/hypen`: changes some sign conventions that modify words 
-- :doc:`api/basic/symbols`: substitution of rare chars that represents symbols, frecuently apears in math texts 
+- :doc:`api/basic/normalize`: contains usually called normalization techniques
+- :doc:`api/basic/punctuation`: set of regular expressions for punctuation sign treatment
+- :doc:`api/basic/hypen`: changes some sign conventions that modify words, specially to identify collocations
+- :doc:`api/basic/symbols`: substitution of rare chars that represents symbols, frecuently appears in math texts
 
 .. toctree::
   :maxdepth: 2
@@ -47,10 +67,13 @@ Basic Techniques
   collab/about
   edu/quickstart
   edu/text-normalization
-  edu/applied-preprocessing
   api/index
   collab/contributing
+  collab/code_of_conduct
   collab/changelog
+  edu/applied-preprocessing
+  edu/entangled-nltk
+  edu/filtering-words-with-Luhn
 
 Future Goals
 -------------

@@ -14,7 +14,9 @@
 
 - Add spacy y los modelos model instead of Stanford or FreeLing models
 - test all deep techniques(stanford, spacy, nltk) using nltk-trainer package.
-  - Pick the best tech as DEFAULT
+  - Pick the best tech as DEFAULT -> Default and Supported are only python packages 
+  -> a close deprecation of StanfordDependencyParser made this objective to move to v0.3.1
+  
 * If the test result shows it is possible abandon nltk/standfordNLP and only use spacy and sklearn
 * implement a method to include regular expression passed by the user (like spacy)
 * implement self function of nltk.measures to pass to grams.CollocationList
@@ -44,6 +46,7 @@ Objective:
 * create preprocess.config 
 	- hyphenation can't be used in pipelines because of collocations parameter so if None
 		collocations = preprocess.config.collocations a default value
+* replace_symbols is made for encoding utf8 this regular expressions must change to default encoding of python3
 
 #### Version 0.3.1
 
@@ -56,6 +59,10 @@ Objective:
 * increment dataset loading docstring
 * prepare the semantic text similarity in applied_preprocessing.rst
 * introduce abbreviation list from freeling as a cfg data
+* [High Priority] an NLTK warning during testing about deprecation of StanfordDependencyParser
+	-> the warning recommend to use CoreNLPDependencyParser but this class needs to run a java server
+	this is not util for preprocess objectives (simplicity, and later not java dependencies)
+	-> so: preprocess.deep must be changed to spacy
 
 #### Version 0.3 'Packaging' (current)
 
@@ -65,16 +72,18 @@ Objective:
 	- changing doc to API style of yellowbrick[OK]
 	- include data for examples[OK]
 	- include datasets rst
-* test v0.3
+* test v0.3[OK, 1%]
 * separate aligning and helpers in utils.aling.py [OK]
 * doc ngrams.py + Basic docstring of sn_gram [OK]
 * separated pack for ngrams, because sngrams is to long [OK]
 * embedding notebook examples to the sphinx doc [OK]
 * translate to English the notebooks involved.
-* include the test data from NLP course for Text Normalization Jupyter ntb
-	- revisar los paths a esas datas en el notebook
+* include the test data from NLP course for Text Normalization Jupyter ntb[OK]
+	- revisar los paths a esas datas en el notebook 
+* Included a playfull and advanced example using Luhn law to filter important words[OK]
+	- translate to English
 * define if the hypenation functions must be in normalization [OK]
-* Write the Quickstart [OK, 10%]
+* Write the Quickstart [OK]
 * Finish @Appender to link docstrings to .py with close to 200 LOC
 * Add main section Advanced Examples (include POS.ipynb)
 
