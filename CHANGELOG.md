@@ -20,13 +20,17 @@
 * If the test result shows it is possible abandon nltk/standfordNLP and only use spacy and sklearn
 * implement a method to include regular expression passed by the user (like spacy)
 * implement self function of nltk.measures to pass to grams.CollocationList
+* Implement new machine learning abbreviation_recognition based in notes inside basic/abbreviation.py
+	-> put abbreviation_expan in basic/abbreviation.py
+	-> put acronym_normalization in basic/abbreviation.py
 
 #### Version 0.4.x 'Optimize'
 
 Objective:
 
 * test de performance usando pytest-benchmark (poner en la doc todos los tests results del v0.3)
-	* Optimization of sngrams
+	- Optimization of sngrams
+	- Add those tests to the preprocess doc
 * repeat performance test
 * Pipeline version similar to sklearn
 - add negation substitution
@@ -40,6 +44,7 @@ Objective:
 * Introduce OOP in all possible funcs in pack 'utils'
 * introduce binary text writing in all functions
 * preprocess('some_txt') -> return 'preprocessed_txt'
+	-> with the default techniques selection
 * preprocess.config must acept a dict to stablish the preprocess techniques active by default
 * build __all__ for deep, shallow, basic
 * build __pendent__ for deep, shallow, basic
@@ -58,7 +63,9 @@ Objective:
 * add shallow.number_replacement
 * increment dataset loading docstring
 * prepare the semantic text similarity in applied_preprocessing.rst
-* introduce abbreviation list from freeling as a cfg data
+* introduce abbreviation list from freeling as a cfg data.[NO]
+	-> introduced in 0.3.0 as a free abb dict from Wikipedia
+	-> 
 * [High Priority] an NLTK warning during testing about deprecation of StanfordDependencyParser
 	-> the warning recommend to use CoreNLPDependencyParser but this class needs to run a java server
 	this is not util for preprocess objectives (simplicity, and later not java dependencies)
