@@ -15,6 +15,8 @@ import re, os
 import string
 from .punctuation import Replacer
 from .symbols import replace as sreplace
+from act import literal_eval
+
 #TODO Add decorator for importing external function's docstring
 
 #Support for spanish texts
@@ -77,26 +79,53 @@ def multipart_words(text: str) -> str:
     
     return text
 
-def abbreviations(text: str, lang='en') -> str:
-    """Proper names and abbrev recognition are underscored based on
-    a list of international abbreviations
+def expand_abbreviations(text: str, lang='en', type="classic") -> str:
+    """Abbreviation expantion. Extend classical abbreviations with
+    its corresponding long form written in a list of international
+    abbreviations.
+
+    Cite
+    ----
+
+    https://en.wikipedia.org/wiki/Abbreviation
+    https://en.wikipedia.org/wiki/List_of_classical_abbreviations
+    """
+    with open('../data/abbreviation.'+lang) as doc:
+        txt = doc.read()
+    abb = literal_eval(txt)
+
+    for i in re.finditer('(\s[A-Z]*[a-z]*)[.](?!\n)',text):
+        word = text[i.start(),i.end()]
+        if word in abb.keys():
+            text = text[:i.start()]+ abb[word] + text[i.end()+1:]
+    
+    return text
+
+    #TODO: in the future implement type=twitter, to expand and replace
+    #twitter abbreviations
+
+
+def acronym_normalization(text: str, lang='en') -> str:
+    """Recognized proper names and abbreviations through regular 
+    expressions are underscored.
 
     Note
     ----
 
     In the case of U_S. the function will expect you filter at the end
-    of preprocessing the conditions of the dot in the expression. If a cappital
-    letter follows then this dot match with and end of sentence, else must be
-    erased.
+    of preprocessing the conditions of the dot in the expression. If a capital
+    letter follows then this dot match with and end of sentence, other
+    case must be erased.
+    
+    URL
+    ---
+
+    https://www.fda.gov/about-fda/fda-acronyms-abbreviations/acronyms-abbreviations-file-download
+    
     """
 
     #Proper names acronyms recognition and normalization
     text = re.sub('(\s[A-Z])[.](?!\n)','\g<1>_',text)
-
-    #Abbreviation recognition and normalization. 
-    #TODO: implement to read the list of abbrev and compose the pattern 
-    # r'(abbrev1|abbrev2|etc).'
-    text = re.sub('(Lic|Ph|Corp|Ms|Ing|Dr).','\g<1>_',text)
 
     return text
 
