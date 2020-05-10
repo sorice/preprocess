@@ -33,7 +33,7 @@ class TestNormalize(unittest.TestCase):
         result = replace_dot_sequence(text)
         self.assertEqual(rDOT_SEQUENCE,result,"Dot sequences must be replaced by white spaces.")
         
-    def multipart_words(self):
+    def test_multipart_words(self):
         """Test for replacing hyphens with underscore in multi-part-words.
         """
         #Init data
@@ -41,4 +41,14 @@ class TestNormalize(unittest.TestCase):
         #Applying the function to test
         result = multipart_words(text)
         self.assertEqual(rMWORDS,result,"Transformed URL must be underscored.")
+
+    def test_expand_abbreviations(self):
+        """Test expand abbreviations on English language, the classical
+        abbreviations.
+        """
+        #Init data
+        text = ABBR
+        #Applying the function to test
+        result = expand_abbreviations(text, lang='en')
+        self.assertEqual(eABBR,result,"Classic abbreviations must be expanded")
 

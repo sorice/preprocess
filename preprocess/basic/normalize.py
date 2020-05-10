@@ -15,7 +15,8 @@ import re, os
 import string
 from .punctuation import Replacer
 from .symbols import replace as sreplace
-from act import literal_eval
+from ast import literal_eval
+import preprocess
 
 #TODO Add decorator for importing external function's docstring
 
@@ -90,24 +91,74 @@ def expand_abbreviations(text: str, lang='en', type="classic") -> str:
     https://en.wikipedia.org/wiki/Abbreviation
     https://en.wikipedia.org/wiki/List_of_classical_abbreviations
     """
-    with open('../data/abbreviation.'+lang) as doc:
+
+    with open(preprocess.__path__[0]+'/data/abbreviations.'+lang) as doc:
         txt = doc.read()
     abb = literal_eval(txt)
+    newtext = ''
 
-    for i in re.finditer('(\s[A-Z]*[a-z]*)[.](?!\n)',text):
-        word = text[i.start(),i.end()]
+    #abbreviations/acronyms without dot separator
+    for i in re.finditer('[A-Z]+\s', text):
+        word = text[i.start():i.end()-1]
         if word in abb.keys():
-            text = text[:i.start()]+ abb[word] + text[i.end()+1:]
+            if newtext == '':
+                newtext = text[:i.start()]+ abb[word]
+                p = i.end()
+            else:
+                newtext = newtext + text[p-1:i.start()] + abb[word]
+                p = i.end()
+    if newtext != '':
+        newtext = newtext + text[p-1:]
+        text = newtext
+        newtext = ''
+
+    #abbreviations with not white space in between 
+    for i in re.finditer('[A-Z]+?[a-z]*?[.]*?\S*[A-Z]+?[.](?=[ \t\r\f\v]+(?![A-Z]))',text):
+        word = text[i.start():i.end()]
+        if word in abb.keys():
+            if newtext == '':
+                newtext = text[:i.start()]+ abb[word]
+                p = i.end()
+            else:
+                newtext = newtext + text[p:i.start()] + abb[word]
+                p = i.end()
+    if text != newtext:
+        newtext = newtext + text[p:]
+        text = newtext
+        newtext = ''
     
+    #abbreviations with white space in between
+    for i in re.finditer('[A-Z]+?[a-z]*?[.]??\s+?[A-Z]+?[A-Za-z .]*[.](?!\n)', text):
+        word = text[i.start():i.end()]
+        if word in abb.keys():
+            if newtext == '':
+                newtext = text[:i.start()]+ abb[word]
+                p = i.end()
+            else:
+                newtext = newtext + text[p:i.start()] + abb[word]
+                p = i.end()
+    if text != newtext:
+        newtext = newtext + text[p:]
+        text = newtext
+
     return text
 
     #TODO: in the future implement type=twitter, to expand and replace
     #twitter abbreviations
+    #TODO: incorporate abbreviations.en as parquet format data, and test performance
+    #TODO: program a helper funct that takes the repeated code, pass a
+    #list of RE and return the expanded text
+    #TODO: review duplicated abbreviations.keys with different value (E.g. "A.D.")
+    #TODO: add a "list" parameter to expand only that list
 
 
-def acronym_normalization(text: str, lang='en') -> str:
-    """Recognized proper names and abbreviations through regular 
-    expressions are underscored.
+def normalize_acronyms(text: str, lang='en') -> str:
+    """Recognize acronyms marked with dots between initials and a dot 
+    after the last initial. Usually some entity name abbreviations are
+    written like this. The matched dots are underscored.
+
+    This function is made to help sentence tokenizers, for helping 
+    semantic analysis use abbreviation expansion.
 
     Note
     ----
@@ -124,8 +175,11 @@ def acronym_normalization(text: str, lang='en') -> str:
     
     """
 
-    #Proper names acronyms recognition and normalization
+    #Proper name initials and acronyms normalization/underscoring
     text = re.sub('(\s[A-Z])[.](?!\n)','\g<1>_',text)
+
+    #TODO normalize abbreviations which includes lower letters 
+    #E.g. 'p.' (pages), 'b. C.' (before Christ)
 
     return text
 
