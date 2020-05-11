@@ -176,7 +176,7 @@ def normalize_acronyms(text: str, lang='en') -> str:
     """
 
     #Proper name initials and acronyms normalization/underscoring
-    text = re.sub('(\s[A-Z])[.](?!\n)','\g<1>_',text)
+    text = re.sub('([A-Z])[.](?!\n)','\g<1>_',text)
 
     #TODO normalize abbreviations which includes lower letters 
     #E.g. 'p.' (pages), 'b. C.' (before Christ)
