@@ -1,10 +1,12 @@
 URL = """
 http://Docs.opencv.org/doc/user_guide/ug_traincascade.html.
 www.it-ebooks.info.
+https://mail.google.com
 """
 tURL ="""
 http___Docs_opencv_org_doc_user_guide_ug_traincascade_html.
 www_it_ebooks_info.
+https___mail_google_com
 """
 
 #Note: this sequence contain \t white spaces
@@ -38,7 +40,26 @@ Ahora probaremos la división al final de ca-
 –Reunieronse pues Lic., Dr., Ing., Ph_D. y todos los que de una for-
 """
 
-MESSAGE = """Redoing commands has fail, enter the option:\n
-    1) Redo all from N to the end\n
-    2) Remain in N-1, or on initial revert status\n
-    3) remain last successful step"""
+ABBR = """
+A.D.  "Ante diem",
+A.D.V. Ante diem quintum.",
+ A.D.A. :  "Ad dandos agros ANN.
+ANN. :  "Annales, Anni, Annona."
+
+"Ap. Sed. Leg.":  "Apostolicæ Sedis Legatus"
+"Bon. Mem.":  "Bonæ Memoriæ"
+GNU is a project
+M. Douglas is not a valid name
+"""
+
+eABBR = """
+Ante diem  "Ante diem",
+A.D.V. Ante diem quintum.",
+ Ad dandos agros. :  "Ad dandos agros ANN.
+Annales, Anni, Annona. :  "Annales, Anni, Annona."
+
+"Apostolicæ Sedis Legatus (Legate of the Apostolic See)":  "Apostolicæ Sedis Legatus"
+"Bonæ Memoriæ (Of Happy Memory)":  "Bonæ Memoriæ"
+GNU is Not Unix is a project
+M. Douglas is not a valid name
+"""

@@ -1,7 +1,6 @@
 from distutils.core import setup
 import setuptools
 from setuptools import find_packages
-from setuptools.command.build_ext import build_ext
 
 #check if nltk is installed
 NLTK_INSTALLED = True
@@ -27,8 +26,6 @@ def get_stanford_data():
 
 # find packages to be included. exclude benchmarks.
 packages = setuptools.find_packages(exclude=['docs','notebooks'])
-
-cmdclass = {"build_ext": build_ext}
 
 with open('README.md') as f:
     LONG_DESCRIPTION = f.read()
@@ -79,7 +76,9 @@ setup(
     data_files=[
         ('config',['preprocess/data/cfg/stanford.cfg']),
         ('data', ['preprocess/data/books/Cultura_Libre.txt', 
-        'preprocess/data/books/FS_FSociety.txt']),
+        'preprocess/data/books/FS_FSociety.txt',
+        'preprocess/data/abbreviations.en',
+        ]),
     ],
     zip_safe=False
 )

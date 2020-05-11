@@ -15,23 +15,24 @@ Finish on (esto espera a que termine el experimento 14)
 import re
 import string
 
-# Cleaning de text
-"""Clean the text with regular expressions with the following principles:
-- Chains of whitespace are not important in this step.
-- Colect de ["!","?",":"(followed by \n),"."] subset an change them by the string "PUNTO"(end of sentence).
-- Change the rest of punctuation marks by a whitespace, the objetive if don't lose the original position of the sentence.
-- Restore "."(end of sentence) changing the 'PUNTO' string by dot.
 """
-#This are simple rules without anti-trick.
-#Note: support for non-indexing non-content doc section still pendent. E.g. "Reference" section OR "Apendix" section of a Book must no be indexed.
-    #: support for collocations still pendent. E.g. 'Open Source'. Must be detected first with NLTK and markes as 'Open-Source'.
-    #: support for date format expressions like day/month/year still pendent.
-    #: support for source-code text AND seudo-code text still pendent. E.g. "object.function", "<file> chmod -R <###>"
-    #: support for file routes like 'C:\file1\file2' still pendent. 
+Clean the text with regular expressions with the following principles:
+    - Chains of whitespace are not important in this step.
+    - Collect de ["!","?",":"(followed by \n),"."] subset an change them by the string "apdb"(end of sentence).
+    - If possible try to change everything by the same length of whitespace, less problems in alignment or better efficiency.
+    - Restore "."(end of sentence) changing the 'apdb' string by dot.
+    - do not lowercase before abbreviation analysis
+    - [A-Z]+[.]+\n must be replaced by [A-Z]+[..]\n in case that Abbreviation be at the end
+        only after preprocess abbreviations, acronyms
+"""
+
+#: support for date format expressions like day/month/year still pendent.
+#: support for source-code text AND seudo-code text still pendent. E.g. "object.function", "<file> chmod -R <###>"
+#: support for paths like 'C:\file1\file2' still pendent. 
 
 # Core '.' expressions.
 replacement_patterns = [
-# Section I: Expressions related to the period at the end of the sentence.
+# Section I Discourse Elements: end of paragraph, end of the sentence, .
 
 # Related to paragraph-end-detection.
 ('\r\n','\n'),                      # Windows period convert to Unix period.
@@ -63,7 +64,7 @@ replacement_patterns = [
 (r'\n(?=\s*?["$%()*+&,-/;:¿¡<=>@[\\]^`{\|}~]*?\s*?[A-Z]+?)','##1'), # salto línea [follow by 0-100 whitespace][follow by 0-100 punct marks][follow by 0-100 whitespace] follow by at least a CAPITAL letter. (Explanation: this kind of secuence can appear after pdftotext convertion)
 
 #Section IV: Rare starts of a sentence 
-(r'\xe2\x80\xa2','##5'),        # Soporte para las viñetas
+(r'\xe2\x80\xa2','##5'),        # Soporte para las viñetas Problem: this line must be replaced/updated for python3
 
 #Section V: After all transformations clean the residuary punctuation marks.
 (r'["$%()*+&\',-/;:¿¡<=>@\\^`{\|}~]|\[|\]','##8'),
