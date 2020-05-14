@@ -63,3 +63,21 @@ Annales, Anni, Annona. :  "Annales, Anni, Annona."
 GNU is Not Unix is a project
 M. Douglas is not a valid name
 """
+
+ACRONYM = """
+M. Douglas has arrived.
+ M. Douglas has arrived.
+Did M. Douglas arrive?
+Who just arrived? M.
+M.A. Douglas spoke about lang arts.
+Sr. Douglas is not here
+"""
+
+rACRONYM = """
+M_ Douglas has arrived.
+ M_ Douglas has arrived.
+Did M_ Douglas arrive?
+Who just arrived? M.
+M_A_ Douglas spoke about lang arts.
+Sr_ Douglas is not here
+"""

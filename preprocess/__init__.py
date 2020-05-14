@@ -10,8 +10,8 @@ from preprocess.basic import replace_urls
 from preprocess.basic import replace_symbols
 from preprocess.basic import replace_dot_sequence
 from preprocess.basic import multipart_words
-from preprocess.basic import expand_abbreviations
-from preprocess.basic import normalize_acronyms
+from preprocess.basic import expand_abbrevs
+from preprocess.basic import normalize_abbrevs
 from preprocess.basic import expand_contractions
 from preprocess.basic import replace_punctuation
 from preprocess.basic import lowercase

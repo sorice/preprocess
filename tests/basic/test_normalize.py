@@ -5,6 +5,7 @@ from unittest import TestCase
 from unittest.mock import patch
 import preprocess
 from preprocess.basic.normalize import *
+from preprocess.basic.abbreviation import *
 from preprocess.data import test_text_path
 from .data import *
 
@@ -42,13 +43,21 @@ class TestNormalize(unittest.TestCase):
         result = multipart_words(text)
         self.assertEqual(rMWORDS,result,"Transformed URL must be underscored.")
 
-    def test_expand_abbreviations(self):
+    def test_expand_abbrevs(self):
         """Test expand abbreviations on English language, the classical
         abbreviations.
         """
         #Init data
         text = ABBR
         #Applying the function to test
-        result = expand_abbreviations(text, lang='en')
+        result = expand_abbrevs(text, lang='en')
         self.assertEqual(eABBR,result,"Classic abbreviations must be expanded")
 
+    def test_normalize_abbrev(self):
+        """Test for normalizing abbreviations with underscore sign.
+        """
+        #Init data
+        text = ACRONYM
+        #Applying the function to test
+        result = normalize_abbrevs(text)
+        self.assertEqual(rACRONYM,result,"Abbreviations must be underscored")

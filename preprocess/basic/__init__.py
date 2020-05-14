@@ -2,8 +2,8 @@ from .normalize import replace_urls
 from .normalize import replace_symbols
 from .normalize import replace_dot_sequence
 from .normalize import multipart_words
-from .normalize import expand_abbreviations
-from .normalize import normalize_acronyms
+from .abbreviation import expand_abbrevs
+from .abbreviation import normalize_abbrevs
 from .normalize import expand_contractions
 from .normalize import replace_punctuation
 from .normalize import lowercase
@@ -18,8 +18,8 @@ TECHNIQUES = {
     'replace_symbols':replace_symbols,
     'replace_dot_sequence':replace_dot_sequence,
     'multipart_words':multipart_words,
-    'expand_abbreviations':expand_abbreviations,
-    'normalize_acronyms':normalize_acronyms,
+    'expand_abbrevs':expand_abbrevs,
+    'normalize_abbrevs':normalize_abbrevs,
     'expand_contractions':expand_contractions,
     'replace_punctuation':replace_punctuation,
     'extraspace_for_endingpoints':extraspace_for_endingpoints,

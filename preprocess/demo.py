@@ -23,7 +23,7 @@ def preProcessFlow(text: str) -> str:
 
     text = extraspace_for_endingpoints(text)
 
-    text = normalize_acronyms(text)
+    text = normalize_abbrevs(text)
     #print ('abbrev recognition and normalization\n',text)
 
     # Esta demora mucho, hay que ver porque
