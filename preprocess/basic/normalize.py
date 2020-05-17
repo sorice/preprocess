@@ -79,7 +79,7 @@ def multipart_words(text: str) -> str:
     return text
 
 #----------------------CONTRACTIONS REPLACEMENT
-
+#Contractions patterns based on NLTK Book suggestions
 contractions_patterns = [
 (r'won\'t', 'will not'),
 (r'can\'t', 'can not'),

@@ -81,3 +81,31 @@ Who just arrived? M.
 M_A_ Douglas spoke about lang arts.
 Sr_ Douglas is not here
 """
+
+CONTRACTIONS = """
+I won't expand them or you can't?
+I'ven't the right skills for that.
+I'll train more, i'm in the right path.
+I'd switch to plural, so we're glad,
+but isn't easy.
+"""
+
+eCONTRACTIONS = """
+I will not expand them or you can not?
+I have not the right skills for that.
+I will train more, i am in the right path.
+I would switch to plural, so we are glad,
+but is not easy.
+"""
+
+(r'won\'t', 'will not'),
+(r'can\'t', 'can not'),
+(r'i\'m', 'i am'),
+(r'isn\'t', 'is not'),
+(r'(\w+)\'ll', '\g<1> will'),
+(r'(\w+)n\'t', '\g<1> not'),
+(r'(\w+)\'ve', '\g<1> have'),
+(r'(\w+)\'d(?=\w+ed)', '\g<1> had'),
+(r'(\w+)\'s', '\g<1> is'),
+(r'(\w+)\'re', '\g<1> are'),
+(r'(\w+)\'d', '\g<1> would')

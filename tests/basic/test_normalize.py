@@ -61,3 +61,12 @@ class TestNormalize(unittest.TestCase):
         #Applying the function to test
         result = normalize_abbrevs(text)
         self.assertEqual(rACRONYM,result,"Abbreviations must be underscored")
+
+    def test_expand_contractions(self):
+        """Test the expansion of contractions
+        """
+        #Init data
+        text = CONTRACTIONS
+        #Applying the function to test
+        result = expand_contractions(text)
+        self.assertEqual(eCONTRACTIONS,result,"Abbreviations must be underscored")
