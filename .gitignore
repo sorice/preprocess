@@ -1,3 +1,4 @@
+# Personal ignored files
 *.swp
 *.directory
 *.pyc
@@ -11,6 +12,8 @@
 */data/tmp/
 */docs/build
 /html
+/docs/edu/data/STS.gs.MSRpar.txt
+/docs/edu/data/STS.input.MSRpar.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

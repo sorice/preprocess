@@ -70,3 +70,10 @@ class TestNormalize(unittest.TestCase):
         #Applying the function to test
         result = expand_contractions(text)
         self.assertEqual(eCONTRACTIONS,result,"Abbreviations must be underscored")
+
+    def test_replace_punctuation(self):
+        with open(self.dataPath) as doc:
+            text = doc.read()
+
+        result = replace_punctuation(text)
+        self.assertEqual(rPUNCTUATION.replace('\n',''), result[:431], "Punctuation must be deleted, only sentence dot remains")

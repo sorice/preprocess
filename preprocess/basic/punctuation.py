@@ -59,9 +59,13 @@ replacement_patterns = [
 (r'\n(?=\s*?\n)','##6'),        #found empty lines and deleted: "\n" follow by N-1 whitespace char + \n. 
 (r'-\n(?=[a-z]+?)',''),                    # Word division eliminated.
 (r'\n(?=\s*?[a-z]+?)','##6'),   # Sentence division for end of margin. 
-(r'\n(?=\s*?[A-Z]+?)','##3'),   # New line that start in CAPITAL LETTER is a new sentences. Problem: first name at the beginning.
+(r'\n(?=\s*?[A-Z]+?)','##3'),   # New line that start in CAPITAL LETTER is a new sentences. 
+                                # Problem: first name at the beginning.
 (r'\n(?=\w+?)','##7'),          # Delete any '\n' follow by non-alphanumeric.
-(r'\n(?=\s*?["$%()*+&,-/;:¿¡<=>@[\\]^`{\|}~]*?\s*?[A-Z]+?)','##1'), # salto línea [follow by 0-100 whitespace][follow by 0-100 punct marks][follow by 0-100 whitespace] follow by at least a CAPITAL letter. (Explanation: this kind of secuence can appear after pdftotext convertion)
+(r'\n(?=\s*?["$%()*+&,-/;:¿¡<=>@[\\]^`{\|}~]*?\s*?[A-Z]+?)','##1'), 
+        # salto línea [?= 0-n whitespace][?= 0-n punct marks][?= by 0-n whitespace] 
+        # ?= at least a CAPITAL letter. 
+        #(Explanation: this kind of sequence can appear after pdftotext convertion)
 
 #Section IV: Rare starts of a sentence 
 (r'\xe2\x80\xa2','##5'),        # Soporte para las viñetas Problem: this line must be replaced/updated for python3

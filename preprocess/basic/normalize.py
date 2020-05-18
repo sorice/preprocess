@@ -104,13 +104,32 @@ def expand_contractions(text: str, lang='en') -> str:
 def replace_punctuation(text: str) -> str:
     """
     Replace all punctuation characters based on patterns contained in
-    punctuation script.
+    punctuation script. The Regular Expressions are ordered based on
+    structural elements (E.g. word syllabic division), paragraph and
+    sentence transformations.
+
+    Note
+    ----
+
+    All the syntactic and morphologic transformations depending on
+    punctuation signs, must be done before applying 
+    replace_punctuation func.
+
+    It is important to apply replace_symbols func before this func. 
+    Also the abbreviation recognition, multipart words, replace_dots
+    and replace urls, all these functions work with punctuation signs,
+    so if they are not underscored or transformed, this func will take
+    its own decisions with the remaining punct signs.
+    For example the sentence tokenization will change in case of rare
+    quotations: “.
 
     """
     #TODO: program this like re.sub(pattern, repl, text).
     punctuation = Replacer()
     text = punctuation.replace(text)
     return text
+    #TODO: program this func to permit the addition of new RE by the
+    #user like spacy
 
 def lowercase(text: str) -> str:
     """Return lowercase of string.
