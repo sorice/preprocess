@@ -72,8 +72,17 @@ class TestNormalize(unittest.TestCase):
         self.assertEqual(eCONTRACTIONS,result,"Abbreviations must be underscored")
 
     def test_replace_punctuation(self):
+        #Init data
         with open(self.dataPath) as doc:
             text = doc.read()
-
+        #Applying the function to test
         result = replace_punctuation(text)
-        self.assertEqual(rPUNCTUATION.replace('\n',''), result[:431], "Punctuation must be deleted, only sentence dot remains")
+        self.assertEqual(rPUNCTUATION.replace('\n',''), result[:431], 
+        "Punctuation must be deleted, only sentence dot remains")
+
+    def test_lowercase(self):
+        #Init data
+        text = "ABC Def G. hI"
+        #Applying the function to test
+        result = lowercase(text)
+        self.assertEqual('abc def g. hi', result, "all upper case must be lower case")
