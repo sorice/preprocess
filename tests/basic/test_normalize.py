@@ -10,7 +10,7 @@ from preprocess.data import test_text_path
 from .data import *
 
 class TestNormalize(unittest.TestCase):
-    """Testing class for normalization techniques.
+    """Testing class for basic normalization techniques.
     """
 
     def setUp(self):
@@ -72,6 +72,8 @@ class TestNormalize(unittest.TestCase):
         self.assertEqual(eCONTRACTIONS,result,"Abbreviations must be underscored")
 
     def test_replace_punctuation(self):
+        """Test punctuation replacement func, only sentence dots and
+        underscores remains."""
         #Init data
         with open(self.dataPath) as doc:
             text = doc.read()
@@ -81,8 +83,17 @@ class TestNormalize(unittest.TestCase):
         "Punctuation must be deleted, only sentence dot remains")
 
     def test_lowercase(self):
+        """Test lowercase func, no capital letters are allowed after this"""
         #Init data
         text = "ABC Def G. hI"
         #Applying the function to test
         result = lowercase(text)
         self.assertEqual('abc def g. hi', result, "all upper case must be lower case")
+
+    def test_extraspace_for_endingpoints(self):
+        #Init data
+        with open(self.dataPath) as doc:
+            text = doc.read()
+        #Applying the function to test
+        result = extraspace_for_endingpoints(text)
+        self.assertEqual(eWDOT, result[:312], "dots must be separated by whitespace")

@@ -148,11 +148,25 @@ def extraspace_for_endingpoints(text: str) -> str:
     sentence letter and the ending point, allowing an easier way 
     of parsing all sentences by a very distinctive ending point.
 
-    This function allows to avoid acronym dots during the sentence
+    This function allows to avoid abbrev dots during the sentence
     parsing subprocess.
+
+    The original objective of this func was to preserve \n in datasets
+    with one sentence by line (E.g. paraphrase detection, STS).
+
+    Note
+    ----
+
+    Replace punctuation also intend to do this, but because of the
+    complexity of RE in replace_punctuation this function guarantee the
+    100% of sentence dots are separated at list by a whitespace by any
+    other char.
+
     """
     text = re.sub('[.]\s*\n',' .\n ',text)
     return text
+
+    #TODO: look comments in CHANGELOG for v0.3.3
 
 def add_doc_ending_point(text: str) -> str:
     """

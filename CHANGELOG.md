@@ -38,6 +38,7 @@ Objective:
 - add spelling correction
 * New version of collocations without nltk
 * Completly in OOP if that has sense after 0.3.3
+* Add main section Advanced Examples (include POS.ipynb)
 
 #### Version 0.3.3
 
@@ -70,6 +71,7 @@ Objective:
 	-> the warning recommend to use CoreNLPDependencyParser but this class needs to run a java server
 	this is not util for preprocess objectives (simplicity, and later not java dependencies)
 	-> so: preprocess.deep must be changed to spacy
+* delete this function extraspace_for_endingpoints or change RE, if it is to much for replace_punctuation
 
 #### Version 0.3 'Packaging' (current)
 
@@ -92,7 +94,6 @@ Objective:
 * define if the hypenation functions must be in normalization [OK]
 * Write the Quickstart [OK]
 * Finish @Appender to link docstrings to .py with close to 200 LOC
-* Add main section Advanced Examples (include POS.ipynb)
 
 ### Version 0.2.x 'Testing in Reality'</u>
 

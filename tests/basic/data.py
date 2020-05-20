@@ -120,3 +120,14 @@ html . 99 www it ebooks info . Generating Haar Cascades for Custom 8 .
 4 Después . Over 110 recipes to master this full stack Python web 
 framework 1 . Take your web2py skills to the next level by dipping 
 into delicious"""
+
+eWDOT = """For other (optional) flags of <opencv_createsamples>, see the official... documentation
+at http://Docs.opencv.org/doc/user_guide/ug_traincascade.html .
+ [ 99 ]
+www.it-ebooks.info .
+ Generating Haar Cascades for Custom 8.4 Targets
+Creating <cascade> by running:
+<opencv_traincascade>
+3. anoche .
+ 4 Después. .  .
+"""
