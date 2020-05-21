@@ -91,9 +91,30 @@ class TestNormalize(unittest.TestCase):
         self.assertEqual('abc def g. hi', result, "all upper case must be lower case")
 
     def test_extraspace_for_endingpoints(self):
+        """Test adition of whitespace between sentence dots and any
+        other char.
+        """
         #Init data
         with open(self.dataPath) as doc:
             text = doc.read()
         #Applying the function to test
         result = extraspace_for_endingpoints(text)
         self.assertEqual(eWDOT, result[:312], "dots must be separated by whitespace")
+
+    def test_add_doc_ending_point(self):
+        """Test adding a final dot for the last sentence if not.
+        """
+        #Init data
+        text = "ABC Def G. hI"
+        #Applying the function to test
+        result = add_doc_ending_point(text)
+        self.assertEqual('ABC Def G. hI .', result, "document must end in a dot")
+
+    def test_del_tokens_len_one(self):
+        """Test deletion of single chars.
+        """
+        #Init data
+        text = "ABC D ef G. hI j "
+        #Applying the function to test
+        result = del_tokens_len_one(text)
+        self.assertEqual('ABC ef G. hI ', result, "words of length = 1 are deleted")
