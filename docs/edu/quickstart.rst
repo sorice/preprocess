@@ -159,9 +159,14 @@ Deep example
 Working with PDF
 ----------------
 
-The variety of pdf generators made *"not standard"* pdf documents, so in the reverse process those resultant text come with rare chars, strange puntuation-signs sequences, page brakes, numbers inside the string sequences, line brakes which divide words syllables, etc.
+The variety of pdf generators made *"not standard"* pdf documents, so 
+in the reverse process those resultant text come with rare chars, 
+strange puntuation-signs sequences, page brakes, numbers inside the 
+string sequences, line brakes which divide words syllables, etc.
 
-``preprocess`` include *Creative Commons* books in PDF and text format to be preprocessed and to compare results with other libraries and platforms.
+``preprocess`` include *Creative Commons* books in PDF and text format 
+to be preprocessed and to compare results with other libraries and 
+platforms.
 
 .. code-block:: python
 
@@ -172,5 +177,10 @@ The variety of pdf generators made *"not standard"* pdf documents, so in the rev
 
     596767
 
-Hopefully this examples gives you an idea of how to transform texts with preprocess library. The preprocessing stage is important to improve results as `Applying Preprocessing <applied-preprocessing.html>`_ tutorial shows. It is recommended that after this *quickstart* you read the `preprocess API <../api/index.html>`_ to learn complicated examples.
+Hopefully this examples gives you an idea of how to transform texts 
+with preprocess library. The preprocessing stage is important to 
+improve results as `Applying Preprocessing 
+<applied-preprocessing.html>`_ tutorial shows. It is recommended that 
+after this *quickstart* you read the `preprocess API 
+<../api/index.html>`_ to learn complicated examples.
 

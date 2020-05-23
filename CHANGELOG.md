@@ -86,7 +86,7 @@ Objective:
 * doc ngrams.py + Basic docstring of sn_gram [OK]
 * separated pack for ngrams, because sngrams is to long [OK]
 * embedding notebook examples to the sphinx doc [OK]
-* translate to English the notebooks involved.
+* translate to English the notebooks involved.[OK,33%]
 * include the test data from NLP course for Text Normalization Jupyter ntb[OK]
 	- revisar los paths a esas datas en el notebook 
 * Included a playfull and advanced example using Luhn law to filter important words[OK]

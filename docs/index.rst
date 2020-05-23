@@ -23,19 +23,25 @@ Recommendded Learning Path
 2. Bases of `Text Normalization <edu/text-normalization.ipynb>`_.
 3. `Applying Preprocess <edu/applied_preprocessing.ipynb>`_.
 4. ``preprocess`` and ``NLTK`` entangles :doc:`edu/entangled-nltk`.
-5. Playfull Programming `Filtering Important Words with Luhn <edu/filtering-words-with-Luhn.ipynb>`_.
+5. Playfull Programming `Filtering Important Words with Luhn 
+<edu/filtering-words-with-Luhn.ipynb>`_.
 
 Contributing
 ------------
 
-Interested in contributing to ``preprocess``? ``preprocess`` is a welcoming, inclusive project and we would love to have you.
-We follow the `Python Software Foundation Code of Conduct <http://www.python.org/psf/codeofconduct/>`_.
+Interested in contributing to ``preprocess``? ``preprocess`` is a 
+welcoming, inclusive project and we would love to have you.
+We follow the `Python Software Foundation Code of Conduct 
+<http://www.python.org/psf/codeofconduct/>`_.
 
-No matter your level of technical skill, you can be helpful. We appreciate bug reports, user testing, feature requests, bug fixes, product enhancements, and documentation improvements.
+No matter your level of technical skill, you can be helpful. We 
+appreciate bug reports, user testing, feature requests, bug fixes, 
+product enhancements, and documentation improvements.
 
 Check out the :doc:`collab/contributing` guide!
 
-If you've signed up to do user testing, head over to the :doc:`collab/evaluation`.
+If you've signed up to do user testing, head over to the 
+:doc:`collab/evaluation`.
 
 Thank you for your contributions!
 
