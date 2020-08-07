@@ -35,8 +35,6 @@ $ apt install openjdk-8-jre
 $ pip install nltk nose numpy
 ```
 
-
-
 # Installation
 
 ```

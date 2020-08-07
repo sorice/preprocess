@@ -23,8 +23,7 @@ Recommendded Learning Path
 2. Bases of `Text Normalization <edu/text-normalization.ipynb>`_.
 3. `Applying Preprocess <edu/applied_preprocessing.ipynb>`_.
 4. ``preprocess`` and ``NLTK`` entangles :doc:`edu/entangled-nltk`.
-5. Playfull Programming `Filtering Important Words with Luhn 
-<edu/filtering-words-with-Luhn.ipynb>`_.
+5. Playfull Programming `Filtering Important Words with Luhn <edu/filtering-words-with-Luhn.ipynb>`_.
 
 Contributing
 ------------
