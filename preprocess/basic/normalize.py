@@ -15,8 +15,6 @@ import re, os
 import string
 from .punctuation import Replacer
 from .symbols import replace as sreplace
-from ast import literal_eval
-import preprocess
 
 #TODO Add decorator for importing external function's docstring
 
@@ -80,111 +78,8 @@ def multipart_words(text: str) -> str:
     
     return text
 
-def expand_abbreviations(text: str, lang='en', type="classic") -> str:
-    """Abbreviation expantion. Extend classical abbreviations with
-    its corresponding long form written in a list of international
-    abbreviations.
-
-    Cite
-    ----
-
-    https://en.wikipedia.org/wiki/Abbreviation
-    https://en.wikipedia.org/wiki/List_of_classical_abbreviations
-    """
-
-    with open(preprocess.__path__[0]+'/data/abbreviations.'+lang) as doc:
-        txt = doc.read()
-    abb = literal_eval(txt)
-    newtext = ''
-
-    #abbreviations/acronyms without dot separator
-    for i in re.finditer('[A-Z]+\s', text):
-        word = text[i.start():i.end()-1]
-        if word in abb.keys():
-            if newtext == '':
-                newtext = text[:i.start()]+ abb[word]
-                p = i.end()
-            else:
-                newtext = newtext + text[p-1:i.start()] + abb[word]
-                p = i.end()
-    if newtext != '':
-        newtext = newtext + text[p-1:]
-        text = newtext
-        newtext = ''
-
-    #abbreviations with not white space in between 
-    for i in re.finditer('[A-Z]+?[a-z]*?[.]*?\S*[A-Z]+?[.](?=[ \t\r\f\v]+(?![A-Z]))',text):
-        word = text[i.start():i.end()]
-        if word in abb.keys():
-            if newtext == '':
-                newtext = text[:i.start()]+ abb[word]
-                p = i.end()
-            else:
-                newtext = newtext + text[p:i.start()] + abb[word]
-                p = i.end()
-    if text != newtext:
-        newtext = newtext + text[p:]
-        text = newtext
-        newtext = ''
-    
-    #abbreviations with white space in between
-    for i in re.finditer('[A-Z]+?[a-z]*?[.]??\s+?[A-Z]+?[A-Za-z .]*[.](?!\n)', text):
-        word = text[i.start():i.end()]
-        if word in abb.keys():
-            if newtext == '':
-                newtext = text[:i.start()]+ abb[word]
-                p = i.end()
-            else:
-                newtext = newtext + text[p:i.start()] + abb[word]
-                p = i.end()
-    if text != newtext:
-        newtext = newtext + text[p:]
-        text = newtext
-
-    return text
-
-    #TODO: in the future implement type=twitter, to expand and replace
-    #twitter abbreviations
-    #TODO: incorporate abbreviations.en as parquet format data, and test performance
-    #TODO: program a helper funct that takes the repeated code, pass a
-    #list of RE and return the expanded text
-    #TODO: review duplicated abbreviations.keys with different value (E.g. "A.D.")
-    #TODO: add a "list" parameter to expand only that list
-
-
-def normalize_acronyms(text: str, lang='en') -> str:
-    """Recognize acronyms marked with dots between initials and a dot 
-    after the last initial. Usually some entity name abbreviations are
-    written like this. The matched dots are underscored.
-
-    This function is made to help sentence tokenizers, for helping 
-    semantic analysis use abbreviation expansion.
-
-    Note
-    ----
-
-    In the case of U_S. the function will expect you filter at the end
-    of preprocessing the conditions of the dot in the expression. If a capital
-    letter follows then this dot match with and end of sentence, other
-    case must be erased.
-    
-    URL
-    ---
-
-    https://www.fda.gov/about-fda/fda-acronyms-abbreviations/acronyms-abbreviations-file-download
-    
-    """
-
-    #Proper name initials and acronyms normalization/underscoring
-    text = re.sub('(\s[A-Z])[.](?!\n)','\g<1>_',text)
-
-    #TODO normalize abbreviations which includes lower letters 
-    #E.g. 'p.' (pages), 'b. C.' (before Christ)
-
-    return text
-
 #----------------------CONTRACTIONS REPLACEMENT
-
+#Contractions patterns based on NLTK Book suggestions
 contractions_patterns = [
 (r'won\'t', 'will not'),
 (r'can\'t', 'can not'),
@@ -209,13 +104,32 @@ def expand_contractions(text: str, lang='en') -> str:
 def replace_punctuation(text: str) -> str:
     """
     Replace all punctuation characters based on patterns contained in
-    punctuation script.
+    punctuation script. The Regular Expressions are ordered based on
+    structural elements (E.g. word syllabic division), paragraph and
+    sentence transformations.
+
+    Note
+    ----
+
+    All the syntactic and morphologic transformations depending on
+    punctuation signs, must be done before applying 
+    replace_punctuation func.
+
+    It is important to apply replace_symbols func before this func. 
+    Also the abbreviation recognition, multipart words, replace_dots
+    and replace urls, all these functions work with punctuation signs,
+    so if they are not underscored or transformed, this func will take
+    its own decisions with the remaining punct signs.
+    For example the sentence tokenization will change in case of rare
+    quotations: “.
 
     """
     #TODO: program this like re.sub(pattern, repl, text).
     punctuation = Replacer()
     text = punctuation.replace(text)
     return text
+    #TODO: program this func to permit the addition of new RE by the
+    #user like spacy
 
 def lowercase(text: str) -> str:
     """Return lowercase of string.
@@ -234,11 +148,25 @@ def extraspace_for_endingpoints(text: str) -> str:
     sentence letter and the ending point, allowing an easier way 
     of parsing all sentences by a very distinctive ending point.
 
-    This function allows to avoid acronym dots during the sentence
+    This function allows to avoid abbrev dots during the sentence
     parsing subprocess.
+
+    The original objective of this func was to preserve \n in datasets
+    with one sentence by line (E.g. paraphrase detection, STS).
+
+    Note
+    ----
+
+    Replace punctuation also intend to do this, but because of the
+    complexity of RE in replace_punctuation this function guarantee the
+    100% of sentence dots are separated at list by a whitespace by any
+    other char.
+
     """
     text = re.sub('[.]\s*\n',' .\n ',text)
     return text
+
+    #TODO: look comments in CHANGELOG for v0.3.3
 
 def add_doc_ending_point(text: str) -> str:
     """

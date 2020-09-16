@@ -63,3 +63,71 @@ Annales, Anni, Annona. :  "Annales, Anni, Annona."
 GNU is Not Unix is a project
 M. Douglas is not a valid name
 """
+
+ACRONYM = """
+M. Douglas has arrived.
+ M. Douglas has arrived.
+Did M. Douglas arrive?
+Who just arrived? M.
+M.A. Douglas spoke about lang arts.
+Sr. Douglas is not here
+"""
+
+rACRONYM = """
+M_ Douglas has arrived.
+ M_ Douglas has arrived.
+Did M_ Douglas arrive?
+Who just arrived? M.
+M_A_ Douglas spoke about lang arts.
+Sr_ Douglas is not here
+"""
+
+CONTRACTIONS = """
+I won't expand them or you can't?
+I haven't the right skills for that.
+I'll train more, i'm in the right path.
+I'd switch to plural, so we're glad,
+but isn't easy.
+I've done it!
+"""
+
+eCONTRACTIONS = """
+I will not expand them or you can not?
+I have not the right skills for that.
+I will train more, i am in the right path.
+I would switch to plural, so we are glad,
+but is not easy.
+I have done it!
+"""
+
+(r'won\'t', 'will not'),
+(r'can\'t', 'can not'),
+(r'i\'m', 'i am'),
+(r'isn\'t', 'is not'),
+(r'(\w+)\'ll', '\g<1> will'),
+(r'(\w+)n\'t', '\g<1> not'),
+(r'(\w+)\'ve', '\g<1> have'),
+(r'(\w+)\'d(?=\w+ed)', '\g<1> had'), #TODO add rules for irregular verbs
+#(r'(\w+)\'s', '\g<1> is'), TODO: Remember to add possessive rules 
+(r'(\w+)\'re', '\g<1> are'),
+(r'(\w+)\'d', '\g<1> would')
+
+rPUNCTUATION = """
+For other optional flags of opencv_createsamples see the official . _ 
+documentation at http Docs opencv org doc user_guide ug_traincascade 
+html . 99 www it ebooks info . Generating Haar Cascades for Custom 8 . 
+4 Targets . Creating cascade by running . opencv_traincascade 3_ anoche . 
+4 Después . Over 110 recipes to master this full stack Python web 
+framework 1 . Take your web2py skills to the next level by dipping 
+into delicious"""
+
+eWDOT = """For other (optional) flags of <opencv_createsamples>, see the official... documentation
+at http://Docs.opencv.org/doc/user_guide/ug_traincascade.html .
+ [ 99 ]
+www.it-ebooks.info .
+ Generating Haar Cascades for Custom 8.4 Targets
+Creating <cascade> by running:
+<opencv_traincascade>
+3. anoche .
+ 4 Después. .  .
+"""
