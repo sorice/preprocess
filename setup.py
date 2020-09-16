@@ -70,7 +70,6 @@ setup(
     setup_requires=[
         'numpy >= 1.7.0'
     ],
-    cmdclass=cmdclass,
     include_package_data=True,
 
     data_files=[

@@ -41,6 +41,18 @@ $ pip install nltk nose numpy
 $ pip install preprocess
 ```
 
+# Generating the doc
+
+Read carefully the section #doc in requirements.txt
+This documentation render some notebooks to sphinx docs, so a not common
+set of python libraries is used, and pandoc package is needed at OS 
+level.
+
+```
+apt install pandoc
+pip3 install 
+```
+
 # Basic Usage
 
 ```python

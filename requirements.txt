@@ -1,7 +1,7 @@
 #dev
-numpy >= 1.7.0
-nltk >= 3.1
-nose >= 1.3.7
+numpy
+nltk
+nose
 pdfminer>=20191020
 PyPDF2>=1.26.0
 
@@ -12,3 +12,5 @@ sphinxcontrib-napoleon
 sphinxcontrib-spelling
 recommonmark
 nbsphinx
+jupyter-sphinx
+nbsphinx-link
