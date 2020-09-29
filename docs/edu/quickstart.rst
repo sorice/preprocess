@@ -170,8 +170,8 @@ platforms.
 
 .. code-block:: python
 
-    from preprocess.data import freesoftware_pdfpath
-    pdf_path = freesoftware_pdfpath()
+    from preprocess.data import freeculture_pdfpath
+    pdf_path = freeculture_pdfpath()
     text = preprocess.utils.io.pdftotxt(pdf_path)
     len(text)
 

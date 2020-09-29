@@ -13,7 +13,8 @@
 * embedding notebook examples to the sphinx doc [OK]
 * translate to English the notebooks involved.[OK,33%]
 * include the test data from NLP course for Text Normalization Jupyter ntb[OK]
-	- revisar los paths a esas datas en el notebook 										<- run ipyn
+	- review the paths to those datas in all the involved notebooks
+    - include a summary description of the books and their copyright in docs/api/data/ <- run ipyn
 * Included a playfull and advanced example using Luhn law to filter important words[OK]
 	- translate to English
 * define if the hypenation functions must be in normalization [OK]

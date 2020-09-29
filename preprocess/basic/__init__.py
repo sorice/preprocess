@@ -11,6 +11,7 @@ from .normalize import extraspace_for_endingpoints
 from .normalize import add_doc_ending_point
 from .normalize import del_tokens_len_one
 from .hyphen import hyphenation
+from .normalize import del_digits
 
 TECHNIQUES = {
     'lowercase':lowercase,
@@ -26,6 +27,7 @@ TECHNIQUES = {
     'add_doc_ending_point':add_doc_ending_point,
     'del_tokens_len_one':del_tokens_len_one,
     'hyphenation':hyphenation,
+    'del_digits':del_digits,
     }
 
 # append all verified techniques in module importing argument ALL

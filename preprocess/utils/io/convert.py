@@ -11,10 +11,8 @@ import os
 import warnings
 
 class pdf:
-    """UNDER INVESTIGATION
-    
-    Class wrapper for PyPDF2 to extract full information from a pdf.
-    This function is under study because fail with some pdf.
+    """Wrapper for PyPDF2 to extract full information from a pdf.
+    It is in Alpha state, fails in some cases due to pypdf2 failures.
     The experiments shows that in some multicolumn layouts pdf, the
     PyPDF2 library extract the text better than pdfMiner and pdftotext.
     """

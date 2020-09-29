@@ -215,5 +215,9 @@ def del_tokens_len_one(text: str) -> str:
     text = re.sub('(\s)\w(\s)',' ',text)
     return text
 
+def del_digits(text):
+    """Delete words compound only by digits."""
+    return re.sub('(\s*)\d+(\s*)',' ',text)
+
 # TODO: implement Deep Learning for sentence parsing. This is experimental,
 # because after preProcessFlow all sentences are well defined by char '.'.
