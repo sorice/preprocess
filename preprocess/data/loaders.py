@@ -19,9 +19,9 @@ Dataset loading utilities and primary API to the datasets module.
 import os
 
 __all__ = [
-    "load_freesoftware",
+    "load_freeculture",
     "load_culturalibre",
-    "freesoftware_pdfpath",
+    "freeculture_pdfpath",
     "tnlp1_path",
     "tnlp1h_path",
     "test_text_path",
@@ -29,9 +29,9 @@ __all__ = [
     ]
 
 DATASETS = {
-    "load_freesoftware": "FS_FSociety.txt",
+    "load_freeculture": "Free_Culture.txt",
     "load_culturalibre": "Cultura_Libre.txt",
-    "freesoftware_pdfpath": "FS_FSociety.pdf",
+    "freeculture_pdfpath": "Free_Culture.pdf",
     "tnlp1_path": "srctnlp1.txt",
     "tnlp1h_path": "srctnlp1_human.txt",
     "test_text_path": "test_text.txt",
@@ -54,18 +54,18 @@ def _load_dataset(name, data_home=None, return_dataset=False):
         return data
     return data
 
-def load_freesoftware():
-    """Load the book Free Software Free Society.
+def load_freeculture():
+    """Load the book Free Culture.
     """
-    return _load_dataset('load_freesoftware')
+    return _load_dataset('load_freeculture')
 
 def load_culturalibre():
     """Load the book Cultura Libre.
     """
     return _load_dataset('load_culturalibre')
 
-def freesoftware_pdfpath():
-    path = os.path.join(os.path.dirname(__file__), 'books', DATASETS['freesoftware_pdfpath'])
+def freeculture_pdfpath():
+    path = os.path.join(os.path.dirname(__file__), 'books', DATASETS['freeculture_pdfpath'])
     return path
 
 def tnlp1_path():

@@ -17,4 +17,4 @@ Management utilities for preprocess example datasets.
 ## Imports
 ##########################################################################
 
-from .loaders import *
+from preprocess.data.loaders import *
