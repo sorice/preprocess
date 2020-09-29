@@ -19,6 +19,7 @@ from preprocess.basic import extraspace_for_endingpoints
 from preprocess.basic import add_doc_ending_point
 from preprocess.basic import del_tokens_len_one
 from preprocess.basic import hyphenation
+from preprocess.basic import del_digits
 
 #from preprocess.techniques import shallow
 from preprocess.shallow import remove_stopwords
