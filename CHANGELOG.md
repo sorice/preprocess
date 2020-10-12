@@ -11,14 +11,15 @@
 * doc ngrams.py + Basic docstring of sn_gram [OK]
 * separated pack for ngrams, because sngrams is to long [OK]
 * embedding notebook examples to the sphinx doc [OK]
-* translate to English the notebooks involved.[OK,33%]
+* translate to English the notebooks involved.[OK,66%]
 * include the test data from NLP course for Text Normalization Jupyter ntb[OK]
-	- review the paths to those datas in all the involved notebooks
+	- review the paths to those datas in all the involved notebooks[OK]
     - include a summary description of the books and their copyright in docs/api/data/ <- run ipyn
 * Included a playfull and advanced example using Luhn law to filter important words[OK]
-	- translate to English
+	- translate to English[OK]
 * define if the hypenation functions must be in normalization [OK]
 * Write the Quickstart [OK]
+* feat: delete digit words[OK]
 * Finish @Appender to link docstrings to .py with close to 200 LOC
 
 ### Version 0.2.x 'Testing in Reality'</u>

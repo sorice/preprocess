@@ -17,3 +17,4 @@ nbsphinx-link
 
 #edu
 matplotlib
+pandas

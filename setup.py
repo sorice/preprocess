@@ -75,7 +75,7 @@ setup(
     data_files=[
         ('config',['preprocess/data/cfg/stanford.cfg']),
         ('data', ['preprocess/data/books/Cultura_Libre.txt', 
-        'preprocess/data/books/FS_FSociety.txt',
+        'preprocess/data/books/Free_Culture.txt',
         'preprocess/data/abbreviations.en',
         ]),
     ],
