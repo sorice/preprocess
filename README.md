@@ -31,7 +31,7 @@ java X is needed, but you need to check your downloaded Stanford model requireme
 (__current version__ for this example are _stanford-xxx-2015-04-20_ models)
 
 ```
-$ apt install openjdk-8-jre
+$ apt install openjdk-8-jre pandoc
 $ pip install nltk nose numpy
 ```
 
