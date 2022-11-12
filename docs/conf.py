@@ -13,10 +13,12 @@
 
 import sys, os
 import recommonmark.parser
-from preprocess import get_version, get_short_version
 
 sys.path.append(os.path.abspath(os.getcwd()))
 sys.path.append(os.path.abspath('..'))
+
+from preprocess import get_version, get_short_version
+
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
