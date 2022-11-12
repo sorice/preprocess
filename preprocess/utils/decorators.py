@@ -5,6 +5,7 @@
     that replace de decorated function with the inner function."""
 
 from functools import wraps
+from typing import Optional
 
 #This is the original code of Appender class from pandas.utils.decorators
 class Appender(object):
@@ -39,3 +40,9 @@ class Appender(object):
         docitems = [func.__doc__, self.addendum]
         func.__doc__ = self.join.join(docitems)
         return func
+
+def indent(text: Optional[str], indents: int = 1) -> str:
+    if not text or not isinstance(text, str):
+        return ""
+    jointext = "".join(["\n"] + ["    "] * indents)
+    return jointext.join(text.split("\n"))
