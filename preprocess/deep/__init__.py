@@ -16,6 +16,9 @@ config.read(preprocess.__path__[0]+'/data/cfg/stanford.cfg')
 NLTKImportError = False
 StanfordParserImportError = False
 StanfordNERTaggerModelJar = False
+StanfordSyntDepModelJar = False
+ner = None
+syntdep = None
 
 try: #check if NLTK is installed
     import nltk
@@ -45,7 +48,7 @@ finally:    #check if NLTK Stanford parser is installed.
                     st = StanfordNERTagger(st4_ner_eng_model, st4_ner_jar, 'utf8')
                     StanfordNERTaggerModelJar = True
                 except LookupError:
-                    raise SkipTest('Fail to loading Stanford NER Tagging because\
+                    print('Fail to loading Stanford NER Tagging because\
                                     one of the stanford parser or CoreNLP jars \
                                     doesn\'t exist')
 
@@ -61,7 +64,7 @@ finally:    #check if NLTK Stanford parser is installed.
                     st = StanfordDependencyParser(stanford_parser_eng_model, stanford_parser_jar)
                     StanfordSyntDepModelJar = True
                 except LookupError:
-                    raise SkipTest("""Fail to loading Stanford Syntactic Dependency Parser
+                    print("""Fail to loading Stanford Syntactic Dependency Parser
                         because one of its stanford parser or CoreNLP jars doesn't exist""")
 
                 if StanfordSyntDepModelJar:
@@ -69,21 +72,19 @@ finally:    #check if NLTK Stanford parser is installed.
 
 
 #This dict strategy is based on sklearn.metrics.pairwaise code example
-TECHNIQUES['ner'] = ner
-TECHNIQUES['syntdep'] = syntdep
+TECHNIQUES['ner'] = ner if ner != None else None
+TECHNIQUES['syntdep'] = syntdep if syntdep != None else None
 
 #After compute performance results, default techniques are stablished.
 #from .distances import levenshtein_similarity_jellyfish as levenshtein_similarity #TODO change this
 
 # append all verified techniques in module importing argument ALL
 __all__ = []
-for technique in TECHNIQUES:
-	__all__.append(technique)
-
-__techniques__ = {
-'NER':ner,
-'SYNTDEP':syntdep
-}
+__techniques__ = dict()
+for key, technique in TECHNIQUES.items():
+    if technique != None:
+        __all__.append(technique)
+        __techniques__[key.upper()] = technique
 
 __not_implemented__ = [
     #'SRL':srl
